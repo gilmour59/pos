@@ -1,0 +1,4 @@
+#ignore css and js components
+views/bower_components
+views/dist
+views/plugins
