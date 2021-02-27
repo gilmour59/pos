@@ -21,5 +21,26 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span> -->
         </a>
+
+        <!--User Profile-->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <img src="/views/img/users/default/anonymous.png" class="user-image">
+                        <span class="hidden-xs">User Administrator</span>
+                    </a>
+                    
+                    <!--Dropdown Toggle-->
+                    <ul class="dropdown-menu">
+                        <li class="user-body">
+                            <div class="pull-right">
+                                <a href="" class="btn btn-default btn-flat">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>        
     </nav>
 </header>
