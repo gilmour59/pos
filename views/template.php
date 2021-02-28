@@ -9,6 +9,9 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   
+  <!-- Icon -->
+  <link rel="icon" href="/views/img/template/icono-negro.png">
+
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="/views/bower_components/bootstrap/dist/css/bootstrap.min.css">
   
@@ -19,7 +22,7 @@
   <link rel="stylesheet" href="/views/bower_components/Ionicons/css/ionicons.min.css">
   
   <!-- Theme style -->
-  <link rel="stylesheet" href="/views/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/views/dist/css/AdminLTE.css">
   
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -44,45 +47,52 @@
   <script src="/views/dist/js/adminlte.min.js"></script>
 </head>
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
-
-<!-- Site wrapper -->
-<div class="wrapper">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 
   <?php
-    //header
-    include "modules/header.php";
+    //if Logged in
+    if(isset($_SESSION["initialSession"]) && $_SESSION["initialSession"] == "ok"){
 
-    //menu
-    include "modules/menu.php";
+      echo '<!-- Site wrapper -->';
+      echo '<div class="wrapper">';
 
-    //Routes .htaccess
-    if(isset($_GET["route"])){
-      if($_GET["route"] == "home" ||
-          $_GET["route"] == "users" ||
-          $_GET["route"] == "categories" ||
-          $_GET["route"] == "products" ||
-          $_GET["route"] == "clients" ||
-          $_GET["route"] == "sales" ||
-          $_GET["route"] == "sales-create" ||
-          $_GET["route"] == "sales-report"){
+      //header
+      include "modules/header.php";
 
-        include "modules/" . $_GET["route"] .".php";
+      //menu
+      include "modules/menu.php";
+
+      //Routes .htaccess
+      if(isset($_GET["route"])){
+        if($_GET["route"] == "home" ||
+            $_GET["route"] == "users" ||
+            $_GET["route"] == "categories" ||
+            $_GET["route"] == "products" ||
+            $_GET["route"] == "clients" ||
+            $_GET["route"] == "sales" ||
+            $_GET["route"] == "sales-create" ||
+            $_GET["route"] == "sales-report"){
+
+          include "modules/" . $_GET["route"] .".php";
+        }else{
+          //404
+          include "modules/404.php";
+        }
       }else{
-        //404
-        include "modules/404.php";
+        //home
+        include "modules/home.php";
       }
+
+      //footer
+      include "modules/footer.php";
+
+      echo '</div>';
+      echo '<!-- ./wrapper -->';
     }else{
-      //home
-      include "modules/home.php";
+      //login module
+      include "modules/login.php";
     }
-
-    //footer
-    include "modules/footer.php";
   ?>
-
-</div>
-<!-- ./wrapper -->
 
 <script src="/views/js/template.js"></script>
 </body>
