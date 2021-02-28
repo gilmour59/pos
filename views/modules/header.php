@@ -1,6 +1,6 @@
 <header class="main-header">
 
-    <a href="" class="logo">
+    <a href="home" class="logo">
 
         <!--logo mini-->
         <span class="logo-mini">

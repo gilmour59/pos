@@ -56,8 +56,26 @@
     //menu
     include "modules/menu.php";
 
-    //content
-    include "modules/content.php";
+    //Routes .htaccess
+    if(isset($_GET["route"])){
+      if($_GET["route"] == "home" ||
+          $_GET["route"] == "users" ||
+          $_GET["route"] == "categories" ||
+          $_GET["route"] == "products" ||
+          $_GET["route"] == "clients" ||
+          $_GET["route"] == "sales" ||
+          $_GET["route"] == "sales-create" ||
+          $_GET["route"] == "sales-report"){
+
+        include "modules/" . $_GET["route"] .".php";
+      }else{
+        //404
+        include "modules/404.php";
+      }
+    }else{
+      //home
+      include "modules/home.php";
+    }
 
     //footer
     include "modules/footer.php";

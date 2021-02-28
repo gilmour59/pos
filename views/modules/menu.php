@@ -2,31 +2,31 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
             <li class="active">
-                <a href="#">
+                <a href="home">
                     <i class="fa fa-home"></i>
                     <span>Home</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="users">
                     <i class="fa fa-user"></i>
                     <span>User</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="categories">
                     <i class="fa fa-th"></i>
                     <span>Categories</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="products">
                     <i class="fa fa-product-hunt"></i>
                     <span>Products</span>
                 </a>
             </li>
             <li class="active">
-                <a href="#">
+                <a href="clients">
                     <i class="fa fa-users"></i>
                     <span>Clients</span>
                 </a>
@@ -41,19 +41,19 @@
                 </a>
                 <ul class="treeview-menu">
                     <li>
-                        <a href="#">
+                        <a href="sales">
                             <i class="fa fa-circle-o"></i>
-                            <span>Managed Sales</span>
+                            <span>Manage Sales</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="sales-create">
                             <i class="fa fa-circle-o"></i>
                             <span>Create Sales</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="sales-report">
                             <i class="fa fa-circle-o"></i>
                             <span>Sales Report</span>
                         </a>
