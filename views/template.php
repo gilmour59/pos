@@ -50,7 +50,17 @@
 <div class="wrapper">
 
   <?php
+    //header
     include "modules/header.php";
+
+    //menu
+    include "modules/menu.php";
+
+    //content
+    include "modules/content.php";
+
+    //footer
+    include "modules/footer.php";
   ?>
 
 </div>
