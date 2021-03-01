@@ -21,7 +21,7 @@ class UserController{
 
                             echo '<script>
                                     window.location = "home";
-                                  </script>';
+                                </script>';
                     }else{
                         echo '<br><div class="alert alert-danger">Wrong Username or Password!</div>';
                     }
