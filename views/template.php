@@ -37,6 +37,8 @@
 
   <!-- DataTables -->
   <link rel="stylesheet" href="/views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="/views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+
 
   <!-- jQuery 3 -->
   <script src="/views/bower_components/jquery/dist/jquery.min.js"></script>
@@ -56,6 +58,11 @@
   <!-- DataTables -->
   <script src="/views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="/views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
+  <script src="/views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
+
+  <!-- SweetAlert -->
+  <script src="/views/js/sweetalert2@10.js"></script>
   
 </head>
 

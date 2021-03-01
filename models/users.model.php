@@ -13,6 +13,27 @@
             $stmt->execute();
 
             return $stmt->fetch();
+
+            //Close the connection
+            $stmt = null;
+        }
+
+        static public function mdlAddUser($table, $data){
+            $stmt = Connection::connect()->prepare("INSERT INTO $table (name, username, password, role) 
+                                                    VALUES (:name, :username, :password, :role)");
+
+            $stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
+            $stmt->bindParam(":username", $data["username"], PDO::PARAM_STR);
+            $stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
+            $stmt->bindParam(":role", $data["role"], PDO::PARAM_STR);
+
+            if($stmt->execute()){
+                return "ok";
+            }else{
+                return "error";
+            }
+
+            $stmt = null;
         }
     }
 ?>

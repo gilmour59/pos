@@ -28,4 +28,61 @@ class UserController{
             }
         }
     }
+
+    public function ctrCreateUser(){
+        
+        if(isset($_POST["addName"])){
+            if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["addName"]) &&
+                preg_match('/^[a-zA-Z0-9]+$/', $_POST["addUsername"]) &&
+                preg_match('/^[a-zA-Z0-9]+$/', $_POST["addPassword"])){    
+                    
+                    $table = "users";
+                    $data = array("name" => $_POST["addName"],
+                                    "username" => $_POST["addUsername"],
+                                    "password" => $_POST["addPassword"],
+                                    "role" => $_POST["addRole"]);
+
+                    $result = UserModel::mdlAddUser($table, $data);
+
+                    if($result == "ok"){
+                        echo "<script>                
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'User was saved successfully!',
+                                text: 'Hooray!',
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = 'users';
+                                }
+                            });
+                        </script>";
+                    }else{
+                        echo "<script>                
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'User creation Error!',
+                                text: 'Something went wrong!',
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = 'users';
+                                }
+                            });
+                        </script>"; 
+                    }
+
+            }else{
+                echo "<script>                
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Special Characters are not allowed',
+                        text: 'Something went wrong!',
+                    }).then((result)=>{
+                        if(result.value){
+                            window.location = 'users';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
 }

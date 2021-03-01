@@ -63,7 +63,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" enctype="multipart/form-data">
+      <form role="form" action="post" enctype="multipart/form-data">
         <div class="modal-header" style="background:#3c8dbc; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add User</h4>
@@ -121,13 +121,6 @@
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
-
-        <?php
-          //Adding users 
-          $createUser = new UserController();
-          $createUser->ctrCreateUser();
-        ?>
-
       </form>
     </div>
 
