@@ -35,6 +35,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
   <!-- jQuery 3 -->
   <script src="/views/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -49,6 +52,11 @@
 
   <!-- AdminLTE App -->
   <script src="/views/dist/js/adminlte.min.js"></script>
+
+  <!-- DataTables -->
+  <script src="/views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="/views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  
 </head>
 
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">

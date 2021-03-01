@@ -22,7 +22,7 @@
         </button>
       </div>
       <div class="box-body">
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive datatable-user">
           <thead>
             <tr>
               <th>#</th>
@@ -56,62 +56,65 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <div class="modal-header" style="background:#3c8dbc; color:white">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add User</h4>
-      </div>
-      <div class="modal-body">
-        <div class="box-body">
+      <form role="form" action="post" enctype="multipart/form-data">
+        <div class="modal-header" style="background:#3c8dbc; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add User</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
 
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <input type="text" name="addName" class="form-control input-lg" placeholder="Insert Name Here" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-key"></i></span>
-              <input type="text" name="addUsername" class="form-control input-lg" placeholder="Insert Username Here" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-              <input type="password" name="addPassword" class="form-control input-lg" placeholder="Insert Password Here" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-user"></i></span>
-              <select name="addRole" class="form-control input-lg">
-                <option value="">Select Role</option>
-                <option value="administrator">Administrator</option>
-                <option value="special">Special</option>
-                <option value="seller">Seller</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="panel panel-default">
-              <div class="panel-heading">Add Picture</div>
-              <div class="panel-body">
-                <input type="file" name="addPicture" id="addPicture">
-                <p class="help-block">Maximum of 200 MB</p>
-                <img src="/views/img/users/default/anonymous.png" class="img-thumbnail" width="100px">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" name="addName" class="form-control input-lg" placeholder="Insert Name Here" required>
               </div>
             </div>
-          </div>
 
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" name="addUsername" class="form-control input-lg" placeholder="Insert Username Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" name="addPassword" class="form-control input-lg" placeholder="Insert Password Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <select name="addRole" class="form-control input-lg">
+                  <option value="">Select Role</option>
+                  <option value="administrator">Administrator</option>
+                  <option value="special">Special</option>
+                  <option value="seller">Seller</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">Add Picture</div>
+                <div class="panel-body">
+                  <input type="file" name="addPicture" id="addPicture">
+                  <p class="help-block">Maximum of 200 MB</p>
+                  <img src="/views/img/users/default/anonymous.png" class="img-thumbnail" width="100px">
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
     </div>
 
   </div>
