@@ -9,7 +9,7 @@
 
     <form method="post">
       <div class="form-group has-feedback">
-        <input id="name" type="text" class="form-control" placeholder="username" name="user" required>
+        <input id="username" type="text" class="form-control" placeholder="username" name="username" required>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -22,6 +22,12 @@
         </div>
         <!-- /.col -->
       </div>
+
+      <?php 
+        $login = new UserController();
+        $login->ctrUserLogin();
+      ?>
+
     </form>
   </div>
   <!-- /.login-box-body -->
