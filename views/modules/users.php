@@ -61,7 +61,7 @@
                       <td>' . $value["last_login"] . '</td>
                       <td>
                         <div class="btn-group">
-                          <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-warning" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
                           <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                         </div>
                       </td>                      
@@ -134,7 +134,7 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Add Picture</div>
                 <div class="panel-body">
-                  <input type="file" name="addPicture" id="addPicture">
+                  <input type="file" name="addPicture" id="addPicture" class="picture-validate">
                   <p class="help-block">Maximum of 2 MB</p>
                   <img src="/views/img/users/default/anonymous.png" id="imgPreview" class="img-thumbnail" width="100px">
                 </div>
@@ -152,6 +152,86 @@
           //Adding users 
           $createUser = new UserController();
           $createUser->ctrCreateUser();
+        ?>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Edit User -->
+<div id="modalEditUser" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post" enctype="multipart/form-data">
+        <div class="modal-header" style="background:#228C22; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+
+            <div class="form-group">
+              <label for="editname">Edit Name:</label>
+              <div class="input-group">                
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" id="editName" name="editName" class="form-control input-lg" value="" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editUsername">Edit Username:</label>
+              <div class="input-group">                
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="text" id="editUsername" name="editUsername" class="form-control input-lg" value="" required>
+              </div>
+            </div>            
+
+            <div class="form-group">
+              <label for="editPassword">Edit Password:</label>
+              <div class="input-group">                
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" id="editPassword" name="editPassword" class="form-control input-lg" placeholder="Edit Password Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editRole">Edit Role:</label>
+              <div class="input-group">                
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <select id="editRole" name="editRole" class="form-control input-lg">                  
+                  <option value="administrator">Administrator</option>
+                  <option value="special">Special</option>
+                  <option value="seller">Seller</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">Edit Picture</div>
+                <div class="panel-body">
+                  <input type="file" name="editPicture" id="editPicture" class="picture-validate">
+                  <p class="help-block">Maximum of 2 MB</p>
+                  <img src="/views/img/users/default/anonymous.png" id="imgPreview" class="img-thumbnail" width="100px">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Modify Changes</button>
+        </div>
+
+        <?php
+          //Adding users 
+          //$createUser = new UserController();
+          //$createUser->ctrCreateUser();
         ?>
 
       </form>

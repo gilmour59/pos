@@ -1,4 +1,4 @@
-$('#addPicture').change(function(){
+$('.picture-validate').change(function(){
 
     var image = this.files[0];
 
