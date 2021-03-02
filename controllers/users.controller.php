@@ -12,10 +12,13 @@ class UserController{
                     $item = "username";
                     $value = $_POST['username'];
 
+                    //Blowfish salt
+                    $encryption = crypt($_POST["password"], '$2a$07$K3k123lMaO54LtYstringforsalt$');
+
                     $result = UserModel::mdlShowUser($table, $item, $value);
 
                     if($result["username"] == $_POST["username"] &&
-                        $result["password"] == $_POST["password"]){
+                        $result["password"] == $encryption){
 
                             $_SESSION["initialSession"] = 'ok';
 
@@ -39,7 +42,7 @@ class UserController{
                     $route = "";
 
                     //Validate Image
-                    if(isset($_FILES["addPicture"]["tmp_name"])){
+                    if($_FILES["addPicture"]["error"] != 4){
 
                         list($width, $height) = getimagesize($_FILES["addPicture"]["tmp_name"]);
                         
@@ -83,13 +86,17 @@ class UserController{
                     }
 
                     $table = "users";
+
+                    //Blowfish salt
+                    $encryption = crypt($_POST["addPassword"], '$2a$07$K3k123lMaO54LtYstringforsalt$');
+
                     $data = array("name" => $_POST["addName"],
                                     "username" => $_POST["addUsername"],
-                                    "password" => $_POST["addPassword"],
+                                    "password" => $encryption,
                                     "role" => $_POST["addRole"],
                                     "picture" => $route);
 
-                    $result = UserModel::mdlAddUser($table, $data);
+                    $result = UserModel::mdlAddUser($table, $data);                    
 
                     if($result == "ok"){
                         echo "<script>                
