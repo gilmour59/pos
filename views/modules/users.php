@@ -61,7 +61,7 @@
                       <td>' . $value["last_login"] . '</td>
                       <td>
                         <div class="btn-group">
-                          <button class="btn btn-warning" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-warning btnEditUser" data-user-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
                           <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                         </div>
                       </td>                      

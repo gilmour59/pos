@@ -36,3 +36,30 @@ $('.picture-validate').change(function(){
             });
         }
 });
+
+//Edit User
+$(document).on('click', '.btnEditUser', function(){
+
+    var userId = $(this).attr('data-user-id');
+    
+    var data = new FormData();
+    data.append("userId", userId);
+
+    $.ajax({
+
+        url: "ajax/users.ajax.php",
+        method: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(request){
+            $('#editName').val(request["name"]);
+            $('#editUsername').val(request["username"]);
+            //$('#editPassword').val(request["password"]);
+            $('#editRole').val(request["role"]);
+            //$('#editPicture').val(request["picture"]);
+        }
+    });
+});
