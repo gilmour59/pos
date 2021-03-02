@@ -95,31 +95,34 @@
           <div class="box-body">
 
             <div class="form-group">
-              <div class="input-group">
+              <label for="addname">Name:</label>
+              <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" name="addName" class="form-control input-lg" placeholder="Insert Name Here" required>
+                <input type="text" id="addName" name="addName" class="form-control input-lg" placeholder="Insert Name Here" required>
               </div>
             </div>
 
             <div class="form-group">
-              <div class="input-group">
+              <label for="addUsername">Username:</label>
+              <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" name="addUsername" class="form-control input-lg" placeholder="Insert Username Here" required>
+                <input type="text" id="addUsername" name="addUsername" class="form-control input-lg" placeholder="Insert Username Here" required>
               </div>
             </div>
 
             <div class="form-group">
-              <div class="input-group">
+              <label for="addPassword">Password:</label>
+              <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" name="addPassword" class="form-control input-lg" placeholder="Insert Password Here" required>
+                <input type="password" id="addPassword" name="addPassword" class="form-control input-lg" placeholder="Insert Password Here" required>
               </div>
             </div>
 
             <div class="form-group">
-              <div class="input-group">
+              <label for="addRole">Role:</label>
+              <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <select name="addRole" class="form-control input-lg">
-                  <option value="">Select Role</option>
+                <select id="addRole" name="addRole" class="form-control input-lg">                  
                   <option value="administrator">Administrator</option>
                   <option value="special">Special</option>
                   <option value="seller">Seller</option>
