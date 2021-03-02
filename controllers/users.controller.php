@@ -36,6 +36,8 @@ class UserController{
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["addUsername"]) &&
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["addPassword"])){    
                     
+                    $route = "";
+
                     //Validate Image
                     if(isset($_FILES["addPicture"]["tmp_name"])){
 
@@ -63,13 +65,29 @@ class UserController{
 
                             imagejpeg($destination, $route);
                         }
+
+                        if($_FILES["addPicture"]["type"] == "image/png"){
+
+                            $rando = mt_rand(100, 999);
+
+                            //don't add "/" before the directory
+                            $route = "views/img/users/" . $_POST["addName"] . "/" . $rando . ".png";
+
+                            $source = imagecreatefrompng($_FILES["addPicture"]["tmp_name"]);
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagepng($destination, $route);
+                        }
                     }
 
                     $table = "users";
                     $data = array("name" => $_POST["addName"],
                                     "username" => $_POST["addUsername"],
                                     "password" => $_POST["addPassword"],
-                                    "role" => $_POST["addRole"]);
+                                    "role" => $_POST["addRole"],
+                                    "picture" => $route);
 
                     $result = UserModel::mdlAddUser($table, $data);
 
