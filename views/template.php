@@ -115,5 +115,6 @@
   ?>
 
 <script src="/views/js/template.js"></script>
+<script src="/views/js/users.js"></script>
 </body>
 </html>

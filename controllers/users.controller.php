@@ -36,6 +36,35 @@ class UserController{
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["addUsername"]) &&
                 preg_match('/^[a-zA-Z0-9]+$/', $_POST["addPassword"])){    
                     
+                    //Validate Image
+                    if(isset($_FILES["addPicture"]["tmp_name"])){
+
+                        list($width, $height) = getimagesize($_FILES["addPicture"]["tmp_name"]);
+                        
+                        $newWidth = 500;
+                        $newHeight = 500;
+
+                        //don't add "/" before the directory
+                        $directory = "views/img/users/" . $_POST["addName"];
+
+                        mkdir($directory, 0755);
+
+                        if($_FILES["addPicture"]["type"] == "image/jpeg"){
+
+                            $rando = mt_rand(100, 999);
+
+                            //don't add "/" before the directory
+                            $route = "views/img/users/" . $_POST["addName"] . "/" . $rando . ".jpeg";
+
+                            $source = imagecreatefromjpeg($_FILES["addPicture"]["tmp_name"]);
+                            $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                            imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            imagejpeg($destination, $route);
+                        }
+                    }
+
                     $table = "users";
                     $data = array("name" => $_POST["addName"],
                                     "username" => $_POST["addUsername"],

@@ -109,8 +109,8 @@
                 <div class="panel-heading">Add Picture</div>
                 <div class="panel-body">
                   <input type="file" name="addPicture" id="addPicture">
-                  <p class="help-block">Maximum of 200 MB</p>
-                  <img src="/views/img/users/default/anonymous.png" class="img-thumbnail" width="100px">
+                  <p class="help-block">Maximum of 2 MB</p>
+                  <img src="/views/img/users/default/anonymous.png" id="imgPreview" class="img-thumbnail" width="100px">
                 </div>
               </div>
             </div>
