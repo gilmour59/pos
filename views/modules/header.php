@@ -27,8 +27,16 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="/views/img/users/default/anonymous.png" class="user-image">
-                        <span class="hidden-xs">User Administrator</span>
+                    <?php 
+                        if($_SESSION["picture"] != ""){
+                            //insert picture directory
+                            echo '<img src="' . $_SESSION["picture"] . '" class="user-image">';
+                        }else{
+                            echo '<img src="/views/img/users/default/anonymous.png" class="user-image">';
+                        }
+                    ?>
+                        
+                        <span class="hidden-xs"><?php echo $_SESSION["name"]; ?></span>
                     </a>
                     
                     <!--Dropdown Toggle-->

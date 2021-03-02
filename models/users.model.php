@@ -4,15 +4,26 @@
     class UserModel{
 
         //to call with ::
-        static public function mdlShowUser($table, $item, $value){
-            $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item");
+        static public function mdlShowUsers($table, $item, $value){
+
+            if($item != null){
+
+                $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item");
             
-            //PDO::PARAM_STR for string
-            $stmt->bindParam(":" . $item, $value, PDO::PARAM_STR);
+                //PDO::PARAM_STR for string
+                $stmt->bindParam(":" . $item, $value, PDO::PARAM_STR);
 
-            $stmt->execute();
+                $stmt->execute();
 
-            return $stmt->fetch();
+                return $stmt->fetch();
+            }else{
+
+                $stmt = Connection::connect()->prepare("SELECT * FROM $table");
+
+                $stmt->execute();
+
+                return $stmt->fetchAll();
+            }            
 
             //Close the connection
             $stmt = null;

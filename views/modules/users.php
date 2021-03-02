@@ -36,6 +36,20 @@
             </tr>
           </thead>
           <tbody>
+
+          <?php
+
+            $item = null;
+            $value = null;
+
+            $users = UserController::ctrShowUsers($item, $value);
+
+            foreach($users as $key => $value){
+              
+            }
+
+          ?>
+
             <tr>
               <td></td>
               <td></td>

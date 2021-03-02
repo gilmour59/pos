@@ -2,6 +2,7 @@
 
 class UserController{
     
+    //login
     public function ctrUserLogin(){
 
         if(isset($_POST["username"])){
@@ -15,12 +16,17 @@ class UserController{
                     //Blowfish salt
                     $encryption = crypt($_POST["password"], '$2a$07$K3k123lMaO54LtYstringforsalt$');
 
-                    $result = UserModel::mdlShowUser($table, $item, $value);
+                    $result = UserModel::mdlShowUsers($table, $item, $value);
 
                     if($result["username"] == $_POST["username"] &&
                         $result["password"] == $encryption){
 
                             $_SESSION["initialSession"] = 'ok';
+                            $_SESSION["id"] = $result["id"];
+                            $_SESSION["name"] = $result["name"];
+                            $_SESSION["username"] = $result["username"];
+                            $_SESSION["picture"] = $result["picture"];
+                            $_SESSION["role"] = $result["role"];
 
                             echo '<script>
                                     window.location = "home";
@@ -32,6 +38,17 @@ class UserController{
         }
     }
 
+    //show users
+    static public function ctrShowUsers($item, $value){
+
+        $table = "users";
+        
+        $result = UserModel::mdlShowUsers($table, $item, $value);
+
+        return $result;
+    }
+
+    //create user
     public function ctrCreateUser(){
         
         if(isset($_POST["addName"])){
