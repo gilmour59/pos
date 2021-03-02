@@ -45,21 +45,30 @@
             $users = UserController::ctrShowUsers($item, $value);
 
             foreach($users as $key => $value){
-              
+              echo '<tr>
+                      <td>' . $value["id"] . '</td>
+                      <td>' . $value["name"] . '</td>
+                      <td>' . $value["username"] . '</td>';
+
+                      if($value["picture"] != ""){
+                        echo '<td><img src="' . $value["picture"] . '" class="img-thumbnail" width="40px"></td>';
+                      }else{
+                        echo '<td><img src="views/img/users/default/anonymous.png" class="img-thumbnail" width="40px"></td>';
+                      }
+
+              echo   '<td>' . $value["role"] . '</td>
+                      <td><button class="btn btn-success btn-xs">Activated</button></td>
+                      <td>' . $value["last_login"] . '</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                        </div>
+                      </td>                      
+                    </tr>';  
             }
 
-          ?>
-
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+          ?>            
           </tbody>
         </table>
       </div>
