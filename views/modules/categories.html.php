@@ -74,16 +74,6 @@
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
-
-        <?php
-          //Adding users 
-          $createCategory = new CategoryController();
-          $createCategory->ctrAddCategory();
-
-          //$deleteCategory = new CategoryController();
-          //$deleteCategory->ctrDeleteCategory();
-        ?>
-
       </form>
     </div>
 
