@@ -95,6 +95,18 @@ $(document).on('click', '.btn-activate', function(){
         contentType: false,
         processData: false,        
         success: function(request){
+            
+            if(window.matchMedia("(max-width:767px)").matches){
+                Swal.fire({
+                    title: 'The user has been updated!',
+                    text: "User successfully updated!",
+                    icon: 'success'
+                }).then(function(result){
+                    if(result.value){
+                        window.location = "users";
+                    }
+                });
+            }
         }
     });
 
