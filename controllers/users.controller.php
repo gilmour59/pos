@@ -31,9 +31,23 @@ class UserController{
                                 $_SESSION["picture"] = $result["picture"];
                                 $_SESSION["role"] = $result["role"];
 
-                                echo '<script>
+                                //get last login date and time
+                                date_default_timezone_set('Asia/Manila');
+                                $date = date('Y-m-d');
+                                $hour = date('H:i:s');
+
+                                $currentDate = $date . ' ' . $hour;
+                                
+                                $last_login = UserModel::mdlUpdateUser($table, 'last_login', $currentDate, 'id', $result["id"]);
+
+                                if($last_login == "ok"){
+                                    echo '<script>
                                         window.location = "home";
                                     </script>';
+                                }else{
+                                    echo '<br><div class="alert alert-danger">last login datetime Error!</div>';
+                                }
+                                
                             }else{
                                 echo '<br><div class="alert alert-danger">User is not activated!</div>';        
                             }                            
