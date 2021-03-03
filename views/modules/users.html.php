@@ -63,7 +63,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" action="post" enctype="multipart/form-data">
+      <form role="form" method="post" enctype="multipart/form-data">
         <div class="modal-header" style="background:#3c8dbc; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add User</h4>
