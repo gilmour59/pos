@@ -30,6 +30,7 @@
         }
 
         static public function mdlAddUser($table, $data){
+
             $stmt = Connection::connect()->prepare("INSERT INTO $table (name, username, password, role, picture) 
                                                     VALUES (:name, :username, :password, :role, :picture)");
 
@@ -38,6 +39,26 @@
             $stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
             $stmt->bindParam(":role", $data["role"], PDO::PARAM_STR);
             $stmt->bindParam(":picture", $data["picture"], PDO::PARAM_STR);
+
+            if($stmt->execute()){
+                return "ok";
+            }else{
+                return "error";
+            }
+
+            $stmt = null;
+        }
+
+        static public function mdlEditUser($table, $data){
+
+            $stmt = Connection::connect()->prepare("UPDATE $table SET name = :name, password = :password, 
+                                                    role = :role, picture = :picture WHERE id = :id");
+
+            $stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
+            $stmt->bindParam(":password", $data["password"], PDO::PARAM_STR);
+            $stmt->bindParam(":role", $data["role"], PDO::PARAM_STR);
+            $stmt->bindParam(":picture", $data["picture"], PDO::PARAM_STR);
+            $stmt->bindParam(":id", $data["id"], PDO::PARAM_STR);
 
             if($stmt->execute()){
                 return "ok";

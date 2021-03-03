@@ -32,7 +32,7 @@ $('.picture-validate').change(function(){
 
                 var imageRoute = event.target.result;
 
-                $('#imgPreview').attr('src', imageRoute);
+                $('#imgPreviewAdd').attr('src', imageRoute);
             });
         }
 });
@@ -56,10 +56,19 @@ $(document).on('click', '.btnEditUser', function(){
         dataType: "json",
         success: function(request){
             $('#editName').val(request["name"]);
-            $('#editUsername').val(request["username"]);
-            //$('#editPassword').val(request["password"]);
+            $('#editUsername').val(request["username"]);            
             $('#editRole').val(request["role"]);
-            //$('#editPicture').val(request["picture"]);
+            
+            $('#currentPassword').val(request["password"]);
+            $('#currentPicture').val(request["picture"]);
+
+            $('#userId').val(request["id"]);
+
+            if(request["picture"] != ""){
+                $('#imgPreviewEdit').attr('src', request["picture"]);
+            }else{
+                $('#imgPreviewEdit').attr('src', '/views/img/users/default/anonymous.png');
+            }
         }
     });
 });

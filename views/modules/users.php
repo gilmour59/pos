@@ -136,7 +136,7 @@
                 <div class="panel-body">
                   <input type="file" name="addPicture" id="addPicture" class="picture-validate">
                   <p class="help-block">Maximum of 2 MB</p>
-                  <img src="/views/img/users/default/anonymous.png" id="imgPreview" class="img-thumbnail" width="100px">
+                  <img src="/views/img/users/default/anonymous.png" id="imgPreviewAdd" class="img-thumbnail" width="100px">
                 </div>
               </div>
             </div>
@@ -186,7 +186,7 @@
               <label for="editUsername">Edit Username:</label>
               <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                <input type="text" id="editUsername" name="editUsername" class="form-control input-lg" value="" required>
+                <input type="text" id="editUsername" name="editUsername" class="form-control input-lg" value="" readonly>
               </div>
             </div>            
 
@@ -194,7 +194,8 @@
               <label for="editPassword">Edit Password:</label>
               <div class="input-group">                
                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input type="password" id="editPassword" name="editPassword" class="form-control input-lg" placeholder="Edit Password Here" required>
+                <input type="password" id="editPassword" name="editPassword" class="form-control input-lg" placeholder="Edit Password Here">
+                <input type="hidden" id="currentPassword" name="currentPassword">
               </div>
             </div>
 
@@ -215,11 +216,16 @@
                 <div class="panel-heading">Edit Picture</div>
                 <div class="panel-body">
                   <input type="file" name="editPicture" id="editPicture" class="picture-validate">
+
+                  <input type="hidden" id="currentPicture" name="currentPicture">
+
                   <p class="help-block">Maximum of 2 MB</p>
-                  <img src="/views/img/users/default/anonymous.png" id="imgPreview" class="img-thumbnail" width="100px">
+                  <img src="/views/img/users/default/anonymous.png" id="imgPreviewEdit" class="img-thumbnail" width="100px">
                 </div>
               </div>
             </div>
+
+            <input type="hidden" name="userId" id="userId">
 
           </div>
         </div>
@@ -229,9 +235,9 @@
         </div>
 
         <?php
-          //Adding users 
-          //$createUser = new UserController();
-          //$createUser->ctrCreateUser();
+          //Edit users 
+          $editUser = new UserController();
+          $editUser->ctrEditUser();
         ?>
 
       </form>

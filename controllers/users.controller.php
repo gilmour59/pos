@@ -67,7 +67,7 @@ class UserController{
                         $newHeight = 500;
 
                         //don't add "/" before the directory
-                        $directory = "views/img/users/" . $_POST["addName"];
+                        $directory = "views/img/users/" . $_POST["addUsername"];
 
                         mkdir($directory, 0755);
 
@@ -76,7 +76,7 @@ class UserController{
                             $rando = mt_rand(100, 999);
 
                             //don't add "/" before the directory
-                            $route = "views/img/users/" . $_POST["addName"] . "/" . $rando . ".jpeg";
+                            $route = "views/img/users/" . $_POST["addUsername"] . "/" . $rando . ".jpeg";
 
                             $source = imagecreatefromjpeg($_FILES["addPicture"]["tmp_name"]);
                             $destination = imagecreatetruecolor($newWidth, $newHeight);
@@ -91,7 +91,7 @@ class UserController{
                             $rando = mt_rand(100, 999);
 
                             //don't add "/" before the directory
-                            $route = "views/img/users/" . $_POST["addName"] . "/" . $rando . ".png";
+                            $route = "views/img/users/" . $_POST["addUsername"] . "/" . $rando . ".png";
 
                             $source = imagecreatefrompng($_FILES["addPicture"]["tmp_name"]);
                             $destination = imagecreatetruecolor($newWidth, $newHeight);
@@ -141,6 +141,140 @@ class UserController{
                         </script>"; 
                     }
 
+            }else{
+                echo "<script>                
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Special Characters are not allowed',
+                        text: 'Something went wrong!',
+                    }).then((result)=>{
+                        if(result.value){
+                            window.location = 'users';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
+
+    //edit user
+    public function ctrEditUser(){
+        
+        if(isset($_POST["editName"])){
+            if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editName"])){
+
+                $route = $_POST['currentPicture'];
+
+                //Validate Image
+                if($_FILES["editPicture"]["error"] != 4){
+
+                    list($width, $height) = getimagesize($_FILES["editPicture"]["tmp_name"]);
+                    
+                    $newWidth = 500;
+                    $newHeight = 500;
+
+                    //don't add "/" before the directory
+                    $directory = "views/img/users/" . $_POST["editUsername"];
+
+                    //check if user already has an image
+                    if(!empty($_POST['currentPicture'])){
+
+                        unlink($_POST['currentPicture']);
+                    }else{
+
+                        mkdir($directory, 0755);
+                    }                    
+
+                    if($_FILES["editPicture"]["type"] == "image/jpeg"){
+
+                        $rando = mt_rand(100, 999);
+
+                        //don't add "/" before the directory
+                        $route = "views/img/users/" . $_POST["editUsername"] . "/" . $rando . ".jpeg";
+
+                        $source = imagecreatefromjpeg($_FILES["editPicture"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagejpeg($destination, $route);
+                    }
+
+                    if($_FILES["editPicture"]["type"] == "image/png"){
+
+                        $rando = mt_rand(100, 999);
+
+                        //don't add "/" before the directory
+                        $route = "views/img/users/" . $_POST["editUsername"] . "/" . $rando . ".png";
+
+                        $source = imagecreatefrompng($_FILES["editPicture"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagepng($destination, $route);
+                    }
+                }
+
+                $table = "users";
+                
+                if($_POST['editPassword'] != ""){
+
+                    if(preg_match('/^[a-zA-Z0-9]+$/', $_POST["editPassword"])){
+                        
+                        //Blowfish salt
+                        $encryption = crypt($_POST["editPassword"], '$2a$07$K3k123lMaO54LtYstringforsalt$');
+                    }else{
+                        
+                        echo "<script>                
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Password can't have special characters!',
+                                text: 'Something went wrong!',
+                            }).then((result)=>{
+                                if(result.value){
+                                    window.location = 'users';
+                                }
+                            });
+                        </script>";
+                    }                                        
+                }else{
+                    $encryption = $_POST['currentPassword'];
+                }
+
+                $data = array("name" => $_POST["editName"],
+                                    "username" => $_POST["editUsername"],
+                                    "password" => $encryption,
+                                    "role" => $_POST["editRole"],
+                                    "picture" => $route);
+
+                $result = UserModel::mdlEditUser($table, $data);
+
+                if($result == "ok"){
+                    echo "<script>                
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'User was modified successfully!',
+                            text: 'Hooray!',
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = 'users';
+                            }
+                        });
+                    </script>";
+                }else{
+                    echo "<script>                
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'User modification Error!',
+                            text: 'Something went wrong!',
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = 'users';
+                            }
+                        });
+                    </script>"; 
+                }
             }else{
                 echo "<script>                
                     Swal.fire({
