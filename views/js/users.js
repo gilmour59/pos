@@ -75,3 +75,39 @@ $(document).on('click', '.btnEditUser', function(){
         }
     });
 });
+
+//User Activation
+$('.btn-activate').click(function(){
+    
+    var user_active_id = $(this).attr("data-user-id");
+    var user_active_status = $(this).attr("data-user-status");
+    
+    var data = new FormData();
+    data.append("user_active_id", user_active_id);
+    data.append("user_active_status", user_active_status);
+
+    $.ajax({
+
+        url: "ajax/users.ajax.php",
+        method: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,        
+        success: function(request){        
+            console.log(request);
+        }
+    })
+
+    if(user_active_status == 0){
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn-danger');
+        $(this).html('Deactivated');
+        $(this).attr('data-user-status', 1);
+    }else{
+        $(this).removeClass('btn-danger');
+        $(this).addClass('btn-success');
+        $(this).html('Activated');
+        $(this).attr('data-user-status', 0);
+    }
+});

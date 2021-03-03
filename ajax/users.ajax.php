@@ -16,6 +16,21 @@
 
             echo json_encode($request);
         }
+
+        //Activate User
+        public $user_active_id;
+        public $user_active_status;
+
+        public function ajaxActivateUser(){
+            
+            $table = "users";
+            $item1 = "status";
+            $value1 = $this->user_active_status;
+            $item2 = "id";
+            $value2 = $this->user_active_id;
+
+            $result = UserModel::mdlUpdateUser($table, $item1, $value1, $item2, $value2);
+        }
     }
 
     //Edit User
@@ -24,4 +39,13 @@
         $edit_user = new AjaxUsers();
         $edit_user->user_id = $_POST["userId"];
         $edit_user->ajaxEditUser();
+    }    
+
+    //Activate User
+    if(isset($_POST["user_active_id"])){
+
+        $activate_user = new AjaxUsers();
+        $activate_user->user_active_id = $_POST["user_active_id"];
+        $activate_user->user_active_status = $_POST["user_active_status"];
+        $activate_user->ajaxActivateUser();
     }

@@ -59,9 +59,9 @@
               echo   '<td>' . $value["role"] . '</td>';
 
                       if($value['status'] != 0){
-                        echo '<td><button class="btn btn-success btn-xs">Activated</button></td>';
+                        echo '<td><button class="btn btn-success btn-xs btn-activate" data-user-id="' . $value["id"] . '" data-user-status="0">Activated</button></td>';
                       }else{
-                        echo '<td><button class="btn btn-danger btn-xs">Deactivated</button></td>';
+                        echo '<td><button class="btn btn-danger btn-xs btn-activate" data-user-id="' . $value["id"] . '" data-user-status="1">Deactivated</button></td>';
                       }
 
               echo    '<td>' . $value["last_login"] . '</td>
