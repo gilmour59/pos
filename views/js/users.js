@@ -96,7 +96,7 @@ $('.btn-activate').click(function(){
         processData: false,        
         success: function(request){
         }
-    })
+    });
 
     if(user_active_status == 0){
         $(this).removeClass('btn-success');
@@ -109,4 +109,34 @@ $('.btn-activate').click(function(){
         $(this).html('Activated');
         $(this).attr('data-user-status', 0);
     }
+});
+
+//Check if username is taken
+$('#addUsername').change(function(){
+
+    $(".alert").remove();
+
+    var username = $(this).val();
+
+    var data = new FormData();
+    data.append('validate_username', username);
+
+    $.ajax({
+
+        url: "ajax/users.ajax.php",
+        method: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,   
+        dataType: "json",     
+        success: function(request){
+            
+            if(request){
+                $("#addUsername").parent().after('<div class="alert alert-warning">This username already exists!</div>');
+
+                $("#addUsername").val("");
+            }
+        }
+    })
 });
