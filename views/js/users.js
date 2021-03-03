@@ -94,8 +94,7 @@ $('.btn-activate').click(function(){
         cache: false,
         contentType: false,
         processData: false,        
-        success: function(request){        
-            console.log(request);
+        success: function(request){
         }
     })
 
