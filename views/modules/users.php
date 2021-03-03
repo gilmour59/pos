@@ -56,9 +56,15 @@
                         echo '<td><img src="views/img/users/default/anonymous.png" class="img-thumbnail" width="40px"></td>';
                       }
 
-              echo   '<td>' . $value["role"] . '</td>
-                      <td><button class="btn btn-success btn-xs">Activated</button></td>
-                      <td>' . $value["last_login"] . '</td>
+              echo   '<td>' . $value["role"] . '</td>';
+
+                      if($value['status'] != 0){
+                        echo '<td><button class="btn btn-success btn-xs">Activated</button></td>';
+                      }else{
+                        echo '<td><button class="btn btn-danger btn-xs">Deactivated</button></td>';
+                      }
+
+              echo    '<td>' . $value["last_login"] . '</td>
                       <td>
                         <div class="btn-group">
                           <button class="btn btn-warning btnEditUser" data-user-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>

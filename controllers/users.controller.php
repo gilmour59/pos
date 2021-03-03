@@ -21,16 +21,22 @@ class UserController{
                     if($result["username"] == $_POST["username"] &&
                         $result["password"] == $encryption){
 
-                            $_SESSION["initialSession"] = 'ok';
-                            $_SESSION["id"] = $result["id"];
-                            $_SESSION["name"] = $result["name"];
-                            $_SESSION["username"] = $result["username"];
-                            $_SESSION["picture"] = $result["picture"];
-                            $_SESSION["role"] = $result["role"];
+                            //Check if user is activated!
+                            if($result["status"] == 1){
 
-                            echo '<script>
-                                    window.location = "home";
-                                </script>';
+                                $_SESSION["initialSession"] = 'ok';
+                                $_SESSION["id"] = $result["id"];
+                                $_SESSION["name"] = $result["name"];
+                                $_SESSION["username"] = $result["username"];
+                                $_SESSION["picture"] = $result["picture"];
+                                $_SESSION["role"] = $result["role"];
+
+                                echo '<script>
+                                        window.location = "home";
+                                    </script>';
+                            }else{
+                                echo '<br><div class="alert alert-danger">User is not activated!</div>';        
+                            }                            
                     }else{
                         echo '<br><div class="alert alert-danger">Wrong Username or Password!</div>';
                     }

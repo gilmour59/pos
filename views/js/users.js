@@ -8,6 +8,7 @@ $('.picture-validate').change(function(){
         image['type'] != 'image/jpg'){
 
             $('#addPicture').val("");
+            $('#editPicture').val("");
 
             Swal.fire({
                 icon: 'error',
@@ -17,6 +18,7 @@ $('.picture-validate').change(function(){
         }else if(image['size'] > 2000000){
             //Size limit
             $('#addPicture').val("");
+            $('#editPicture').val("");
 
             Swal.fire({
                 icon: 'error',
@@ -33,6 +35,7 @@ $('.picture-validate').change(function(){
                 var imageRoute = event.target.result;
 
                 $('#imgPreviewAdd').attr('src', imageRoute);
+                $('#imgPreviewEdit').attr('src', imageRoute);
             });
         }
 });
