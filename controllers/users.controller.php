@@ -243,10 +243,11 @@ class UserController{
                 }
 
                 $data = array("name" => $_POST["editName"],
-                                    "username" => $_POST["editUsername"],
-                                    "password" => $encryption,
-                                    "role" => $_POST["editRole"],
-                                    "picture" => $route);
+                                "username" => $_POST["editUsername"],
+                                "password" => $encryption,
+                                "role" => $_POST["editRole"],
+                                "picture" => $route,
+                                "id" => $_POST["userId"]);
 
                 $result = UserModel::mdlEditUser($table, $data);
 
