@@ -67,8 +67,8 @@
               echo    '<td>' . $value["last_login"] . '</td>
                       <td>
                         <div class="btn-group">
-                          <button class="btn btn-warning btnEditUser" data-user-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                          <button class="btn btn-warning btn-edit-user" data-user-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-danger btn-delete-user" data-user-id="' . $value["id"] . '" data-user-picture="' . $value["picture"] . '" data-user-username="' . $value["username"] . '"><i class="fa fa-times"></i></button>
                         </div>
                       </td>                      
                     </tr>';  
@@ -158,6 +158,9 @@
           //Adding users 
           $createUser = new UserController();
           $createUser->ctrCreateUser();
+
+          $deleteUser = new UserController();
+          $deleteUser->ctrDeleteUser();
         ?>
 
       </form>

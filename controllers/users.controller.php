@@ -311,4 +311,35 @@ class UserController{
             }
         }
     }
+
+    //Delete User
+    public function ctrDeleteUser(){
+
+        if(isset($_GET["delete-user-id"])){
+            
+            $table = "users";
+            $data = $_GET["delete-user-id"];
+
+            if($_GET["user-picture"] != ""){
+                unlink($_GET["user-picture"]);
+                rmdir('views/img/users/' . $_GET["user-username"]);
+            }
+
+            $result = UserModel::mdlDeleteUser($table, $data);
+
+            if($result == "ok"){
+                echo "<script>
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    ).then((response) => {
+                        if (response.isConfirmed){
+                            window.location = 'users';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
 }

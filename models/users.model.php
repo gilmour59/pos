@@ -84,5 +84,20 @@
 
             $stmt = null;
         }
+
+        static public function mdlDeleteUser($table, $data){
+
+            $stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id");
+
+            $stmt->bindParam(":id", $data, PDO::PARAM_STR);                        
+
+            if($stmt->execute()){
+                return "ok";
+            }else{
+                return "error";
+            }
+
+            $stmt = null;
+        }
     }
 ?>

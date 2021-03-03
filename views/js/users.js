@@ -41,7 +41,7 @@ $('.picture-validate').change(function(){
 });
 
 //Edit User
-$(document).on('click', '.btnEditUser', function(){
+$(document).on('click', '.btn-edit-user', function(){
 
     var userId = $(this).attr('data-user-id');
     
@@ -77,7 +77,7 @@ $(document).on('click', '.btnEditUser', function(){
 });
 
 //User Activation
-$('.btn-activate').click(function(){
+$(document).on('click', '.btn-activate', function(){
     
     var user_active_id = $(this).attr("data-user-id");
     var user_active_status = $(this).attr("data-user-status");
@@ -134,9 +134,30 @@ $('#addUsername').change(function(){
             
             if(request){
                 $("#addUsername").parent().after('<div class="alert alert-warning">This username already exists!</div>');
-
                 $("#addUsername").val("");
             }
         }
     })
+});
+
+//Delete User
+$(document).on('click', '.btn-delete-user', function(){
+
+    var user_id = $(this).attr('data-user-id');
+    var picture = $(this).attr('data-user-picture');
+    var username = $(this).attr('data-user-username');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((response) => {
+        if (response.isConfirmed){
+            window.location = "index.php?route=users&delete-user-id="+ user_id +"&user-picture="+ picture +"&user-username="+ username;
+        }
+    });
 });
