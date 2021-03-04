@@ -22,3 +22,23 @@ $(document).on('click', '.btn-edit-category', function(){
         }
     });
 });
+
+//Delete Category
+$(document).on('click', '.btn-delete-category', function(){
+
+    var category_id = $(this).attr('data-category-id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((response) => {
+        if (response.isConfirmed){
+            window.location = "index.php?route=categories&delete-category-id="+ category_id;
+        }
+    });
+});

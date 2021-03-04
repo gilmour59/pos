@@ -331,7 +331,7 @@ class UserController{
                 echo "<script>
                     Swal.fire(
                         'Deleted!',
-                        'Your file has been deleted.',
+                        'User has been deleted.',
                         'success'
                     ).then((response) => {
                         if (response.isConfirmed){

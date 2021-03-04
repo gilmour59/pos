@@ -98,8 +98,8 @@
           $createCategory = new CategoryController();
           $createCategory->ctrAddCategory();
 
-          //$deleteCategory = new CategoryController();
-          //$deleteCategory->ctrDeleteCategory();
+          $deleteCategory = new CategoryController();
+          $deleteCategory->ctrDeleteCategory();
         ?>
 
       </form>

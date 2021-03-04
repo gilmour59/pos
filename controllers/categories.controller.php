@@ -118,5 +118,31 @@ class CategoryController{
             }
         }
     }
+
+    //Delete Category
+    public function ctrDeleteCategory(){
+
+        if(isset($_GET["delete-category-id"])){
+            
+            $table = "categories";
+            $data = $_GET["delete-category-id"];            
+
+            $result = CategoryModel::mdlDeleteCategory($table, $data);
+
+            if($result == "ok"){
+                echo "<script>
+                    Swal.fire(
+                        'Deleted!',
+                        'Category has been deleted.',
+                        'success'
+                    ).then((response) => {
+                        if (response.isConfirmed){
+                            window.location = 'categories';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
 }
 ?>
