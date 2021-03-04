@@ -80,6 +80,7 @@
           <div class="box-body">
 
             <div class="form-group">
+              <label for="addCategory">Category:</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
                 <input type="text" id="addCategory" name="addCategory" class="form-control input-lg" placeholder="Insert Category Here" required>
@@ -124,6 +125,7 @@
 
             <div class="form-group">
               <div class="input-group">
+                <label for="editCategory">Category:</label>
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
                 <input type="text" id="editCategory" name="editCategory" class="form-control input-lg" value="" required>
               </div>
