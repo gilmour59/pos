@@ -39,6 +39,8 @@
   <link rel="stylesheet" href="/views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="/views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
 
+  <!-- iCheck -->
+  <link rel="stylesheet" href="/views/plugins/iCheck/all.css">
 
   <!-- jQuery 3 -->
   <script src="/views/bower_components/jquery/dist/jquery.min.js"></script>
@@ -63,6 +65,9 @@
 
   <!-- SweetAlert -->
   <script src="/views/js/sweetalert2@10.js"></script>
+
+  <!-- iCheck -->
+  <script src="/views/plugins/iCheck/icheck.min.js"></script>
   
 </head>
 

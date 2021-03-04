@@ -132,7 +132,7 @@
                 <div class="col-xs-6">
                   <div class="form-group">
                     <label>
-                      <input type="checkbox" class="minimal-percentage" checked>
+                      <input type="checkbox" class="minimal percentage" checked>
                       Use Percentage
                     </label>
                   </div>
