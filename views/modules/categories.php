@@ -31,11 +31,29 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            
+          <?php
+
+            $item = null;
+            $value = null;
+
+            $categories = CategoryController::ctrShowCategories($item, $value);
+
+            foreach($categories as $key => $value){
+              echo '<tr>
+                      <td>' . $value["id"] . '</td>
+                      <td class="text-uppercase">' . $value["category"] . '</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-warning btn-edit-category" data-category-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-danger btn-delete-category" data-category-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>
+                        </div>
+                      </td>                      
+                    </tr>';  
+            }
+
+          ?>
+
           </tbody>
         </table>
       </div>

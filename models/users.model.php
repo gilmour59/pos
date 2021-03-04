@@ -4,6 +4,7 @@
     class UserModel{
 
         //to call with ::
+        //show users
         static public function mdlShowUsers($table, $item, $value){
 
             if($item != null){

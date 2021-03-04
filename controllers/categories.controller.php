@@ -3,8 +3,13 @@
 class CategoryController{
     
     //show categories
-    static public function ctrShowCategories(){
+    static public function ctrShowCategories($item, $value){
 
+        $table = "categories";
+        
+        $result = CategoryModel::mdlShowCategories($table, $item, $value);
+
+        return $result;
     }
 
     //create categories
