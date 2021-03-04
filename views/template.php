@@ -116,5 +116,6 @@
 
 <script src="/views/js/template.js"></script>
 <script src="/views/js/users.js"></script>
+<script src="/views/js/categories.js"></script>
 </body>
 </html>
