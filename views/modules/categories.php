@@ -45,7 +45,7 @@
                       <td class="text-uppercase">' . $value["category"] . '</td>
                       <td>
                         <div class="btn-group">
-                          <button class="btn btn-warning btn-edit-category" data-category-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditUser"><i class="fa fa-pencil"></i></button>
+                          <button class="btn btn-warning btn-edit-category" data-category-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditCategory"><i class="fa fa-pencil"></i></button>
                           <button class="btn btn-danger btn-delete-category" data-category-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>
                         </div>
                       </td>                      
@@ -94,12 +94,54 @@
         </div>
 
         <?php
-          //Adding users 
+          //Adding categories 
           $createCategory = new CategoryController();
           $createCategory->ctrAddCategory();
 
           //$deleteCategory = new CategoryController();
           //$deleteCategory->ctrDeleteCategory();
+        ?>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal Edit Category -->
+<div id="modalEditCategory" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post">
+        <div class="modal-header" style="background:#228C22; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Category</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <input type="text" id="editCategory" name="editCategory" class="form-control input-lg" value="" required>
+              </div>
+            </div>
+
+            <input type="hidden" name="categoryId" id="categoryId">
+
+          </div>
+        </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Modify Changes</button>
+        </div>
+
+        <?php
+          //Edit categories 
+          $editCategory = new CategoryController();
+          $editCategory->ctrEditCategory();
         ?>
 
       </form>
