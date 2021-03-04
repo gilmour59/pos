@@ -31,47 +31,25 @@
               <th>Description</th>
               <th>Category</th>
               <th>Stock</th>
-              <th>Sell Price</th>
-              <th>Buy Price</th>
+              <th>Purchase Price</th>
+              <th>Sale Price</th>
               <th>Date Added</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <?php
-
-              $item = null;
-              $value = null;
-
-              $products = ProductController::ctrShowProducts($item, $value);
-
-              foreach($products as $key => $value_prod){
-                echo '<tr>
-                        <td>' . $value_prod["id"] . '</td>
-                        <td><img src="/views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                        <td>' . $value_prod["code"] . '</td>
-                        <td>' . $value_prod["description"] . '</td>';
-                      
-                        $item = "id";
-                        $value = $value_prod["category_id"];
-
-                        $category = CategoryController::ctrShowCategories($item, $value);
-                        
-                echo    '<td>' . $category["category"] . '</td>
-                        <td>' . $value_prod["stock"] . '</td>
-                        <td>' . $value_prod["buy_price"] . '</td>
-                        <td>' . $value_prod["sell_price"] . '</td>                        
-                        <td>' . $value_prod["date"] . '</td>
-                        <td>
-                          <div class="btn-group">
-                            <button class="btn btn-warning btn-edit-category" data-category-id="' . $value_prod["id"] . '" data-toggle="modal" data-target="#modalEditCategory"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-delete-category" data-category-id="' . $value_prod["id"] . '"><i class="fa fa-times"></i></button>
-                          </div>
-                        </td>                      
-                      </tr>';  
-              }
-
-            ?>            
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -135,18 +113,18 @@
 
             <div class="form-group row">
               <div class="col-xs-6">
-                <label for="addPurchasePrice">Buy Price:</label>
+                <label for="addPurchasePrice">Purchase Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
-                  <input type="number" name="addBuyPrice" id="addBuyPrice" class="form-control input-lg" min="0" placeholder="Buy Price Here" required>
+                  <input type="number" name="addPurchasePrice" id="addPurchasePrice" class="form-control input-lg" min="0" placeholder="Purchase Price Here" required>
                 </div>
               </div>
               
               <div class="col-xs-6">
-                <label for="addSalePrice">Sell Price:</label>
+                <label for="addSalePrice">Sale Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
-                  <input type="number" name="addSellPrice" id="addSellPrice" class="form-control input-lg" min="0" placeholder="Sell Price Here" required>
+                  <input type="number" name="addSalePrice" id="addSalePrice" class="form-control input-lg" min="0" placeholder="Sale Price Here" required>
                 </div>
 
                 <br>              
