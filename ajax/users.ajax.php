@@ -32,7 +32,7 @@
             $result = UserModel::mdlUpdateUser($table, $item1, $value1, $item2, $value2);
         }
 
-        //Check is username is taken
+        //Check if username is taken
         public $validate_username;
 
         public function ajaxValidateUsername(){

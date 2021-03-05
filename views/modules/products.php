@@ -97,6 +97,26 @@
         <div class="modal-body">
           <div class="box-body">
 
+          <div class="form-group">
+              <label for="addCategory">Category:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select id="addCategory" name="addCategory" class="form-control input-lg" required>
+                
+                <?php 
+                  $item = null;
+                  $value = null;
+
+                  $categories = CategoryController::ctrShowCategories($item, $value);
+
+                  foreach($categories as $key => $value){
+                    echo "<option value='" .$value["id"] ."'>" .$value["category"] ."</option>";
+                  }
+                ?>
+                </select>
+              </div>
+            </div>
+
             <div class="form-group">
               <label for="addCode">Code:</label>
               <div class="input-group">
@@ -111,19 +131,7 @@
                 <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
                 <input type="text" name="addDescription" id="addDescription" class="form-control input-lg" placeholder="Insert Description Here" required>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="addCategory">Category:</label>
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <select name="addCategory" class="form-control input-lg">
-                  <option value="category 1">Category 1</option>
-                  <option value="category 2">Category 2</option>
-                  <option value="category 3">Category 3</option>
-                </select>
-              </div>
-            </div>
+            </div>            
 
             <div class="form-group">
               <label for="addStock">Stock:</label>

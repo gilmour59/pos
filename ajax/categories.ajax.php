@@ -5,7 +5,7 @@
     
     class AjaxCategories{
 
-        //Edit User
+        //Edit Category
         public $category_id;
 
         public function ajaxEditCategory(){
@@ -17,14 +17,14 @@
             echo json_encode($request);
         }        
 
-        //Check is username is taken
+        //Check if category is taken
         public $validate_category;
 
         public function ajaxValidateCategory(){
 
             $item = "category";
             $value = $this->validate_category;
-            $request = UserController::ctrShowUsers($item, $value);
+            $request = CategoryController::ctrShowCategories($item, $value);
 
             echo json_encode($request);
         }
