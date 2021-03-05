@@ -5,6 +5,18 @@
     
     class AjaxProducts{
 
+        //Generate Code
+        public $category_id;
+
+        public function ajaxCreateProductCode(){
+
+            $item = "category_id";
+            $value = $this->category_id;
+            $request = ProductController::ctrShowProducts($item, $value);
+
+            echo json_encode($request);
+        }
+
         //Edit Product
         public $product_id;
 
@@ -15,20 +27,15 @@
             $request = ProductController::ctrShowProducts($item, $value);
 
             echo json_encode($request);
-        }        
+        }                
+    }
 
-        //Generate Code
-        public $category_id;
+    //Generate Code
+    if(isset($_POST["category_id"])){
 
-        public function ajaxCreateProductCode(){
-
-            $item = "category";
-            $value = $this->validate_category;
-            $request = UserController::ctrShowUsers($item, $value);
-
-            echo json_encode($request);
-        }
-
+        $generate_code = new AjaxProducts();
+        $generate_code->category_id = $_POST["category_id"];
+        $generate_code->ajaxCreateProductCode();
     }
 
     //Edit User
@@ -39,10 +46,4 @@
         $edit_category->ajaxEditCategory();
     }    
 
-    //Generate Code
-    if(isset($_POST["category_id"])){
-
-        $generate_code = new AjaxProducts();
-        $generate_code->category_id = $_POST["category_id"];
-        $generate_code->ajaxCreateProductCode();
-    }
+    

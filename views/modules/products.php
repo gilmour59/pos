@@ -17,7 +17,7 @@
     <!-- Default box -->
     <div class="box">
       <div class="box-header with-border">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#modalAddProduct">
+        <button id="btn-add-product" class="btn btn-primary" data-toggle="modal" data-target="#modalAddProduct">
           Add Product
         </button>
       </div>
@@ -98,10 +98,10 @@
           <div class="box-body">
 
           <div class="form-group">
-              <label for="addCategory">Category:</label>
+              <label for="addCategoryProduct">Category:</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                <select id="addCategory" name="addCategory" class="form-control input-lg" required>
+                <select id="addCategoryProduct" name="addCategoryProduct" class="form-control input-lg" required>
                 
                 <?php 
                   $item = null;
@@ -121,7 +121,7 @@
               <label for="addCode">Code:</label>
               <div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-code"></i></span>
-                <input type="text" name="addCode" id="addCode" class="form-control input-lg" placeholder="Insert Code Here" required>
+                <input type="text" name="addCode" id="addCode" class="form-control input-lg" required readonly>
               </div>
             </div>
 
