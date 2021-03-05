@@ -22,7 +22,7 @@
         </button>
       </div>
       <div class="box-body">
-        <table class="table table-bordered table-striped dt-responsive datatable-user">
+        <table id="products_table" class="table table-bordered table-striped dt-responsive">
           <thead>
             <tr>
               <th style="width:10px;">#</th>
@@ -37,9 +37,9 @@
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <!-- <tbody>
             <?php
-
+              /*
               $item = null;
               $value = null;
 
@@ -64,15 +64,15 @@
                         <td>' . $value_prod["date"] . '</td>
                         <td>
                           <div class="btn-group">
-                            <button class="btn btn-warning btn-edit-category" data-category-id="' . $value_prod["id"] . '" data-toggle="modal" data-target="#modalEditCategory"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-delete-category" data-category-id="' . $value_prod["id"] . '"><i class="fa fa-times"></i></button>
+                            <button class="btn btn-warning btn-edit-product" data-product-id="' . $value_prod["id"] . '" data-toggle="modal" data-target="#modalEditProduct"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-delete-product" data-product-id="' . $value_prod["id"] . '"><i class="fa fa-times"></i></button>
                           </div>
                         </td>                      
                       </tr>';  
               }
-
+              */
             ?>            
-          </tbody>
+          </tbody> -->
         </table>
       </div>
       <!-- /.box-body -->
