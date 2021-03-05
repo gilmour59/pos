@@ -1,14 +1,18 @@
-//Load Dynamic Datatable
-$.ajax({
+//Load Dynamic Datatable (test)
+/* $.ajax({
 
     url: "ajax/datatable-products.ajax.php",
     success: function(response){
         console.log("response", response);
     }
-});
+}); */
 
+//Load Dynamic Datatable
 $('#products_table').DataTable({
-    "ajax" : "ajax/datatable-products.ajax.php"
+    "ajax" : "ajax/datatable-products.ajax.php",
+    "deferRender" : true,
+    "retrieve" : true,
+    "processing" : true
 });
 
 //Edit Products
