@@ -22,14 +22,19 @@
                 "data": [';
                 for($i = 0; $i < count($products); $i++){
 
+                    $item = "id";
+                    $value = $products[$i]["category_id"];
+
+                    $category = CategoryController::ctrShowCategories($item, $value);
+
                     $image = "<img src='" . $products[$i]["image"] . "' width='40px'>" ;
 
                     $json_data .= '[
-                    "1",
+                    "' . $products[$i]["id"] . '",
                     "' . $image . '",
                     "' . $products[$i]["code"] . '",
                     "' . $products[$i]["description"] . '",
-                    "cat",
+                    "' . $category["category"] . '",
                     "' . $products[$i]["stock"] . '",
                     "' . $products[$i]["sell_price"] . '",
                     "' . $products[$i]["buy_price"] . '",
