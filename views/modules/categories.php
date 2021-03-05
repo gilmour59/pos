@@ -71,7 +71,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post">
+      <form role="form" method="post" id="category-add-form">
         <div class="modal-header" style="background:#3c8dbc; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Category</h4>
@@ -91,7 +91,7 @@
         </div>
         <div class="modal-footer">        
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" id="category-add-submit" class="btn btn-primary">Save Changes</button>
         </div>
 
         <?php
@@ -115,7 +115,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post">
+      <form role="form" method="post" id="category-edit-form">
         <div class="modal-header" style="background:#228C22; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit Category</h4>
@@ -137,7 +137,7 @@
         </div>
         <div class="modal-footer">        
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Modify Changes</button>
+          <button type="submit" id="category-edit-submit" class="btn btn-success">Modify Changes</button>
         </div>
 
         <?php

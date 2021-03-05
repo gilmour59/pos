@@ -126,7 +126,7 @@ $(document).on('click', '.btn-activate', function(){
 //Check if username is taken
 $('#addUsername').change(function(){
 
-    $(".alert").remove();
+    $(".alert-warning").remove();
 
     var username = $(this).val();
 
@@ -150,6 +150,43 @@ $('#addUsername').change(function(){
             }
         }
     })
+});
+
+//Check if username is taken when pressing enter
+$("#category-add-submit").on('click', function(event){
+    event.preventDefault();
+
+    $(".alert-warning").remove();
+
+    var username = $('#addUsername').val();
+
+    var data = new FormData();
+    data.append('validate_username', username);
+
+    $.ajax({
+
+        url: "ajax/users.ajax.php",
+        method: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,   
+        dataType: "json",     
+        success: function(request){            
+            if(request){         
+                $("#addUsername").parent().after('<div class="alert alert-warning">This username already exists!</div>');
+                $("#addUsername").val("");       
+                return false;
+            }else{
+                if($("#addUsername").val() == ""){
+                    $("#addUsername").parent().after('<div class="alert alert-warning">This username already exists!</div>');
+                    $("#addUsername").val("");
+                }else{
+                    $('#user-add-form').submit();
+                }                
+            }
+        }
+    })    
 });
 
 //Delete User

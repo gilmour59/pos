@@ -92,7 +92,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" enctype="multipart/form-data">
+      <form role="form" method="post" enctype="multipart/form-data" id="user-add-form">
         <div class="modal-header" style="background:#3c8dbc; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add User</h4>
@@ -151,7 +151,7 @@
         </div>
         <div class="modal-footer">        
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" id="user-add-submit" class="btn btn-primary">Save Changes</button>
         </div>
 
         <?php
@@ -175,7 +175,7 @@
 
     <!-- Modal content-->
     <div class="modal-content">
-      <form role="form" method="post" enctype="multipart/form-data">
+      <form role="form" method="post" enctype="multipart/form-data" id="user-edit-form">
         <div class="modal-header" style="background:#228C22; color:white">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Edit User</h4>
@@ -240,7 +240,7 @@
         </div>
         <div class="modal-footer">        
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-success">Modify Changes</button>
+          <button type="submit" id="user-edit-submit" class="btn btn-success">Modify Changes</button>
         </div>
 
         <?php
