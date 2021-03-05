@@ -27,6 +27,28 @@ class ProductModel{
         //Close the connection
         $stmt = null;
     }
+
+    static public function mdlAddProduct($table, $data){
+
+        $stmt = Connection::connect()->prepare("INSERT INTO $table (category_id, code, description, stock, buy_price, sell_price, image) 
+                                                VALUES (:category_id, :code, :description, :stock, :buy_price, :sell_price, :image)");
+
+        $stmt->bindParam(":category_id", $data["category_id"], PDO::PARAM_STR);
+        $stmt->bindParam(":code", $data["code"], PDO::PARAM_STR);
+        $stmt->bindParam(":description", $data["description"], PDO::PARAM_STR);
+        $stmt->bindParam(":stock", $data["stock"], PDO::PARAM_STR);
+        $stmt->bindParam(":buy_price", $data["buy_price"], PDO::PARAM_STR);
+        $stmt->bindParam(":sell_price", $data["sell_price"], PDO::PARAM_STR);
+        $stmt->bindParam(":image", $data["image"], PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+
+        $stmt = null;
+    }
 }
 
 ?>

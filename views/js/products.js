@@ -17,6 +17,9 @@ $('#products_table').DataTable({
 
 //select 1st option in category
 $(document).on('click', '#btn-add-product', function(){
+
+    //This is for the checked percentage
+    $('#addSellPrice').prop("readonly", true);
     
     var category_id = $('#addCategoryProduct').val();
 
@@ -96,4 +99,45 @@ $(document).on('click', '.btn-edit-product', function(){
             //$('#productId').val(request["id"]);            
         }
     });
+});
+
+//Adding Selling Price
+$('#addBuyPrice').change(function(){
+
+    if($('.percentage').prop("checked")){
+
+        $('#addSellPrice').prop("readonly", true);
+        
+        var percentage_value = $('.newPercentage').val();
+        var percentage = Number(($('#addBuyPrice').val() * percentage_value / 100)) + Number($('#addBuyPrice').val());
+
+        $('#addSellPrice').val(percentage);
+
+    }    
+});
+
+//Percentage Change
+$('.newPercentage').change(function(){
+
+    if($('.percentage').prop("checked")){
+
+        $('#addSellPrice').prop("readonly", true);
+        
+        var percentage_value = $('.newPercentage').val();
+        var percentage = Number(($('#addBuyPrice').val() * percentage_value / 100)) + Number($('#addBuyPrice').val());
+
+        $('#addSellPrice').val(percentage);
+
+    }    
+});
+
+//Percentage Checkbox
+$('.percentage').on('ifUnchecked', function(){
+    $('#addSellPrice').prop("readonly", false);
+    $('.newPercentage').prop("readonly", true);
+});
+
+$('.percentage').on('ifChecked', function(){
+    $('#addSellPrice').prop("readonly", true);
+    $('.newPercentage').prop("readonly", false);
 });

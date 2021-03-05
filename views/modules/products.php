@@ -110,7 +110,7 @@
                   $categories = CategoryController::ctrShowCategories($item, $value);
 
                   foreach($categories as $key => $value){
-                    echo "<option value='" .$value["id"] ."'>" .$value["category"] ."</option>";
+                    echo "<option value='" . $value["id"] ."'>" . $value["category"] ."</option>";
                   }
                 ?>
                 </select>
@@ -142,19 +142,19 @@
             </div>
 
             <div class="form-group row">
-              <div class="col-xs-6">
+              <div class="col-xs-12 col-sm-6">
                 <label for="addPurchasePrice">Buy Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
-                  <input type="number" name="addBuyPrice" id="addBuyPrice" class="form-control input-lg" min="0" placeholder="Buy Price Here" required>
+                  <input type="number" step="any" name="addBuyPrice" id="addBuyPrice" class="form-control input-lg" min="0" placeholder="Buy Price Here" required>
                 </div>
               </div>
               
-              <div class="col-xs-6">
+              <div class="col-xs-12 col-sm-6">
                 <label for="addSalePrice">Sell Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
-                  <input type="number" name="addSellPrice" id="addSellPrice" class="form-control input-lg" min="0" placeholder="Sell Price Here" required>
+                  <input type="number" step="any" name="addSellPrice" id="addSellPrice" class="form-control input-lg" min="0" placeholder="Sell Price Here" required>
                 </div>
 
                 <br>              
@@ -188,12 +188,25 @@
               </div>
             </div>
 
+            <input type="hidden" name="productAdd" id="productAdd" value="productAdd">
+
           </div>
         </div>
         <div class="modal-footer">        
           <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
+
+        <?php
+
+          //Adding products 
+          $createProduct = new ProductController();
+          $createProduct->ctrCreateProduct();
+
+          //$deleteUser = new UserController();
+          //$deleteUser->ctrDeleteUser();
+        ?>
+
       </form>
     </div>
 
