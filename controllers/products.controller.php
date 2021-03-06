@@ -235,6 +235,37 @@ class ProductController{
             }
         }
     }
+    
+    //Delete User
+    public function ctrDeleteProduct(){
+
+        if(isset($_GET["delete-product-id"])){
+            
+            $table = "products";
+            $data = $_GET["delete-product-id"];
+
+            if($_GET["product-image"] != "" && $_GET["product-image"] != "views/img/products/default/anonymous.png"){
+                unlink($_GET["product-image"]);
+                rmdir('views/img/products/' . $_GET["product-code"]);
+            }
+
+            $result = ProductModel::mdlDeleteProduct($table, $data);
+
+            if($result == "ok"){
+                echo "<script>
+                    Swal.fire(
+                        'Deleted!',
+                        'Product has been deleted.',
+                        'success'
+                    ).then((response) => {
+                        if (response.isConfirmed){
+                            window.location = 'products';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
 }
 
 ?>

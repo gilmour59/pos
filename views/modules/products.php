@@ -203,8 +203,8 @@
           $createProduct = new ProductController();
           $createProduct->ctrCreateProduct();
 
-          //$deleteUser = new UserController();
-          //$deleteUser->ctrDeleteUser();
+          $deleteUser = new ProductController();
+          $deleteUser->ctrDeleteProduct();
         ?>
 
       </form>
