@@ -97,7 +97,7 @@ $(document).on('click', '.btn-edit-product', function(){
             
             //get Category names
             var category_data = new FormData();
-            category_data.append("categoryId", request["categoryId"]);
+            category_data.append("categoryId", request["category_id"]);
 
             $.ajax({
 
@@ -109,12 +109,25 @@ $(document).on('click', '.btn-edit-product', function(){
                 processData: false,
                 dataType: "json",
                 success: function($request){
-
+                    $("#editCategoryProduct").val($request["id"]);
+                    $("#editCategoryProduct").html($request["category"]);
                 }
             });
-            //$('#editCategory').val(request["category"]);
 
-            //$('#productId').val(request["id"]);            
+            $('#productId').val(request["id"]);
+            $('#editCode').val(request["code"]);
+            $('#editDescription').val(request["description"]);
+            $('#editStock').val(request["stock"]);
+            $('#editBuyPrice').val(request["buy_price"]);
+            $('#editSellPrice').val(request["sell_price"]);
+
+            $('#currentImage').val(request["image"]);
+
+            if(request["image"] != ""){
+                $('#imgPreviewEdit').attr('src', request["image"]);
+            }else{
+                $('#imgPreviewEdit').attr('src', '/views/img/users/default/anonymous.png');
+            }
         }
     });
 });

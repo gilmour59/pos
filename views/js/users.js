@@ -63,6 +63,7 @@ $(document).on('click', '.btn-edit-user', function(){
             $('#editRole').val(request["role"]);
             
             $('#currentPassword').val(request["password"]);
+            
             $('#currentPicture').val(request["picture"]);
 
             $('#userId').val(request["id"]);

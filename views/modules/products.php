@@ -271,7 +271,7 @@
               </div>
               
               <div class="col-xs-12 col-sm-6">
-                <label for="editSalePrice">Sell Price:</label>
+                <label for="editSellPrice">Sell Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
                   <input type="number" step="any" name="editSellPrice" id="editSellPrice" class="form-control input-lg" min="0" required>
