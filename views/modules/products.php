@@ -263,7 +263,7 @@
 
             <div class="form-group row">
               <div class="col-xs-12 col-sm-6">
-                <label for="editPurchasePrice">Buy Price:</label>
+                <label for="editBuyPrice">Buy Price:</label>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
                   <input type="number" step="any" name="editBuyPrice" id="editBuyPrice" class="form-control input-lg" min="0" required>
@@ -324,7 +324,7 @@
 
           //Edit products 
           $editProduct = new ProductController();
-          //$editProduct->ctrEditProduct();
+          $editProduct->ctrEditProduct();
         ?>
 
       </form>

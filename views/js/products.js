@@ -79,6 +79,9 @@ $(document).on('change', '#addCategoryProduct', function(){
 //Edit Products
 $(document).on('click', '.btn-edit-product', function(){
 
+    //This is for the checked percentage
+    $('#editSellPrice').prop("readonly", true);
+
     var productId = $(this).attr('data-product-id');
     
     var data = new FormData();
@@ -132,7 +135,7 @@ $(document).on('click', '.btn-edit-product', function(){
     });
 });
 
-//Adding Selling Price
+//Adding Buy Price
 $('#addBuyPrice').change(function(){
 
     if($('.percentage').prop("checked")){
@@ -147,17 +150,37 @@ $('#addBuyPrice').change(function(){
     }    
 });
 
+//Editing Buy Price
+$('#editBuyPrice').change(function(){
+
+    if($('.percentage').prop("checked")){
+
+        $('#editSellPrice').prop("readonly", true);
+        
+        var percentage_value = $('.newPercentage').val();
+        var percentage = Number(($('#editBuyPrice').val() * percentage_value / 100)) + Number($('#editBuyPrice').val());
+
+        $('#editSellPrice').val(percentage);
+
+    }    
+});
+
 //Percentage Change
 $('.newPercentage').change(function(){
 
     if($('.percentage').prop("checked")){
 
         $('#addSellPrice').prop("readonly", true);
+        $('#editSellPrice').prop("readonly", true);
         
-        var percentage_value = $('.newPercentage').val();
-        var percentage = Number(($('#addBuyPrice').val() * percentage_value / 100)) + Number($('#addBuyPrice').val());
+        var percentage_value = $(this).val();
+        //Add
+        var percentage_add = Number(($('#addBuyPrice').val() * percentage_value / 100)) + Number($('#addBuyPrice').val());
+        //Edit
+        var percentage_edit = Number(($('#editBuyPrice').val() * percentage_value / 100)) + Number($('#editBuyPrice').val());
 
-        $('#addSellPrice').val(percentage);
+        $('#addSellPrice').val(percentage_add);
+        $('#editSellPrice').val(percentage_edit);
 
     }    
 });
@@ -165,11 +188,13 @@ $('.newPercentage').change(function(){
 //Percentage Checkbox
 $('.percentage').on('ifUnchecked', function(){
     $('#addSellPrice').prop("readonly", false);
+    $('#editSellPrice').prop("readonly", false);
     $('.newPercentage').prop("readonly", true);
 });
 
 $('.percentage').on('ifChecked', function(){
     $('#addSellPrice').prop("readonly", true);
+    $('#editSellPrice').prop("readonly", true);
     $('.newPercentage').prop("readonly", false);
 });
 

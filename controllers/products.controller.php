@@ -119,6 +119,122 @@ class ProductController{
             }
         }
     }
+
+    //Edit Product
+    public function ctrEditProduct(){
+
+        if(isset($_POST["productEdit"])){
+            if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editDescription"]) &&
+                preg_match('/^[0-9]+$/', $_POST["editStock"]) &&
+                preg_match('/^[0-9.]+$/', $_POST["editBuyPrice"]) &&
+                preg_match('/^[0-9.]+$/', $_POST["editSellPrice"])){
+
+                $route = $_POST["currentImage"];
+
+                //Validate Image
+                if(isset($_FILES["editImage"]["tmp_name"]) && $_FILES["editImage"]["error"] != 4){
+
+                    list($width, $height) = getimagesize($_FILES["editImage"]["tmp_name"]);
+                    
+                    $newWidth = 500;
+                    $newHeight = 500;
+
+                    //don't add "/" before the directory
+                    $directory = "views/img/products/" . $_POST["editCode"];
+
+                    //check if product already has an image
+                    if(!empty($_POST['currentImage']) && $_POST['currentImage'] != "views/img/products/default/anonymous.png"){
+
+                        unlink($_POST['currentImage']);
+                    }else{
+
+                        mkdir($directory, 0755);
+                    }
+
+                    if($_FILES["editImage"]["type"] == "image/jpeg"){
+
+                        $rando = mt_rand(100, 999);
+
+                        //don't add "/" before the directory
+                        $route = "views/img/products/" . $_POST["editCode"] . "/" . $rando . ".jpeg";
+
+                        $source = imagecreatefromjpeg($_FILES["editImage"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagejpeg($destination, $route);
+                    }
+
+                    if($_FILES["editImage"]["type"] == "image/png"){
+
+                        $rando = mt_rand(100, 999);
+
+                        //don't add "/" before the directory
+                        $route = "views/img/products/" . $_POST["editCode"] . "/" . $rando . ".png";
+
+                        $source = imagecreatefrompng($_FILES["editImage"]["tmp_name"]);
+                        $destination = imagecreatetruecolor($newWidth, $newHeight);
+
+                        imagecopyresized($destination, $source, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        imagepng($destination, $route);
+                    }
+                }
+
+                $table = "products";
+                
+                $data = array("category_id" => $_POST["editCategoryProduct"],
+                                "code" => $_POST["editCode"],
+                                "description" => $_POST["editDescription"],
+                                "stock" => $_POST["editStock"],
+                                "buy_price" => $_POST["editBuyPrice"],
+                                "sell_price" => $_POST["editSellPrice"],
+                                "image" => $route);
+
+                $result = ProductModel::mdlEditProduct($table, $data);
+                
+                if($result == "ok"){
+                    echo "<script>                
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Product was modified successfully!',
+                            text: 'Hooray!',
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = 'products';
+                            }
+                        });
+                    </script>";
+                }else{
+                    echo "<script>                
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Product modification Error!',
+                            text: 'Something went wrong!',
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = 'products';
+                            }
+                        });
+                    </script>"; 
+                }
+
+            }else{
+                echo "<script>                
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Special Characters are not allowed',
+                        text: 'Something went wrong!',
+                    }).then((result)=>{
+                        if(result.value){
+                            window.location = 'products';
+                        }
+                    });
+                </script>";
+            }
+        }
+    }
 }
 
 ?>
