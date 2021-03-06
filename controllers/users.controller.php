@@ -79,7 +79,7 @@ class UserController{
                     $route = "";
 
                     //Validate Image
-                    if($_FILES["addPicture"]["error"] != 4){
+                    if(isset($_FILES["addPicture"]["tmp_name"]) && $_FILES["addPicture"]["error"] != 4){
 
                         list($width, $height) = getimagesize($_FILES["addPicture"]["tmp_name"]);
                         
@@ -186,7 +186,7 @@ class UserController{
                 $route = $_POST['currentPicture'];
 
                 //Validate Image
-                if($_FILES["editPicture"]["error"] != 4){
+                if(isset($_FILES["editPicture"]["tmp_name"]) && $_FILES["editPicture"]["error"] != 4){
 
                     list($width, $height) = getimagesize($_FILES["editPicture"]["tmp_name"]);
                     

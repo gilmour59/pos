@@ -181,9 +181,9 @@
               <div class="panel panel-default">
                 <div class="panel-heading">Add Image</div>
                 <div class="panel-body">
-                  <input type="file" name="addImage" id="addImage">
+                  <input type="file" name="addImage" id="addImage" class="picture-validate-products">
                   <p class="help-block">Maximum of 2 MB</p>
-                  <img src="/views/img/products/default/anonymous.png" class="img-thumbnail" width="100px">
+                  <img src="/views/img/products/default/anonymous.png" id="imgPreviewAdd" class="img-thumbnail" width="100px">
                 </div>
               </div>
             </div>
