@@ -212,3 +212,123 @@
 
   </div>
 </div>
+
+<!-- Modal Edit Product -->
+<div id="modalEditProduct" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post" enctype="multipart/form-data">
+        <div class="modal-header" style="background:#228C22; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Product</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+
+          <div class="form-group">
+              <label for="editCategoryProduct">Category:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                <select name="editCategoryProduct" class="form-control input-lg" required readonly>
+                  <option id="editCategoryProduct"></option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editCode">Code:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                <input type="text" name="editCode" id="editCode" class="form-control input-lg" required readonly>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editDescription">Description:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-product-hunt"></i></span>
+                <input type="text" name="editDescription" id="editDescription" class="form-control input-lg" required>
+              </div>
+            </div>            
+
+            <div class="form-group">
+              <label for="editStock">Stock:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                <input type="number" name="editStock" id="editStock" class="form-control input-lg" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-xs-12 col-sm-6">
+                <label for="editPurchasePrice">Buy Price:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+                  <input type="number" step="any" name="editBuyPrice" id="editBuyPrice" class="form-control input-lg" min="0" required>
+                </div>
+              </div>
+              
+              <div class="col-xs-12 col-sm-6">
+                <label for="editSalePrice">Sell Price:</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-arrow-down"></i></span>
+                  <input type="number" step="any" name="editSellPrice" id="editSellPrice" class="form-control input-lg" min="0" required>
+                </div>
+
+                <br>              
+
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" class="minimal percentage" checked>
+                      Use Percentage
+                    </label>
+                  </div>
+                </div>
+
+                <div class="col-xs-6" style="padding:0;">
+                  <div class="input-group">
+                    <input type="number" class="form-control input-lg newPercentage" min="0" value="40" required>
+                    <span class="input-group-addon"><i class="fa fa-percent"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="panel panel-default">
+                <div class="panel-heading">Edit Image</div>
+                <div class="panel-body">
+
+                  <input type="hidden" id="currentImage" name="currentImage">
+
+                  <input type="file" name="editImage" id="editImage" class="picture-validate-products">
+                  <p class="help-block">Maximum of 2 MB</p>
+                  <img id="imgPreviewEdit" class="img-thumbnail" width="100px">
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="productEdit" id="productEdit" value="productEdit">
+
+          </div>
+        </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+
+        <?php
+
+          //Edit products 
+          $editProduct = new ProductController();
+          //$editProduct->ctrEditProduct();
+        ?>
+
+      </form>
+    </div>
+
+  </div>
+</div>

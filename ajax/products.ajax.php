@@ -39,11 +39,11 @@
     }
 
     //Edit User
-    if(isset($_POST["categoryId"])){
+    if(isset($_POST["productId"])){
 
-        $edit_category = new AjaxCategories();
-        $edit_category->category_id = $_POST["categoryId"];
-        $edit_category->ajaxEditCategory();
+        $edit_product = new AjaxProducts();
+        $edit_product->product_id = $_POST["productId"];
+        $edit_product->ajaxEditProduct();
     }    
 
     

@@ -94,6 +94,24 @@ $(document).on('click', '.btn-edit-product', function(){
         processData: false,
         dataType: "json",
         success: function(request){
+            
+            //get Category names
+            var category_data = new FormData();
+            category_data.append("categoryId", request["categoryId"]);
+
+            $.ajax({
+
+                url: "ajax/categories.ajax.php",
+                method: "POST",
+                data: category_data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function($request){
+
+                }
+            });
             //$('#editCategory').val(request["category"]);
 
             //$('#productId').val(request["id"]);            
