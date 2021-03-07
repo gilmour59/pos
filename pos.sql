@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         localhost
--- Server version:               5.7.19 - MySQL Community Server (GPL)
+-- Server version:               5.7.24 - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Version:             9.4.0.5125
+-- HeidiSQL Version:             9.5.0.5332
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -35,6 +35,27 @@ REPLACE INTO `categories` (`id`, `category`, `date`) VALUES
 	(4, 'Category 4', '2021-03-04 21:09:55'),
 	(5, 'Category 5', '2021-03-04 21:10:02');
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+
+-- Dumping structure for table pos.clients
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE IF NOT EXISTS `clients` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `document_id` int(11) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phone` varchar(100) DEFAULT NULL,
+  `address` text,
+  `birthdate` date DEFAULT NULL,
+  `purchases` int(11) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table pos.clients: ~1 rows (approximately)
+/*!40000 ALTER TABLE `clients` DISABLE KEYS */;
+REPLACE INTO `clients` (`id`, `name`, `document_id`, `email`, `phone`, `address`, `birthdate`, `purchases`, `date`) VALUES
+	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', NULL, '2021-03-07 10:22:11');
+/*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table pos.products
 DROP TABLE IF EXISTS `products`;
