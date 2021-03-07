@@ -25,7 +25,7 @@
                     <span>Products</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="clients">
                     <i class="fa fa-users"></i>
                     <span>Clients</span>
