@@ -137,25 +137,25 @@ class ClientController{
         }
     }
 
-    //Delete Category
-    public function ctrDeleteCategory(){
+    //Delete Client
+    public function ctrDeleteClient(){
 
-        if(isset($_GET["delete-category-id"])){
+        if(isset($_GET["delete-client-id"])){
             
-            $table = "categories";
-            $data = $_GET["delete-category-id"];            
+            $table = "clients";
+            $data = $_GET["delete-client-id"];            
 
-            $result = CategoryModel::mdlDeleteCategory($table, $data);
+            $result = ClientModel::mdlDeleteClient($table, $data);
 
             if($result == "ok"){
                 echo "<script>
                     Swal.fire(
                         'Deleted!',
-                        'Category has been deleted.',
+                        'Client has been deleted.',
                         'success'
                     ).then((response) => {
                         if (response.isConfirmed){
-                            window.location = 'categories';
+                            window.location = 'clients';
                         }
                     });
                 </script>";

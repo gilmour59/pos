@@ -157,8 +157,8 @@
           $createClient = new ClientController();
           $createClient->ctrAddClient();
 
-          //$deleteClient = new ClientController();
-          //$deleteClient->ctrDeleteClient();
+          $deleteClient = new ClientController();
+          $deleteClient->ctrDeleteClient();
         ?>
         
       </form>

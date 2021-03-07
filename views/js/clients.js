@@ -27,3 +27,23 @@ $(document).on('click', '.btn-edit-client', function(){
         }
     });
 });
+
+//Delete Category
+$(document).on('click', '.btn-delete-client', function(){
+
+    var client_id = $(this).attr('data-client-id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((response) => {
+        if (response.isConfirmed){
+            window.location = "index.php?route=clients&delete-client-id="+ client_id;
+        }
+    });
+});

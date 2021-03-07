@@ -72,8 +72,8 @@ class ClientModel{
         $stmt = null;
     }
 
-    //delete category
-    static public function mdlDeleteCategory($table, $data){
+    //delete client
+    static public function mdlDeleteClient($table, $data){
 
         $stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id");
 
