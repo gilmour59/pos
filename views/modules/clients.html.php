@@ -125,8 +125,6 @@
               </div>
             </div>
 
-            <input type="hidden" name="clientAdd" id="clientAdd">
-
           </div>
         </div>
         <div class="modal-footer">        
@@ -134,15 +132,6 @@
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
 
-        <?php
-          //Adding clients 
-          $createClient = new ClientController();
-          $createClient->ctrAddClient();
-
-          //$deleteClient = new ClientController();
-          //$deleteClient->ctrDeleteClient();
-        ?>
-        
       </form>
     </div>
 
