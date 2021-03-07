@@ -3,14 +3,14 @@
 class ClientController{
     
     //show clients
-    /* static public function ctrShowClients($item, $value){
+    static public function ctrShowClients($item, $value){
 
         $table = "clients";
         
         $result = ClientModel::mdlShowClients($table, $item, $value);
 
         return $result;
-    } */
+    }
 
     //create clients
     public function ctrAddClient(){

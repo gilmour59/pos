@@ -34,24 +34,42 @@
               <th>Birthdate</th>
               <th>Total Purchases</th>
               <th>Last Purchase</th>
-              <th>Last Login</th>
+              <th>Date</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+
+            <?php
+
+              $item = null;
+              $value = null;
+
+              $clients = ClientController::ctrShowClients($item, $value);
+
+              foreach($clients as $key => $value){
+                echo '<tr>
+                        <td>' . $value["id"] . '</td>
+                        <td>' . $value["name"] . '</td>
+                        <td>' . $value["document_id"] . '</td>
+                        <td>' . $value["email"] . '</td>
+                        <td>' . $value["phone"] . '</td>
+                        <td>' . $value["address"] . '</td>
+                        <td>' . $value["birthdate"] . '</td>
+                        <td>' . $value["purchases"] . '</td>
+                        <td>Last Purchases</td>
+                        <td>' . $value["date"] . '</td>
+                        <td>
+                          <div class="btn-group">
+                            <button class="btn btn-warning btn-edit-client" data-client-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditClient"><i class="fa fa-pencil"></i></button>
+                            <button class="btn btn-danger btn-delete-client" data-client-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>
+                          </div>
+                        </td>                      
+                      </tr>';  
+              }
+
+            ?>
+            
           </tbody>
         </table>
       </div>
