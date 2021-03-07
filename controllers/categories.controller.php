@@ -66,7 +66,7 @@ class CategoryController{
     }
 
     //edit category
-    public function ctrEditcategory(){
+    public function ctrEditCategory(){
         
         if(isset($_POST["editCategory"])){
             if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editCategory"])){

@@ -74,28 +74,36 @@ class ClientController{
         }
     }
 
-    //edit category
-    public function ctrEditcategory(){
+    //edit client
+    public function ctrEditClient(){
         
-        if(isset($_POST["editCategory"])){
-            if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editCategory"])){
+        if(isset($_POST["clientEdit"])){
+            if(preg_match('/^[a-zA-Z0-9 ]+$/', $_POST["editName"]) &&
+                preg_match('/^[0-9]+$/', $_POST["editDocumentId"]) &&
+                filter_var($_POST["editEmail"], FILTER_VALIDATE_EMAIL) &&
+                preg_match('/^[()\-0-9]+$/', $_POST["editPhone"]) &&
+                preg_match('/^[#\.\-a-zA-Z0-9 ]+$/', $_POST["editAddress"])){
 
-                $table = "categories";                            
+                $table = "clients";
+                $data = array("name" => $_POST["editName"],
+                                "document_id" => $_POST["editDocumentId"],
+                                "email" => $_POST["editEmail"],
+                                "phone" => $_POST["editPhone"],
+                                "address" => $_POST["editAddress"],
+                                "birthdate" => $_POST["editBirthdate"],
+                                "id" => $_POST["clientId"]);
 
-                $data = array("category" => $_POST["editCategory"],                                
-                                "id" => $_POST["categoryId"]);
-
-                $result = CategoryModel::mdlEditCategory($table, $data);
-
+                $result = ClientModel::mdlEditClient($table, $data);
+                
                 if($result == "ok"){
                     echo "<script>                
                         Swal.fire({
                             icon: 'success',
-                            title: 'Category was modified successfully!',
+                            title: 'Client was modified successfully!',
                             text: 'Hooray!',
                         }).then((result)=>{
                             if(result.value){
-                                window.location = 'categories';
+                                window.location = 'clients';
                             }
                         });
                     </script>";
@@ -103,15 +111,16 @@ class ClientController{
                     echo "<script>                
                         Swal.fire({
                             icon: 'error',
-                            title: 'Category modification Error!',
+                            title: 'Client modification Error!',
                             text: 'Something went wrong!',
                         }).then((result)=>{
                             if(result.value){
-                                window.location = 'categories';
+                                window.location = 'clients';
                             }
                         });
                     </script>"; 
                 }
+
             }else{
                 echo "<script>                
                     Swal.fire({
@@ -120,7 +129,7 @@ class ClientController{
                         text: 'Something went wrong!',
                     }).then((result)=>{
                         if(result.value){
-                            window.location = 'categories';
+                            window.location = 'clients';
                         }
                     });
                 </script>";

@@ -51,11 +51,16 @@ class ClientModel{
     }
 
     //edit client
-    static public function mdlEditCategory($table, $data){
+    static public function mdlEditClient($table, $data){
 
-        $stmt = Connection::connect()->prepare("UPDATE $table SET category = :category WHERE id = :id");
+        $stmt = Connection::connect()->prepare("UPDATE $table SET name = :name, document_id = :document_id, email = :email, phone = :phone, address = :address, birthdate = :birthdate WHERE id = :id");
 
-        $stmt->bindParam(":category", $data["category"], PDO::PARAM_STR);
+        $stmt->bindParam(":name", $data["name"], PDO::PARAM_STR);
+        $stmt->bindParam(":document_id", $data["document_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":email", $data["email"], PDO::PARAM_STR);
+        $stmt->bindParam(":phone", $data["phone"], PDO::PARAM_STR);
+        $stmt->bindParam(":address", $data["address"], PDO::PARAM_STR);
+        $stmt->bindParam(":birthdate", $data["birthdate"], PDO::PARAM_STR);
         $stmt->bindParam(":id", $data["id"], PDO::PARAM_STR);
 
         if($stmt->execute()){

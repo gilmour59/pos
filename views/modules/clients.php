@@ -166,3 +166,87 @@
 
   </div>
 </div>
+
+<!-- Modal Edit Client -->
+<div id="modalEditClient" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form role="form" method="post">
+        <div class="modal-header" style="background:#228C22; color:white">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Client</h4>
+        </div>
+        <div class="modal-body">
+          <div class="box-body">
+
+            <div class="form-group">
+              <label for="editName">Name:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" id="editName" name="editName" class="form-control input-lg" placeholder="Insert Name Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editDocumentId">Document ID:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                <input type="number" min="0" id="editDocumentId" name="editDocumentId" class="form-control input-lg" placeholder="Insert Document ID Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editEmail">Email:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                <input type="email" id="editEmail" name="editEmail" class="form-control input-lg" placeholder="Insert Email Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editPhone">Phone:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                <input type="text" id="editPhone" name="editPhone" class="form-control input-lg" data-inputmask="'mask':'(99-999999999)'" data-mask placeholder="Insert Phone Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editAddress">Address:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                <input type="text" id="editAddress" name="editAddress" class="form-control input-lg" placeholder="Insert Address Here" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="editBirthdate">Birth Date:</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" id="editBirthdate" name="editBirthdate" class="form-control input-lg" placeholder="Insert Birthdate Here" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask required>
+              </div>
+            </div>
+
+            <input type="hidden" name="clientEdit" id="clientEdit">
+            <input type="hidden" name="clientId" id="clientId">
+
+          </div>
+        </div>
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+
+        <?php
+          //Edit client 
+          $editClient = new ClientController();
+          $editClient->ctrEditClient();
+        ?>
+        
+      </form>
+    </div>
+
+  </div>
+</div>
