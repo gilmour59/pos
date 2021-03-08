@@ -34,6 +34,19 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
             var stock = response["stock"];
             var price = response["sell_price"];
 
+            //restricts when stock is 0
+            if(stock == 0){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No Stock Available!',
+                    text: 'Something went wrong!',
+                });
+
+                $("button[data-product-id='" + product_id + "']").addClass('btn-primary addProduct');
+
+                return;
+            }
+
             $(".newProduct").append(
 
                 '<div class="row" style="padding:5px 15px">' + 
@@ -67,12 +80,46 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
     });
 });
 
+//When using the table
+$("#products-sales-table").on("draw.dt", function(){
+    
+    if(localStorage.getItem("removeProduct") != null){
+
+        //convert JSON to object
+        var list_id_products = JSON.parse(localStorage.getItem("removeProduct"));
+        
+        for(var i = 0; i < list_id_products.length; i++){
+            $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").removeClass('btn-default');
+            $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").addClass('btn-primary addProduct');
+        }
+    }
+});
+
+//to store
+var id_remove_product = [];
+
+localStorage.removeItem("removeProduct");
+
 //Delete product from form and recovery button
 $("#sale-add-form").on("click", "button.removeProduct", function(){
 
     $(this).parent().parent().parent().parent().remove();
 
     var product_id = $(this).attr("data-product-id");
+
+    //localstorage for the sales product activation bug when going to next page
+    if(localStorage.getItem("removeProduct") == null){
+        
+        id_remove_product = [];
+    }else{
+        
+        id_remove_product.concat(localStorage.getItem("removeProduct"));
+    }
+
+    //getting the id for the local storage
+    id_remove_product.push({"product_id" : product_id});
+
+    localStorage.setItem("removeProduct", JSON.stringify(id_remove_product));
 
     $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-default');
     $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-primary addProduct');
