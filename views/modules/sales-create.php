@@ -18,7 +18,7 @@
         <div class="col-lg-5 col-xs-12">
           <div class="box box-success">
             <div class="box-header with-border"></div>
-            <form role="form" method="post">
+            <form role="form" method="post" id="sale-add-form">
               <div class="box-body">              
                 <div class="box">
 
@@ -92,29 +92,7 @@
 
                   <label>Product:</label>
                   <div class="form-group row newProduct">
-                    <div class="col-xs-6" style="padding-right:0px;">
-                      <div class="input-group">
-
-                        <span class="input-group-addon">
-                          <button type="button" class="btn btn-danger btn-xs">
-                            <i class="fa fa-times"></i>
-                          </button>
-                        </span>
-
-                        <input type="text" class="form-control" id="addProduct" name="addProduct" placeholder="Description of Product" required>
-                      </div>
-                    </div>
-
-                    <div class="col-xs-3">
-                      <input type="number" class="form-control" id="addProductQuantity" name="addProductQuantity" min="1" placeholder="0" required>
-                    </div>
-
-                    <div class="col-xs-3" style="padding-left:0px;">
-                      <div class="input-group">
-                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                        <input type="number" class="form-control" id="addProductPrice" name="addProductPrice" min="1" placeholder="000000" readonly required>                        
-                      </div>
-                    </div>
+                    
                   </div>
 
                   <!-- Button Hidden on large screens -->
@@ -181,7 +159,7 @@
           <div class="box box-warning">
             <div class="box-header with-border"></div>
             <div class="box-body">
-              <table id="products_sales_table" class="table table-bordered table-striped dt-responsive">
+              <table id="products-sales-table" class="table table-bordered table-striped dt-responsive">
                 <thead>
                   <tr>
                     <th style="width:10px;">#</th>
