@@ -74,5 +74,6 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
 
     var product_id = $(this).attr("data-product-id");
 
-    
+    $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-default');
+    $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-primary addProduct');
 });
