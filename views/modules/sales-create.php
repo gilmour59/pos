@@ -49,11 +49,11 @@
                           echo '<input type="text" class="form-control" id="newSale" name="newSale" value="10001" readonly>';
                         }else{
                           
-                          foreach($sales as $key => $value_sales){
+                          foreach($sales as $key => $value_sale){
 
                           }
                           //to get the last code
-                          $code = $value_sales["code"] + 1;
+                          $code = $value_sale["code"] + 1;
 
                           echo '<input type="text" class="form-control" id="newSale" name="newSale" value="' . $code . '" readonly>';
                         }
@@ -68,10 +68,23 @@
                       <span class="input-group-addon"><i class="fa fa-users"></i></span>
                       <select name="selectClient" id="selectClient" class="form-control" required>
                         <option value="">Select Client</option>
+
+                        <?php
+
+                          $item = null;
+                          $value = null;
+
+                          $clients = ClientController::ctrShowClients($item, $value);
+                          
+                          foreach($clients as $key => $value_client){
+                            echo '<option value="' . $value_client['id'] . '">' . $value_client['name'] . '</option>';
+                          }
+                        ?>
+
                       </select>
                       <span class="input-group-addon">
                         <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalAddClient" data-dismiss="modal">
-                          Select Client
+                          Add Client
                         </button>
                       </span>
                     </div>
@@ -168,33 +181,17 @@
           <div class="box box-warning">
             <div class="box-header with-border"></div>
             <div class="box-body">
-              <table class="table table-bordered table-striped dt-responsive datatable-user">
+              <table id="products_sales_table" class="table table-bordered table-striped dt-responsive">
                 <thead>
                   <tr>
                     <th style="width:10px;">#</th>
                     <th>Image</th>
                     <th>Code</th>
                     <th>Description</th>
-                    <th>Category</th>
                     <th>Stock</th>
                     <th>Actions</th>
                   </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td><img src="/views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                    <td>00123</td>
-                    <td>Desc</td>
-                    <td>category</td>
-                    <td>stock</td>
-                    <td>
-                      <div class="btn-group">                        
-                        <button type="button" class="btn btn-primary">Add</button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
+                </thead>                
               </table>
             </div>
           </div>
