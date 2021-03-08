@@ -26,9 +26,7 @@
                     <label for="newSeller">Seller:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" id="newSeller" name="newSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
-                      
-                      <input type="hidden" name="idSeller" value="<?php echo $_SESSION["id"]; ?>">
+                      <input type="text" class="form-control" id="newSeller" name="newSeller" value="User Administrator" readonly>
                     </div>
                   </div>
 
@@ -36,29 +34,7 @@
                     <label for="newSeller">Sale:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                      <?php
-
-                        $item = null;
-                        $value = null;
-
-                        $sales = SaleController::ctrShowSales($item, $value);
-
-                        if(!$sales){
-                          
-                          echo '<input type="text" class="form-control" id="newSale" name="newSale" value="10001" readonly>';
-                        }else{
-                          
-                          foreach($sales as $key => $value_sales){
-
-                          }
-                          //to get the last code
-                          $code = $value_sales["code"] + 1;
-
-                          echo '<input type="text" class="form-control" id="newSale" name="newSale" value="' . $code . '" readonly>';
-                        }
-                      ?>
-                      
+                      <input type="text" class="form-control" id="newSale" name="newSale" value="10002343" readonly>
                     </div>
                   </div>
 
