@@ -2,7 +2,7 @@
 -- Host:                         localhost
 -- Server version:               5.7.24 - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Version:             9.5.0.5332
+-- HeidiSQL Version:             10.2.0.5599
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `address` text,
   `birthdate` date DEFAULT NULL,
   `purchases` int(11) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pos.clients: ~1 rows (approximately)
+-- Dumping data for table pos.clients: ~0 rows (approximately)
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
 REPLACE INTO `clients` (`id`, `name`, `document_id`, `email`, `phone`, `address`, `birthdate`, `purchases`, `date`) VALUES
 	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', NULL, '2021-03-07 10:22:11');
@@ -69,8 +69,10 @@ CREATE TABLE IF NOT EXISTS `products` (
   `buy_price` float DEFAULT NULL,
   `sell_price` float DEFAULT NULL,
   `sales` int(11) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `category_id_idx` (`category_id`),
+  CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table pos.products: ~60 rows (approximately)
@@ -138,6 +140,30 @@ REPLACE INTO `products` (`id`, `category_id`, `code`, `description`, `image`, `s
 	(60, 5, '517', 'Baldosin cutter', '', 20, 930, 1302, NULL, '2021-03-04 20:16:08');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
+-- Dumping structure for table pos.sales
+DROP TABLE IF EXISTS `sales`;
+CREATE TABLE IF NOT EXISTS `sales` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` int(11) NOT NULL,
+  `client_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `products` varchar(100) NOT NULL,
+  `tax` int(11) DEFAULT NULL,
+  `net_price` float DEFAULT NULL,
+  `total_price` float DEFAULT NULL,
+  `payment_method` varchar(45) DEFAULT NULL,
+  `sale_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `client_id_idx` (`client_id`),
+  KEY `seller_id_idx` (`seller_id`),
+  CONSTRAINT `client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `seller_id` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table pos.sales: ~0 rows (approximately)
+/*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sales` ENABLE KEYS */;
+
 -- Dumping structure for table pos.users
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
@@ -149,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `picture` varchar(100) DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `last_login` datetime DEFAULT NULL,
-  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
