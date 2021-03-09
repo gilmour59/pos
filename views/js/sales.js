@@ -82,33 +82,30 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
 
 //When using the table
 $("#products-sales-table").on("draw.dt", function(){
-    
+   
+    var list_remove_storage = [];
+
     if(localStorage.getItem("removeProduct") != null){
 
         //convert JSON to object
-        var list_id_products = JSON.parse(localStorage.getItem("removeProduct"));
-        var list_remove_storage = [];
-        
+        var list_id_products = JSON.parse(localStorage.getItem("removeProduct"));        
+        list_remove_storage = list_id_products;
+
         for(var i = 0; i < list_id_products.length; i++){            
 
             //Check if button exist and remove it from the localStorage
             if($("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").length){
-                
+
                 $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").removeClass('btn-default');
                 $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").addClass('btn-primary addProduct');             
-            }
 
-            list_remove_storage.push(list_id_products[i]["product_id"]);
+                //to remove from localStorage
+                list_remove_storage = list_remove_storage.filter(product => product.product_id != list_remove_storage[0]["product_id"]);
+            }
         }    
         
-        //loop through                  
-        for(var j = 0; j < list_remove_storage.length; j++){              
-            list_id_products = list_id_products.filter(product => product.product_id != list_remove_storage[j]);           
-        }
         
-        localStorage.setItem("removeProduct", JSON.stringify(list_id_products));
-        console.log("list to remove", list_remove_storage)
-        console.log("list products", list_id_products);
+        localStorage.setItem("removeProduct", JSON.stringify(list_remove_storage));
     }
 });
 
