@@ -60,18 +60,18 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                                 '</button>' +
                             '</span>' +
 
-                            '<input type="text" class="form-control" id="addProduct" name="addProduct" value="' + description + '" required readonly>' +
+                            '<input type="text" class="form-control" name="addProduct" value="' + description + '" required readonly>' +
                         '</div>' +
                     '</div>' +
 
                     '<div class="col-xs-3">' +
-                        '<input type="number" class="form-control" id="addProductQuantity" name="addProductQuantity" min="1" value="1" data-sale-stock="' + stock + '" required>' +
+                        '<input type="number" class="form-control" name="addProductQuantity" min="1" value="1" data-sale-stock="' + stock + '" required>' +
                     '</div>' +
 
                     '<div class="col-xs-3" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                         '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                        '<input type="number" class="form-control" id="addProductPrice" name="addProductPrice" min="1" value="' + price + '" readonly required>' +
+                        '<input type="number" class="form-control" name="addProductPrice" min="1" value="' + price + '" readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -87,11 +87,30 @@ $("#products-sales-table").on("draw.dt", function(){
 
         //convert JSON to object
         var list_id_products = JSON.parse(localStorage.getItem("removeProduct"));
+        var list_remove_storage = [];
         
-        for(var i = 0; i < list_id_products.length; i++){
-            $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").removeClass('btn-default');
-            $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").addClass('btn-primary addProduct');
+        for(var i = 0; i < list_id_products.length; i++){            
+
+            list_remove_storage = []
+
+            //Check if button exist and remove it from the localStorage
+            if($("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").length){
+                
+                $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").removeClass('btn-default');
+                $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").addClass('btn-primary addProduct');             
+            }
+
+            list_remove_storage.push(list_id_products[i]["product_id"]);
+        }    
+        
+        //loop through                  
+        for(var j = 0; j < list_remove_storage.length; j++){              
+            list_id_products = list_id_products.filter(product => product.product_id != list_remove_storage[j]);           
         }
+        
+        localStorage.setItem("removeProduct", JSON.stringify(list_id_products));
+        console.log("list to remove", list_remove_storage)
+        console.log("list products", list_id_products);
     }
 });
 
@@ -105,22 +124,59 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
 
     $(this).parent().parent().parent().parent().remove();
 
-    var product_id = $(this).attr("data-product-id");
+    var product_id = $(this).attr("data-product-id");    
 
     //localstorage for the sales product activation bug when going to next page
-    if(localStorage.getItem("removeProduct") == null){
-        
-        id_remove_product = [];
+    if(localStorage.getItem("removeProduct") != null){
+
+        //Find if product is in localstorage (to avoid duplication)
+        var dupe = false;
+        var list_id_products = JSON.parse(localStorage.getItem("removeProduct"));
+
+        for(var i = 0; i < list_id_products.length; i++) {
+            if(list_id_products[i]["product_id"] == product_id) {
+                
+                dupe = true;
+                break;
+            }
+        }
+
+        //remove the dupe verification if the table change has been fixed
+        if(dupe === false){
+
+            //if Button exist then there is no need to save to localStorage
+            if($("button.recoverProduct[data-product-id='"+ product_id +"']").length){
+
+                //changing classes of buttons
+                $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-default');
+                $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-primary addProduct');
+            }else{
+
+                //This triggers when you are in another page and the button is not seen
+                id_remove_product.concat(localStorage.getItem("removeProduct"));
+
+                //getting the id for the local storage
+                id_remove_product.push({"product_id" : product_id});
+                localStorage.setItem("removeProduct", JSON.stringify(id_remove_product));
+            }            
+        }  
+
     }else{
         
-        id_remove_product.concat(localStorage.getItem("removeProduct"));
-    }
+        //if Button exist then there is no need to save to localStorage
+        if($("button.recoverProduct[data-product-id='"+ product_id +"']").length){
 
-    //getting the id for the local storage
-    id_remove_product.push({"product_id" : product_id});
+            //changing classes of buttons
+            $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-default');
+            $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-primary addProduct');
+        }else{
 
-    localStorage.setItem("removeProduct", JSON.stringify(id_remove_product));
+            //This triggers when you are in another page and the button is not seen
+            id_remove_product = [];
 
-    $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-default');
-    $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-primary addProduct');
+            //getting the id for the local storage
+            id_remove_product.push({"product_id" : product_id});
+            localStorage.setItem("removeProduct", JSON.stringify(id_remove_product));   
+        }        
+    }       
 });
