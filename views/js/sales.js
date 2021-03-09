@@ -91,8 +91,6 @@ $("#products-sales-table").on("draw.dt", function(){
         
         for(var i = 0; i < list_id_products.length; i++){            
 
-            list_remove_storage = []
-
             //Check if button exist and remove it from the localStorage
             if($("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").length){
                 
