@@ -175,3 +175,24 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
         }        
     }       
 });
+
+//Adding products with button in mobile
+$(document).on('click', '#btn-add-product', function(){
+   
+    var data = new FormData();
+    data.append('showProductsMobile', 'ok');
+    
+    $.ajax({
+
+        url: "ajax/products.ajax.php",
+        method: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(response){
+            console.log("response: ", response);
+        }
+    });
+});

@@ -19,8 +19,20 @@
 
         //Edit Product
         public $product_id;
+        //For showing products in sales in mobile
+        public $showProductsMobile;
 
         public function ajaxEditProduct(){
+
+            //For Mobile Show Product
+            if($this->showProductsMobile == "ok"){
+
+                $item = null;
+                $value = null;
+                $request = ProductController::ctrShowProducts($item, $value);
+
+                echo json_encode($request);
+            }
 
             $item = "id";
             $value = $this->product_id;
@@ -38,12 +50,20 @@
         $generate_code->ajaxCreateProductCode();
     }
 
-    //Edit User
+    //Edit Product
     if(isset($_POST["productId"])){
 
         $edit_product = new AjaxProducts();
         $edit_product->product_id = $_POST["productId"];
         $edit_product->ajaxEditProduct();
+    }    
+
+    //For Mobile Sales Show Product
+    if(isset($_POST["showProductsMobile"])){
+
+        $show_product_mobile = new AjaxProducts();
+        $show_product_mobile->showProductsMobile = $_POST["showProductsMobile"];
+        $show_product_mobile->ajaxEditProduct();
     }    
 
     

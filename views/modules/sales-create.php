@@ -96,7 +96,7 @@
                   </div>
 
                   <!-- Button Hidden on large screens -->
-                  <button type="button" class="btn btn-default hidden-lg">Add Product</button>
+                  <button id="btn-add-product" type="button" class="btn btn-default hidden-lg">Add Product</button>
                   <hr>
                   <div class="row">
                     <div class="col-xs-8 pull-right">
