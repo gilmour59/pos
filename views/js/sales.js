@@ -181,7 +181,7 @@ $(document).on('click', '#btn-add-product', function(){
    
     var data = new FormData();
     data.append('showProductsMobile', 'ok');
-    
+
     $.ajax({
 
         url: "ajax/products.ajax.php",
@@ -192,7 +192,38 @@ $(document).on('click', '#btn-add-product', function(){
         processData: false,
         dataType: "json",
         success: function(response){
-            console.log("response: ", response);
+            
+            $(".newProduct").append(
+
+                '<div class="row" style="padding:5px 15px">' + 
+
+                    '<div class="col-xs-6" style="padding-right:0px;">' +
+                        '<div class="input-group">' +
+
+                            '<span class="input-group-addon">' +
+                                '<button type="button" class="btn btn-danger btn-xs removeProduct" data-product-id>' +
+                                '<i class="fa fa-times"></i>' +
+                                '</button>' +
+                            '</span>' +
+
+                            '<select class="form-control newDescriptionProduct" data-product-id name="newProductDescription" required>' +
+                                '<option>Select Product</option>' +
+                            '</select>' +
+                        '</div>' +
+                    '</div>' +
+
+                    '<div class="col-xs-3">' +
+                        '<input type="number" class="form-control" name="addProductQuantity" min="1" value="1" data-sale-stock required>' +
+                    '</div>' +
+
+                    '<div class="col-xs-3" style="padding-left:0px;">' +
+                        '<div class="input-group">' +
+                        '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                        '<input type="number" class="form-control" name="addProductPrice" min="1" value readonly required>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>'
+            );
         }
     });
 });
