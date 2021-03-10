@@ -5,3 +5,6 @@ INSERT INTO users (name, username, password, role, picture, status, last_login, 
 
 # if errors
 put static on every method
+
+# mobile bug
+When adding products the same product can be selected multiple times

@@ -64,14 +64,14 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                         '</div>' +
                     '</div>' +
 
-                    '<div class="col-xs-3">' +
+                    '<div class="col-xs-3 parentProductQuantity">' +
                         '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock="' + stock + '" required>' +
                     '</div>' +
 
-                    '<div class="col-xs-3" style="padding-left:0px;">' +
+                    '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
                         '<div class="input-group">' +
-                        '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                        '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value="' + price + '" readonly required>' +
+                            '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" data-product-price="' + price + '" min="1" value="' + price + '" readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -176,6 +176,31 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
     }       
 });
 
+//modify the quantity
+$("#sale-add-form").on("change", "input.addProductQuantity", function(){
+
+    //Multiple to number of quantity
+    var product_price = $(this).parent().parent().children('.parentProductPrice').children().children('.addProductPrice');
+    var final_price = $(this).val() * product_price.attr('data-product-price');
+    product_price.val(final_price);
+
+    //Stock Validation
+    if(Number($(this).val()) > Number($(this).attr('data-product-stock'))){
+
+        $(this).val(1);
+
+        Swal.fire({
+            icon: 'error',
+            title: 'Only ' + $(this).attr('data-product-stock') + ' Stock/s Available!',
+            text: 'Something went wrong!',
+        });
+    }
+});
+
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------
+//MOBILE
 //Adding products with button (mobile)
 
 //to keep track of the added products
@@ -225,7 +250,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                     '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                             '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value readonly required>' +
+                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" data-product-price value readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -273,7 +298,7 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
             console.log(response);
             $(product_quantity).attr("data-product-stock", response['stock']);
             $(product_price).val(response['sell_price']);
-            
+            $(product_price).attr("data-product-price", response['sell_price']);
           }
     });
 });
