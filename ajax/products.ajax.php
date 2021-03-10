@@ -32,13 +32,14 @@
                 $request = ProductController::ctrShowProducts($item, $value);
 
                 echo json_encode($request);
-            }
+            }else{
+                
+                $item = "id";
+                $value = $this->product_id;
+                $request = ProductController::ctrShowProducts($item, $value);
 
-            $item = "id";
-            $value = $this->product_id;
-            $request = ProductController::ctrShowProducts($item, $value);
-
-            echo json_encode($request);
+                echo json_encode($request);
+            }            
         }                
     }
 
