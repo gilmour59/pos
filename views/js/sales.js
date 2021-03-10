@@ -212,14 +212,14 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                         '</div>' +
                     '</div>' +
 
-                    '<div class="col-xs-3">' +
+                    '<div class="col-xs-3 parentProductQuantity">' +
                         '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock required>' +
                     '</div>' +
 
-                    '<div class="col-xs-3" style="padding-left:0px;">' +
+                    '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
                         '<div class="input-group">' +
-                        '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                        '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value readonly required>' +
+                            '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -244,6 +244,10 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
 
     var product_name = $(this).val();
 
+    //to avoid duplication of all the values. This only isolates the new SELECT made
+    var product_price = $(this).parent().parent().parent().children('.parentProductPrice').children().children('.addProductPrice');
+    var product_quantity = $(this).parent().parent().parent().children('.parentProductQuantity').children('.addProductQuantity');
+
     var data = new FormData();
     data.append("productName", product_name);
 
@@ -258,8 +262,8 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
       	dataType: "json",
       	success: function(response){
             console.log(response);
-            $(".addProductQuantity").attr("data-product-stock", response['stock']);
-            $(".addProductPrice").val(response['sell_price']);
+            $(product_quantity).attr("data-product-stock", response['stock']);
+            $(product_price).val(response['sell_price']);
             
           }
     });
