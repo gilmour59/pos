@@ -60,18 +60,18 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                                 '</button>' +
                             '</span>' +
 
-                            '<input type="text" class="form-control" name="addProduct" value="' + description + '" required readonly>' +
+                            '<input type="text" class="form-control addProductDescription" name="addProductDescription" value="' + description + '" required readonly>' +
                         '</div>' +
                     '</div>' +
 
                     '<div class="col-xs-3">' +
-                        '<input type="number" class="form-control" name="addProductQuantity" min="1" value="1" data-sale-stock="' + stock + '" required>' +
+                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock="' + stock + '" required>' +
                     '</div>' +
 
                     '<div class="col-xs-3" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                         '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                        '<input type="number" class="form-control" name="addProductPrice" min="1" value="' + price + '" readonly required>' +
+                        '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value="' + price + '" readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -176,7 +176,7 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
     }       
 });
 
-//Adding products with button in mobile
+//Adding products with button (mobile)
 $(document).on('click', '#btn-add-product-mobile', function(){
    
     var data = new FormData();
@@ -206,24 +206,61 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                                 '</button>' +
                             '</span>' +
 
-                            '<select class="form-control newDescriptionProduct" data-product-id name="newProductDescription" required>' +
+                            '<select class="form-control addProductDescription" data-product-id name="addProductDescription" required>' +
                                 '<option>Select Product</option>' +
                             '</select>' +
                         '</div>' +
                     '</div>' +
 
                     '<div class="col-xs-3">' +
-                        '<input type="number" class="form-control" name="addProductQuantity" min="1" value="1" data-sale-stock required>' +
+                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock required>' +
                     '</div>' +
 
                     '<div class="col-xs-3" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                         '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                        '<input type="number" class="form-control" name="addProductPrice" min="1" value readonly required>' +
+                        '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" value readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
             );
+
+            //Show products in select
+            response.forEach(getAllProductsFunction);
+            
+            function getAllProductsFunction(item, index){
+
+                $(".addProductDescription").append(
+
+                    '<option data-product-id="'+ item.id +'" value="'+ item.description +'">'+ item.description +'</option>'
+                );
+            }
         }
+    });
+});
+
+//Select Product (mobile)
+$("#sale-add-form").on("change", "select.addProductDescription", function(){
+
+    var product_name = $(this).val();
+
+    var data = new FormData();
+    data.append("productName", product_name);
+
+    $.ajax({
+
+        url: "ajax/products.ajax.php",
+      	method: "POST",
+      	data: data,
+      	cache: false,
+      	contentType: false,
+      	processData: false,
+      	dataType: "json",
+      	success: function(response){
+            console.log(response);
+            $(".addProductQuantity").attr("data-product-stock", response['stock']);
+            $(".addProductPrice").val(response['sell_price']);
+            
+          }
     });
 });

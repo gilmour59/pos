@@ -21,6 +21,8 @@
         public $product_id;
         //For showing products in sales in mobile
         public $showProductsMobile;
+        //For getting product detail
+        public $product_name;
 
         public function ajaxEditProduct(){
 
@@ -32,6 +34,15 @@
                 $request = ProductController::ctrShowProducts($item, $value);
 
                 echo json_encode($request);
+
+            }else if($this->product_name != ""){
+
+                $item = "description";
+                $value = $this->product_name;
+                $request = ProductController::ctrShowProducts($item, $value);
+
+                echo json_encode($request);
+
             }else{
                 
                 $item = "id";
@@ -59,11 +70,19 @@
         $edit_product->ajaxEditProduct();
     }    
 
-    //For Mobile Sales Show Product
+    //For Mobile Sales Show Products in select
     if(isset($_POST["showProductsMobile"])){
 
+        $show_products_mobile = new AjaxProducts();
+        $show_products_mobile->showProductsMobile = $_POST["showProductsMobile"];
+        $show_products_mobile->ajaxEditProduct();
+    }    
+
+    //For Mobile Sales Get Product
+    if(isset($_POST["productName"])){
+
         $show_product_mobile = new AjaxProducts();
-        $show_product_mobile->showProductsMobile = $_POST["showProductsMobile"];
+        $show_product_mobile->product_name = $_POST["productName"];
         $show_product_mobile->ajaxEditProduct();
     }    
 
