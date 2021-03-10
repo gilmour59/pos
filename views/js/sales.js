@@ -177,8 +177,14 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
 });
 
 //Adding products with button (mobile)
+
+//to keep track of the added products
+var product_number = 0;
+
 $(document).on('click', '#btn-add-product-mobile', function(){
    
+    product_number++;
+
     var data = new FormData();
 	data.append("showProductsMobile", "ok");
 
@@ -206,7 +212,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                                 '</button>' +
                             '</span>' +
 
-                            '<select class="form-control addProductDescription" data-product-id name="addProductDescription" required>' +
+                            '<select class="form-control addProductDescription" id="product'+ product_number +'" data-product-id name="addProductDescription" required>' +
                                 '<option>Select Product</option>' +
                             '</select>' +
                         '</div>' +
@@ -230,10 +236,13 @@ $(document).on('click', '#btn-add-product-mobile', function(){
             
             function getAllProductsFunction(item, index){
 
-                $(".addProductDescription").append(
+                if(item.stock != 0){
+                    
+                    $("#product" + product_number).append(
 
-                    '<option data-product-id="'+ item.id +'" value="'+ item.description +'">'+ item.description +'</option>'
-                );
+                        '<option data-product-id="'+ item.id +'" value="'+ item.description +'">'+ item.description +'</option>'
+                    );
+                }           
             }
         }
     });
