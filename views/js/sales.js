@@ -71,7 +71,7 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                     '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                             '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" data-product-price="' + price + '" min="1" value="' + price + '" readonly required>' +
+                            '<input type="text" class="form-control addProductPrice" name="addProductPrice" data-product-price="' + price + '" value="' + price + '" readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -82,6 +82,9 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
 
             //Add Tax
             addTax();
+
+            //Format the Product Price
+            $('.addProductPrice').number(true, 2);
         }
     });
 });
@@ -308,6 +311,9 @@ $(document).on('change', '#addSaleTax', function(){
     addTax();
 });
 
+//Format Total Price
+$('#addSaleTotal').number(true, 2);
+
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -361,7 +367,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                     '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
                         '<div class="input-group">' +
                             '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                            '<input type="number" class="form-control addProductPrice" name="addProductPrice" min="1" data-product-price value readonly required>' +
+                            '<input type="text" class="form-control addProductPrice" name="addProductPrice" data-product-price value readonly required>' +
                         '</div>' +
                     '</div>' +
                 '</div>'
@@ -385,6 +391,9 @@ $(document).on('click', '#btn-add-product-mobile', function(){
 
             //Add Tax
             addTax();
+
+            //Format the Product Price
+            $('.addProductPrice').number(true, 2);
         }
     });
 });
@@ -411,7 +420,6 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
       	processData: false,
       	dataType: "json",
       	success: function(response){
-            console.log(response);
             $(product_quantity).attr("data-product-stock", response['stock']);
             $(product_price).val(response['sell_price']);
             $(product_price).attr("data-product-price", response['sell_price']);
