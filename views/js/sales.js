@@ -177,7 +177,10 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
             id_remove_product.push({"product_id" : product_id});
             localStorage.setItem("removeProduct", JSON.stringify(id_remove_product));   
         }        
-    }       
+    }    
+    
+    //Summary of Total Prices
+    summaryTotalPrices();
 });
 
 //when using tables
@@ -204,9 +207,6 @@ $("#products-sales-table").on("draw.dt", function(){
                 list_remove_storage = list_remove_storage.filter(product => product.product_id != id_remove_product[i]["product_id"]);
 
                 localStorage.setItem("removeProduct", JSON.stringify(list_remove_storage));
-
-                console.log("list_remove_storage", list_remove_storage);
-                console.log("list_id_product", id_remove_product);
             }
         }            
     }
@@ -224,6 +224,12 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
     if(Number($(this).val()) > Number($(this).attr('data-product-stock'))){
 
         $(this).val(1);
+        
+        //fixes the value bug
+        product_price.val($(this).val() * product_price.attr('data-product-price'));
+
+        //Summary of Total Prices
+        summaryTotalPrices();
 
         Swal.fire({
             icon: 'error',
@@ -231,6 +237,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
             text: 'Something went wrong!',
         });
     }
+
+    //Summary of Total Prices
+    summaryTotalPrices();
 });
 
 //Sum of Product Prices
@@ -238,14 +247,28 @@ function summaryTotalPrices(){
 
     //get all the prices (this is an array)
     var product_prices = $(".addProductPrice");
-    var price_summary = []; 
+    var price_array = []; 
 
     for(var i = 0; i < product_prices.length; i++){
-        price_summary.push($(product_prices[i]).val());
+        price_array.push(Number($(product_prices[i]).val()));
     }
 
-    //console.log(price_summary);
+    function sumArrayPrices(total, number){
+        
+        return total + number;
+    }
 
+    var sum_price = 0;
+
+    //check if array is empty
+    if(price_array.length == 0){
+        sum_price = 0;
+    }else{
+        //Passing the array adding from left to right
+        sum_price = price_array.reduce(sumArrayPrices);
+    }
+    
+    $('#addSaleTotal').val(sum_price);
 }
 
 
@@ -318,8 +341,10 @@ $(document).on('click', '#btn-add-product-mobile', function(){
 
                         '<option data-product-id="'+ item.id +'" value="'+ item.description +'">'+ item.description +'</option>'
                     );
-                }           
+                }                                 
             }
+            //Summary of Total Prices
+            summaryTotalPrices();
         }
     });
 });
@@ -350,6 +375,9 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
             $(product_quantity).attr("data-product-stock", response['stock']);
             $(product_price).val(response['sell_price']);
             $(product_price).attr("data-product-price", response['sell_price']);
+
+            //Summary of Total Prices
+            summaryTotalPrices();
           }
     });
 });
