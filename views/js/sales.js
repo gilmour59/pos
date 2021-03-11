@@ -76,12 +76,15 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                     '</div>' +
                 '</div>'
             );
+
+            //Summary of Total Prices
+            summaryTotalPrices();
         }
     });
 });
 
 //When using the table
-$("#products-sales-table").on("draw.dt", function(){
+/* $("#products-sales-table").on("draw.dt", function(){
    
     var list_remove_storage = [];
 
@@ -100,14 +103,15 @@ $("#products-sales-table").on("draw.dt", function(){
                 $("button.recoverProduct[data-product-id='"+ list_id_products[i]["product_id"] +"']").addClass('btn-primary addProduct');             
 
                 //to remove from localStorage
-                list_remove_storage = list_remove_storage.filter(product => product.product_id != list_remove_storage[0]["product_id"]);
+                list_remove_storage = list_remove_storage.filter(product => product.product_id != list_id_products[i]["product_id"]);
+
+                localStorage.setItem("removeProduct", JSON.stringify(list_remove_storage));
             }
-        }    
-        
-        
-        localStorage.setItem("removeProduct", JSON.stringify(list_remove_storage));
+        }            
     }
-});
+    console.log("list_remove_storage", list_remove_storage);
+    console.log("list_id_product", list_id_products);
+}); */
 
 //to store
 var id_remove_product = [];
@@ -176,6 +180,38 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
     }       
 });
 
+//when using tables
+$("#products-sales-table").on("draw.dt", function(){
+   
+    var list_remove_storage = [];
+
+    if(localStorage.getItem("removeProduct") != null){
+
+        //id_remove_product array reset (global var)
+        id_remove_product = JSON.parse(localStorage.getItem("removeProduct"));  
+
+        list_remove_storage = id_remove_product;
+
+        for(var i = 0; i < id_remove_product.length; i++){            
+
+            //Check if button exist and remove it from the localStorage
+            if($("button.recoverProduct[data-product-id='"+ id_remove_product[i]["product_id"] +"']").length){
+
+                $("button.recoverProduct[data-product-id='"+ id_remove_product[i]["product_id"] +"']").removeClass('btn-default');
+                $("button.recoverProduct[data-product-id='"+ id_remove_product[i]["product_id"] +"']").addClass('btn-primary addProduct');             
+
+                //to remove from localStorage
+                list_remove_storage = list_remove_storage.filter(product => product.product_id != id_remove_product[i]["product_id"]);
+
+                localStorage.setItem("removeProduct", JSON.stringify(list_remove_storage));
+
+                console.log("list_remove_storage", list_remove_storage);
+                console.log("list_id_product", id_remove_product);
+            }
+        }            
+    }
+});
+
 //modify the quantity
 $("#sale-add-form").on("change", "input.addProductQuantity", function(){
 
@@ -196,6 +232,21 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         });
     }
 });
+
+//Sum of Product Prices
+function summaryTotalPrices(){
+
+    //get all the prices (this is an array)
+    var product_prices = $(".addProductPrice");
+    var price_summary = []; 
+
+    for(var i = 0; i < product_prices.length; i++){
+        price_summary.push($(product_prices[i]).val());
+    }
+
+    //console.log(price_summary);
+
+}
 
 
 
