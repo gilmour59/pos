@@ -85,6 +85,9 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
 
             //Format the Product Price
             $('.addProductPrice').number(true, 2);
+
+            //Generate Cash Change
+            generateCashChange();
         }
     });
 });
@@ -190,6 +193,9 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
 
     //Add Tax
     addTax();
+
+    //Generate Cash Change
+    generateCashChange();
 });
 
 //when using tables
@@ -243,6 +249,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         //Add Tax
         addTax();
 
+        //Generate Cash Change
+        generateCashChange();
+
         Swal.fire({
             icon: 'error',
             title: 'Only ' + $(this).attr('data-product-stock') + ' Stock/s Available!',
@@ -255,6 +264,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
     
     //Add Tax
     addTax();
+
+    //Generate Cash Change
+    generateCashChange();
 });
 
 //Sum of Product Prices
@@ -309,11 +321,77 @@ $(document).on('change', '#addSaleTax', function(){
 
     //Add Tax
     addTax();
+
+    //Generate Cash Change
+    generateCashChange();
 });
 
 //Format Total Price
 $('#addSaleTotal').number(true, 2);
 
+//Selection of Payment Method
+$(document).on('change', '#addPaymentMethod', function(){
+    
+    var method = $(this).val();
+
+    if(method == "cash"){
+
+        //changing the col size
+        $(this).parent().parent().removeClass('col-xs-6');
+        $(this).parent().parent().addClass('col-xs-4');
+        $(this).parent().parent().parent().children('.methodPaymentBoxes').html(
+            '<div class="col-xs-4">' +
+                '<div class="input-group">' +
+                    '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                    '<input type="text" class="form-control addCashValue" placeholder="0000.00" required>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-xs-4 cashChange" style="padding-left: 0px;">' +
+                '<div class="input-group">' +
+                    '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
+                    '<input type="text" class="form-control addCashChange" name="addCashChange" id="addCashChange" placeholder="0000.00" readonly required>' +
+                '</div>' +
+            '</div>'
+        );
+
+        //Format Cash
+        $('.addCashValue').number(true, 2);
+        $('.addCashChange').number(true, 2);
+    }else{
+
+        //changing the col size
+        $(this).parent().parent().removeClass('col-xs-4');
+        $(this).parent().parent().addClass('col-xs-6');
+        $(this).parent().parent().parent().children('.methodPaymentBoxes').html(
+            '<div class="col-xs-6" style="padding-left: 0px;">' +
+                '<div class="input-group">' +
+                    '<input type="text" class="form-control" id="newCodeTransaction" name="newCodeTransaction" placeholder="Code Transaction" required>' +
+                    '<span class="input-group-addon"><i class="fa fa-lock"></i></span>' +
+                '</div>' +
+            '</div>'
+        );
+    }
+});
+
+//Format Cash
+$('.addCashValue').number(true, 2);
+$('.addCashChange').number(true, 2);
+
+//Change in Cash
+$("#sale-add-form").on("change", "input.addCashValue", function(){
+
+    generateCashChange();
+});
+
+function generateCashChange(){
+    
+    var cash = $('.addCashValue').val();
+    var change = Number(cash) - Number($('#addSaleTotal').val());
+
+    var new_change = $('.addCashValue').parent().parent().parent().children('.cashChange').children().children('.addCashChange');
+    
+    new_change.val(change);
+}
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
@@ -394,6 +472,9 @@ $(document).on('click', '#btn-add-product-mobile', function(){
 
             //Format the Product Price
             $('.addProductPrice').number(true, 2);
+
+            //Generate Cash Change
+            generateCashChange();
         }
     });
 });
@@ -429,6 +510,9 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
 
             //Add Tax
             addTax();
+
+            //Generate Cash Change
+            generateCashChange();
           }
     });
 });

@@ -133,7 +133,7 @@
                   <hr>
                   <label>Payment Method:</label>     
                   <div class="form-group row">
-                    <div class="col-xs-6" style="padding-right:0px;">
+                    <div class="col-xs-4" style="padding-right:0px;">
                       <div class="input-group">                                     
                         <select name="addPaymentMethod" id="addPaymentMethod" class="form-control" required>
                           <option value="cash">Cash</option>
@@ -142,10 +142,18 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-xs-6" style="padding-left:0px;">
-                      <div class="input-group">
-                        <input type="text" class="form-control" id="addTransactionCode" name="addTransactionCode" placeholder="Transaction Code" required>
-                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                    <div class="methodPaymentBoxes">
+                      <div class="col-xs-4">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                              <input type="text" class="form-control addCashValue" placeholder="0000.00" required>
+                          </div>
+                      </div>
+                      <div class="col-xs-4 cashChange" style="padding-left: 0px;">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                              <input type="text" class="form-control addCashChange" name="addCashChange" id="addCashChange" placeholder="0000.00" readonly required>
+                          </div>
                       </div>
                     </div>
                   </div> 
