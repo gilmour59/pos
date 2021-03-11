@@ -79,6 +79,9 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
 
             //Summary of Total Prices
             summaryTotalPrices();
+
+            //Add Tax
+            addTax();
         }
     });
 });
@@ -181,6 +184,9 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
     
     //Summary of Total Prices
     summaryTotalPrices();
+
+    //Add Tax
+    addTax();
 });
 
 //when using tables
@@ -231,6 +237,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         //Summary of Total Prices
         summaryTotalPrices();
 
+        //Add Tax
+        addTax();
+
         Swal.fire({
             icon: 'error',
             title: 'Only ' + $(this).attr('data-product-stock') + ' Stock/s Available!',
@@ -240,6 +249,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
 
     //Summary of Total Prices
     summaryTotalPrices();
+    
+    //Add Tax
+    addTax();
 });
 
 //Sum of Product Prices
@@ -269,7 +281,32 @@ function summaryTotalPrices(){
     }
     
     $('#addSaleTotal').val(sum_price);
+    $('#addSaleTotal').attr('data-sale-total', sum_price);
 }
+
+//Add Tax
+function addTax(){
+
+    var tax = $('#addSaleTax').val();
+    var price_total = $('#addSaleTotal').val();
+
+    var tax_price = Number(price_total * (tax / 100));
+
+    var total_with_tax = Number(tax_price) + Number(price_total);
+
+    $('#addSaleTotal').val(total_with_tax);
+    $('#addPriceTax').val(tax_price);
+    $('#addPriceNet').val(price_total);
+}
+
+$(document).on('change', '#addSaleTax', function(){
+    
+    //Summary of Total Prices
+    summaryTotalPrices();
+
+    //Add Tax
+    addTax();
+});
 
 
 
@@ -345,6 +382,9 @@ $(document).on('click', '#btn-add-product-mobile', function(){
             }
             //Summary of Total Prices
             summaryTotalPrices();
+
+            //Add Tax
+            addTax();
         }
     });
 });
@@ -378,6 +418,9 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
 
             //Summary of Total Prices
             summaryTotalPrices();
+
+            //Add Tax
+            addTax();
           }
     });
 });
