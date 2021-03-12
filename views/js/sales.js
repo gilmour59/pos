@@ -362,7 +362,7 @@ $(document).on('change', '#addPaymentMethod', function(){
             '<div class="col-xs-4">' +
                 '<div class="input-group">' +
                     '<span class="input-group-addon"><i class="ion ion-social-usd"></i></span>' +
-                    '<input type="text" class="form-control addCashValue" placeholder="0000.00" required>' +
+                    '<input type="text" class="form-control addCashValue" id="addCashValue" placeholder="0000.00" required>' +
                 '</div>' +
             '</div>' +
             '<div class="col-xs-4 cashChange" style="padding-left: 0px;">' +
@@ -373,9 +373,12 @@ $(document).on('change', '#addPaymentMethod', function(){
             '</div>'
         );
 
+        //on changing to cash
+        listPaymentMethods();
+
         //Format Cash
-        $('.addCashValue').number(true, 2);
-        $('.addCashChange').number(true, 2);
+        $('#addCashValue').number(true, 2);
+        $('#addCashChange').number(true, 2);
     }else{
 
         //changing the col size
@@ -392,22 +395,28 @@ $(document).on('change', '#addPaymentMethod', function(){
     }
 });
 
+//Other than Cash Transaction
+$("#sale-add-form").on("change", "input#newCodeTransaction", function(){
+
+    listPaymentMethods();
+});
+
 //Format Cash
-$('.addCashValue').number(true, 2);
-$('.addCashChange').number(true, 2);
+$('#addCashValue').number(true, 2);
+$('#addCashChange').number(true, 2);
 
 //Change in Cash
-$("#sale-add-form").on("change", "input.addCashValue", function(){
+$("#sale-add-form").on("change", "input#addCashValue", function(){
 
     generateCashChange();
 });
 
 function generateCashChange(){
     
-    var cash = $('.addCashValue').val();
+    var cash = $('#addCashValue').val();
     var change = Number(cash) - Number($('#addSaleTotal').val());
 
-    var new_change = $('.addCashValue').parent().parent().parent().children('.cashChange').children().children('.addCashChange');
+    var new_change = $('#addCashValue').parent().parent().parent().children('.cashChange').children().children('#addCashChange');
     
     new_change.val(change);
 }
@@ -440,6 +449,20 @@ function listProducts(){
 
     //This is different in the vid
     $('#productList').val(JSON.stringify(product_list));
+}
+
+//List of Payment Methods
+function listPaymentMethods(){
+
+    var payment_method_list = "";
+
+    if($('#addPaymentMethod').val() == "cash"){
+
+        $('#paymentMethodList').val('cash');
+    }else{
+        
+        $('#paymentMethodList').val($('#addPaymentMethod').val() + "-" + $('#newCodeTransaction').val());
+    }
 }
 
 //-----------------------------------------------------------------------------------------------------------------------------------------

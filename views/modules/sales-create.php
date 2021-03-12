@@ -137,8 +137,8 @@
                       <div class="input-group">                                     
                         <select name="addPaymentMethod" id="addPaymentMethod" class="form-control" required>
                           <option value="cash">Cash</option>
-                          <option value="creditcard">Credit Card</option>
-                          <option value="debitcard">Debit Card</option>
+                          <option value="cc">Credit Card</option>
+                          <option value="dc">Debit Card</option>
                         </select>
                       </div>
                     </div>
@@ -146,7 +146,7 @@
                       <div class="col-xs-4">
                           <div class="input-group">
                               <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                              <input type="text" class="form-control addCashValue" placeholder="0000.00" required>
+                              <input type="text" class="form-control addCashValue" id="addCashValue" placeholder="0000.00" required>
                           </div>
                       </div>
                       <div class="col-xs-4 cashChange" style="padding-left: 0px;">
@@ -156,6 +156,7 @@
                           </div>
                       </div>
                     </div>
+                    <input type="hidden" name="paymentMethodList" id="paymentMethodList" value="cash">
                   </div> 
                   <br>                 
                 </div>                

@@ -8,3 +8,6 @@ put static on every method
 
 # mobile bug
 When adding products the same product can be selected multiple times
+
+# TODO
+1. Add verification button on every save or modification.
