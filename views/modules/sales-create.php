@@ -26,7 +26,7 @@
                     <label for="newSeller">Seller:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" id="newSeller" name="newSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
+                      <input type="text" class="form-control" id="newSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
                       
                       <input type="hidden" name="idSeller" value="<?php echo $_SESSION["id"]; ?>">
                     </div>
@@ -46,7 +46,7 @@
 
                         if(!$sales){
                           
-                          echo '<input type="text" class="form-control" id="newSale" name="newSale" value="10001" readonly>';
+                          echo '<input type="text" class="form-control" id="newSaleCode" name="newSaleCode" value="10001" readonly>';
                         }else{
                           
                           foreach($sales as $key => $value_sale){
@@ -55,7 +55,7 @@
                           //to get the last code
                           $code = $value_sale["code"] + 1;
 
-                          echo '<input type="text" class="form-control" id="newSale" name="newSale" value="' . $code . '" readonly>';
+                          echo '<input type="text" class="form-control" id="newSaleCode" name="newSaleCode" value="' . $code . '" readonly>';
                         }
                       ?>
                       
