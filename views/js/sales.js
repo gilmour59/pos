@@ -239,11 +239,7 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
     //Multiple to number of quantity
     var product_price = $(this).parent().parent().children('.parentProductPrice').children().children('.addProductPrice');
     var final_price = $(this).val() * product_price.attr('data-product-price');
-    product_price.val(final_price);
-
-    //Changing the new stock value
-    var new_stock = Number($(this).attr('data-product-stock')) - Number($(this).val());
-    $(this).attr('data-product-new-stock', new_stock);
+    product_price.val(final_price);    
 
     //Stock Validation
     if(Number($(this).val()) > Number($(this).attr('data-product-stock'))){
@@ -253,7 +249,7 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         //fixes the value bug
         product_price.val($(this).val() * product_price.attr('data-product-price'));
 
-        //Summary of Total Prices
+        /* //Summary of Total Prices
         summaryTotalPrices();
 
         //Add Tax
@@ -263,7 +259,7 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         listProducts();
 
         //Generate Cash Change
-        generateCashChange();
+        generateCashChange(); */
 
         Swal.fire({
             icon: 'error',
@@ -271,6 +267,10 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
             text: 'Something went wrong!',
         });
     }
+
+    //Changing the new stock value
+    var new_stock = Number($(this).attr('data-product-stock')) - Number($(this).val());
+    $(this).attr('data-product-new-stock', new_stock);
 
     //Summary of Total Prices
     summaryTotalPrices();
