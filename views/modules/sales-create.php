@@ -123,6 +123,9 @@
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                 <input type="text" class="form-control input-lg" id="addSaleTotal" name="addSaleTotal" data-sale-total placeholder="0000.00" readonly required>
+
+                                <!-- Getting the Total without the format -->
+                                <input type="hidden" name="totalSale" id="totalSale">
                               </div>
                             </td>
                           </tr>

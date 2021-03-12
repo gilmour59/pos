@@ -312,6 +312,7 @@ function summaryTotalPrices(){
     }
     
     $('#addSaleTotal').val(sum_price);
+    $('#totalSale').val(sum_price);
     $('#addSaleTotal').attr('data-sale-total', sum_price);
 }
 
@@ -326,6 +327,7 @@ function addTax(){
     var total_with_tax = Number(tax_price) + Number(price_total);
 
     $('#addSaleTotal').val(total_with_tax);
+    $('#totalSale').val(total_with_tax);
     $('#addPriceTax').val(tax_price);
     $('#addPriceNet').val(price_total);
 }
