@@ -94,7 +94,7 @@
                   <div class="form-group row newProduct">
                     
                   </div>
-
+                  <input type="hidden" id="productList" name="productList">
                   <!-- Button Hidden on large screens -->
                   <button id="btn-add-product-mobile" type="button" class="btn btn-default hidden-lg">Add Product</button>
                   <hr>

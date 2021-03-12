@@ -60,12 +60,12 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
                                 '</button>' +
                             '</span>' +
 
-                            '<input type="text" class="form-control addProductDescription" name="addProductDescription" value="' + description + '" required readonly>' +
+                            '<input type="text" class="form-control addProductDescription" data-product-id="' + product_id + '" name="addProductDescription" value="' + description + '" required readonly>' +
                         '</div>' +
                     '</div>' +
 
                     '<div class="col-xs-3 parentProductQuantity">' +
-                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock="' + stock + '" required>' +
+                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock="' + stock + '" data-product-new-stock="' + Number(stock-1) + '" required>' +
                     '</div>' +
 
                     '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
@@ -82,6 +82,9 @@ $("#products-sales-table tbody").on("click", "button.addProduct", function(){
 
             //Add Tax
             addTax();
+
+            //Generating JSON product list
+            listProducts();
 
             //Format the Product Price
             $('.addProductPrice').number(true, 2);
@@ -194,6 +197,9 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
     //Add Tax
     addTax();
 
+    //Generating JSON product list
+    listProducts();
+
     //Generate Cash Change
     generateCashChange();
 });
@@ -235,6 +241,10 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
     var final_price = $(this).val() * product_price.attr('data-product-price');
     product_price.val(final_price);
 
+    //Changing the new stock value
+    var new_stock = Number($(this).attr('data-product-stock')) - Number($(this).val());
+    $(this).attr('data-product-new-stock', new_stock);
+
     //Stock Validation
     if(Number($(this).val()) > Number($(this).attr('data-product-stock'))){
 
@@ -248,6 +258,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
 
         //Add Tax
         addTax();
+
+        //Generating JSON product list
+        listProducts();
 
         //Generate Cash Change
         generateCashChange();
@@ -264,6 +277,9 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
     
     //Add Tax
     addTax();
+
+    //Generating JSON product list
+    listProducts();
 
     //Generate Cash Change
     generateCashChange();
@@ -321,6 +337,9 @@ $(document).on('change', '#addSaleTax', function(){
 
     //Add Tax
     addTax();
+
+    //Generating JSON product list
+    listProducts();
 
     //Generate Cash Change
     generateCashChange();
@@ -393,6 +412,35 @@ function generateCashChange(){
     new_change.val(change);
 }
 
+//Adding to database (json)
+function listProducts(){
+
+    var product_list = [];
+
+    //Getting all the table columns
+    var id;
+    var description = $('.addProductDescription');
+    var quantity = $('.addProductQuantity');
+    var price = $('.addProductPrice');
+    var total;
+
+    for(var i = 0; i < description.length; i++){
+
+        product_list.push({
+            "id" : $(description[i]).attr('data-product-id'),
+            "description" : $(description[i]).val(),
+            "quantity" : $(quantity[i]).val(),
+            "stock" : $(quantity[i]).attr('data-product-new-stock'),
+            "net_price" : $(price[i]).attr('data-product-price'),
+            "total_price" : $(price[i]).val()
+        });
+    }
+
+    console.log('product_list', product_list);
+
+    //This is different in the vid
+    $('#productList').val(JSON.stringify(product_list));
+}
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //MOBILE
@@ -439,7 +487,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
                     '</div>' +
 
                     '<div class="col-xs-3 parentProductQuantity">' +
-                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock required>' +
+                        '<input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="1" data-product-stock data-product-new-stock required>' +
                     '</div>' +
 
                     '<div class="col-xs-3 parentProductPrice" style="padding-left:0px;">' +
@@ -468,7 +516,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
             summaryTotalPrices();
 
             //Add Tax
-            addTax();
+            addTax();            
 
             //Format the Product Price
             $('.addProductPrice').number(true, 2);
@@ -483,6 +531,7 @@ $(document).on('click', '#btn-add-product-mobile', function(){
 $("#sale-add-form").on("change", "select.addProductDescription", function(){
 
     var product_name = $(this).val();
+    var product_id = $(this);
 
     //to avoid duplication of all the values. This only isolates the new SELECT made
     var product_price = $(this).parent().parent().parent().children('.parentProductPrice').children().children('.addProductPrice');
@@ -501,15 +550,21 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
       	processData: false,
       	dataType: "json",
       	success: function(response){
+
+            $(product_id).attr("data-product-id", response['id']);
             $(product_quantity).attr("data-product-stock", response['stock']);
+            $(product_quantity).attr("data-product-new-stock", Number(response['stock'] - 1));
             $(product_price).val(response['sell_price']);
-            $(product_price).attr("data-product-price", response['sell_price']);
+            $(product_price).attr("data-product-price", response['sell_price']);            
 
             //Summary of Total Prices
             summaryTotalPrices();
 
             //Add Tax
             addTax();
+
+            //Generating JSON product list
+            listProducts();
 
             //Generate Cash Change
             generateCashChange();
