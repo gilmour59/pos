@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         localhost
--- Server version:               5.7.24 - MySQL Community Server (GPL)
+-- Server version:               5.7.19 - MySQL Community Server (GPL)
 -- Server OS:                    Win64
--- HeidiSQL Version:             10.2.0.5599
+-- HeidiSQL Version:             9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -147,11 +147,11 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `code` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `seller_id` int(11) NOT NULL,
-  `products` varchar(100) NOT NULL,
+  `products` text NOT NULL,
   `tax` int(11) DEFAULT NULL,
   `net_price` float DEFAULT NULL,
   `total_price` float DEFAULT NULL,
-  `payment_method` varchar(45) DEFAULT NULL,
+  `payment_method` varchar(200) DEFAULT NULL,
   `sale_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `client_id_idx` (`client_id`),
