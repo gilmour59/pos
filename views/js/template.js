@@ -4,7 +4,9 @@ $(document).ready(function () {
 })
 
 //Datatable for User  
-$('.datatable-user').DataTable();
+$('.datatable-user').DataTable({
+    "order": [[ 1, "desc" ]]
+});
 
 //iCheck for checkbox and radio inputs
 $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({

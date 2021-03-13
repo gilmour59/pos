@@ -3,11 +3,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Create Sales
+        Edit Sales
       </h1>
       <ol class="breadcrumb">
         <li><a href="home"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Create Sales</li>
+        <li class="active">Edit Sales</li>
       </ol>
     </section>
 
@@ -21,12 +21,23 @@
             <form role="form" method="post" id="sale-add-form">
               <div class="box-body">              
                 <div class="box">
+                
+                <?php
+
+                  $item = "id";
+                  $value = $_GET['sale-id'];
+                  
+                  $sales = SaleController::ctrShowSales($item, $value);
+
+                  var_dump($sales);
+                  
+                ?>
 
                   <div class="form-group">
-                    <label for="newSeller">Seller:</label>
+                    <label for="editSeller">Seller:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" id="newSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
+                      <input type="text" class="form-control" id="editSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
                       
                       <input type="hidden" name="idSeller" value="<?php echo $_SESSION["id"]; ?>">
                     </div>
@@ -37,12 +48,9 @@
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
 
-                      <?php
+                      <?php                        
 
-                        $item = null;
-                        $value = null;
-
-                        $sales = SaleController::ctrShowSales($item, $value);
+                        
 
                         if(!$sales){
                           

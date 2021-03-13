@@ -103,6 +103,7 @@
             $_GET["route"] == "clients" ||
             $_GET["route"] == "sales" ||
             $_GET["route"] == "sales-create" ||
+            $_GET["route"] == "sales-edit" ||
             $_GET["route"] == "sales-report" ||
             $_GET["route"] == "logout"){
 
