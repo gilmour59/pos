@@ -447,7 +447,7 @@ function listProducts(){
         });
     }
 
-    console.log('product_list', product_list);
+    //console.log('product_list', product_list);
 
     //This is different in the vid
     $('#productList').val(JSON.stringify(product_list));

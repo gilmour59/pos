@@ -72,6 +72,22 @@ class ProductModel{
         $stmt = null;
     }
 
+    static public function mdlUpdateProduct($table, $item, $value, $id){
+
+        $stmt = Connection::connect()->prepare("UPDATE $table SET $item = :$item WHERE id = :id");
+
+        $stmt->bindParam(":" . $item, $value, PDO::PARAM_STR);            
+        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+
+        $stmt = null;
+    }
+
     static public function mdlDeleteProduct($table, $data){
 
         $stmt = Connection::connect()->prepare("DELETE FROM $table WHERE id = :id");

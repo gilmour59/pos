@@ -167,6 +167,17 @@
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
               </div>
+
+              <?php
+
+                //Adding sales
+                $createSale = new SaleController();
+                $createSale->ctrCreateSale();
+
+                //$deleteSale = new SaleController();
+                //$deleteSale->ctrDeleteSale();
+              ?>
+
             </form>
           </div>
         </div>
