@@ -7,7 +7,7 @@ class SaleModel{
 
         if($item != null){
 
-            $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item ORDER BY sale_date DESC");
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE $item = :$item ORDER BY id ASC");
         
             //PDO::PARAM_STR for string
             $stmt->bindParam(":" . $item, $value, PDO::PARAM_STR);
@@ -17,7 +17,7 @@ class SaleModel{
             return $stmt->fetch();
         }else{
 
-            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY sale_date DESC");
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY id ASC");
 
             $stmt->execute();
 
