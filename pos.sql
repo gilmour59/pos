@@ -47,14 +47,17 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `address` text,
   `birthdate` date DEFAULT NULL,
   `purchases` int(11) DEFAULT NULL,
+  `last_purchase` datetime DEFAULT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pos.clients: ~0 rows (approximately)
+-- Dumping data for table pos.clients: ~3 rows (approximately)
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
-REPLACE INTO `clients` (`id`, `name`, `document_id`, `email`, `phone`, `address`, `birthdate`, `purchases`, `date`) VALUES
-	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', NULL, '2021-03-07 10:22:11');
+REPLACE INTO `clients` (`id`, `name`, `document_id`, `email`, `phone`, `address`, `birthdate`, `purchases`, `last_purchase`, `date`) VALUES
+	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', 32, '2021-03-14 01:14:26', '2021-03-14 01:14:26'),
+	(2, 'test', 3333, '123@s.com', '(12-312312312)', '123123', '2012-03-31', 2, '2021-03-14 01:15:41', '2021-03-14 01:15:41'),
+	(3, 'test2', 1234, '123@s.com', '(12-312312312)', '123', '2013-12-31', NULL, NULL, '2021-03-14 00:50:47');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table pos.products
@@ -78,16 +81,16 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table pos.products: ~60 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 REPLACE INTO `products` (`id`, `category_id`, `code`, `description`, `image`, `stock`, `buy_price`, `sell_price`, `sales`, `date`) VALUES
-	(1, 1, '101', 'Industrial vacuum cleaner', '', 20, 1500, 2100, NULL, '2021-03-04 20:16:06'),
-	(2, 1, '102', 'Float Plate for Palletizer', '', 20, 4500, 6300, NULL, '2021-03-04 20:16:06'),
-	(3, 1, '103', 'Air Compressor for painting', '', 20, 3000, 4200, NULL, '2021-03-04 20:16:06'),
-	(4, 1, '104', 'Adobe Cutter without Disk', '', 20, 4000, 5600, NULL, '2021-03-04 20:16:06'),
+	(1, 1, '101', 'Industrial vacuum cleaner', '', 10, 1500, 2100, 10, '2021-03-13 23:15:36'),
+	(2, 1, '102', 'Float Plate for Palletizer', '', 15, 4500, 6300, 5, '2021-03-14 01:14:26'),
+	(3, 1, '103', 'Air Compressor for painting', '', 13, 3000, 4200, 7, '2021-03-13 23:16:34'),
+	(4, 1, '104', 'Adobe Cutter without Disk', '', 18, 4000, 5600, 2, '2021-03-14 01:15:41'),
 	(5, 1, '105', 'Floor Cutter without Disk', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:06'),
 	(6, 1, '106', 'Diamond Tip Disk', '', 20, 1100, 1540, NULL, '2021-03-04 20:16:06'),
 	(7, 1, '107', 'Air extractor', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:06'),
 	(8, 1, '108', 'Mower', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:07'),
 	(9, 1, '109', 'Electric Water Washer', '', 20, 2600, 3640, NULL, '2021-03-04 20:16:07'),
-	(10, 1, '110', 'Petrol pressure washer', '', 20, 2210, 3094, NULL, '2021-03-04 20:16:07'),
+	(10, 1, '110', 'Petrol pressure washer', '', 10, 2210, 3094, 10, '2021-03-13 23:15:36'),
 	(11, 1, '111', 'Gasoline motor pump', '', 20, 2860, 4004, NULL, '2021-03-04 20:16:07'),
 	(12, 1, '112', 'Electric motor pump', '', 20, 2400, 3360, NULL, '2021-03-04 20:16:07'),
 	(13, 1, '113', 'Circular saw', '', 20, 1100, 1540, NULL, '2021-03-04 20:16:07'),
@@ -158,10 +161,15 @@ CREATE TABLE IF NOT EXISTS `sales` (
   KEY `seller_id_idx` (`seller_id`),
   CONSTRAINT `client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `seller_id` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pos.sales: ~0 rows (approximately)
+-- Dumping data for table pos.sales: ~4 rows (approximately)
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
+REPLACE INTO `sales` (`id`, `code`, `client_id`, `seller_id`, `products`, `tax`, `net_price`, `total_price`, `payment_method`, `sale_date`) VALUES
+	(1, 10001, 1, 1, '[{"id":"1","description":"Industrial vacuum cleaner","quantity":"10","stock":"10","net_price":"2100","total_price":"21000"},{"id":"10","description":"Petrol pressure washer","quantity":"10","stock":"10","net_price":"3094","total_price":"30940"}]', 5194, 51940, 57134, 'cash', '2021-03-13 23:15:36'),
+	(2, 10002, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"3","stock":"17","net_price":"6300","total_price":"18900"},{"id":"3","description":"Air Compressor for painting","quantity":"7","stock":"13","net_price":"4200","total_price":"29400"}]', 483, 48300, 48783, 'cash', '2021-03-13 23:16:34'),
+	(3, 10002, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"2","stock":"15","net_price":"6300","total_price":"12600"}]', 252, 12600, 12852, 'cash', '2021-03-14 01:14:26'),
+	(4, 10002, 2, 1, '[{"id":"4","description":"Adobe Cutter without Disk","quantity":"2","stock":"18","net_price":"5600","total_price":"11200"}]', 224, 11200, 11424, 'cash', '2021-03-14 01:15:41');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 
 -- Dumping structure for table pos.users
