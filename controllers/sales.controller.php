@@ -22,10 +22,11 @@ class SaleController{
 
             foreach($product_list as $key => $value){
                 
-                $table_product = "products";
+                /* $table_product = "products";
                 $product_item = "id";
                 $product_id = $value['id'];
                 
+                //Get Product
                 $show_product = ProductModel::mdlShowProducts($table_product, $product_item, $product_id);
 
                 //Update product sales and stocks
@@ -40,10 +41,17 @@ class SaleController{
                 $product_update_stocks_value = $value['stock'];
 
                 $update_product_stock = ProductModel::mdlUpdateProduct($table_product, $product_update_stocks_item, 
-                                                                        $product_update_stocks_value, $product_id);
-                
-                
+                                                                        $product_update_stocks_value, $product_id); */
             }
+
+            $table_client = "clients";
+            $client_item = "id";
+            $client_value = $_POST['selectClient'];
+
+            //Get Client
+            $show_client = ClientModel::mdlShowClients($table_client, $client_item, $client_value);
+            
+            var_dump($show_client);
         }
     } 
 }
