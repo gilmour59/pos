@@ -57,7 +57,7 @@
                         <td>' . $value["address"] . '</td>
                         <td>' . $value["birthdate"] . '</td>
                         <td>' . $value["purchases"] . '</td>
-                        <td>Last Purchases</td>
+                        <td>' . $value["last_purchase"] .'</td>
                         <td>' . $value["date"] . '</td>
                         <td>
                           <div class="btn-group">

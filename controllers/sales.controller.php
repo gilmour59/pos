@@ -79,6 +79,21 @@ class SaleController{
                 $client_update_purchases = ClientModel::mdlUpdateClient($table_client, $client_update_purchases_item, 
                                                                         $client_update_purchases_value, $client_id);
 
+                //Update Client Purchases
+                $client_update_last_purchase_item = "last_purchase";
+
+                //get last login date and time
+                date_default_timezone_set('Asia/Manila');
+                $date = date('Y-m-d');
+                $hour = date('H:i:s');
+
+                $currentDate = $date . ' ' . $hour;
+
+                $client_update_last_purchase_value = $currentDate;
+    
+                $client_update_purchases = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
+                                                                        $client_update_last_purchase_value, $client_id);
+
                 echo "<script>                
                     Swal.fire({
                         icon: 'success',
