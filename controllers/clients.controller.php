@@ -32,7 +32,19 @@ class ClientController{
 
                 $result = ClientModel::mdlAddClient($table, $data);
                 
-                if($result == "ok"){
+                if($result == "ok" && isset($_POST['clientAddSale'])){
+                    echo "<script>                
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Client was saved successfully!',
+                            text: 'Hooray!',
+                        }).then((result)=>{
+                            if(result.value){
+                                window.location = 'sales-create';
+                            }
+                        });
+                    </script>";
+                }else if($result == "ok"){
                     echo "<script>                
                         Swal.fire({
                             icon: 'success',

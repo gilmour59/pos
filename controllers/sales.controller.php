@@ -86,7 +86,7 @@ class SaleController{
                         text: 'Hooray!',
                     }).then((result)=>{
                         if(result.value){
-                            window.location = 'sales-create';
+                            window.location = 'sales';
                         }
                     });
                 </script>";

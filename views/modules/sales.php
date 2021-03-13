@@ -39,20 +39,45 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <button class="btn btn-info"><i class="fa fa-print"></i></button>
-                <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-              </td>
-            </tr>
+
+          <?php
+            $item = null;
+            $value = null;
+
+            $result = SaleController::ctrShowSales($item, $value);
+
+            foreach($result as $key => $value){
+              
+              echo '<tr>
+                      <td>' . $value['id'] . '</td>
+                      <td>' . $value['code'] . '</td>';
+
+                      //Getting Client
+                      $client_item = "id";
+                      $client_value = $value['client_id'];
+                      $client = ClientController::ctrShowClients($client_item, $client_value);
+
+              echo   '<td>' . $client['name'] . '</td>';
+
+                      //Getting Seller
+                      $seller_item = "id";
+                      $seller_value = $value['seller_id'];
+                      $seller = UserController::ctrShowUsers($seller_item, $seller_value);
+
+              echo   '<td>' . $seller['name'] . '</td>
+
+                      <td>' . $value['payment_method'] . '</td>
+                      <td>' . number_format($value['net_price'], 2) . '</td>
+                      <td>' . number_format($value['total_price'], 2) . '</td>
+                      <td>' . $value['sale_date'] . '</td>
+                      <td>
+                        <button class="btn btn-info"><i class="fa fa-print"></i></button>
+                        <button class="btn btn-danger"><i class="fa fa-times"></i></button>
+                      </td>
+                    </tr>';
+            }
+          ?>
+                      
           </tbody>
         </table>
       </div>

@@ -270,6 +270,7 @@
             </div>
 
             <input type="hidden" name="clientAdd" id="clientAdd">
+            <input type="hidden" name="clientAddSale" id="clientAddSale">
 
           </div>
         </div>
@@ -282,9 +283,6 @@
           //Adding clients 
           $createClient = new ClientController();
           $createClient->ctrAddClient();
-
-          $deleteClient = new ClientController();
-          $deleteClient->ctrDeleteClient();
         ?>
         
       </form>
