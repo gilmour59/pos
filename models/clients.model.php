@@ -71,6 +71,23 @@ class ClientModel{
 
         $stmt = null;
     }
+    
+    //update client
+    static public function mdlUpdateClient($table, $item, $value, $id){
+
+        $stmt = Connection::connect()->prepare("UPDATE $table SET $item = :$item WHERE id = :id");
+
+        $stmt->bindParam(":" . $item, $value, PDO::PARAM_STR);            
+        $stmt->bindParam(":id", $id, PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+
+        $stmt = null;
+    }
 
     //delete client
     static public function mdlDeleteClient($table, $data){

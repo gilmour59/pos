@@ -63,7 +63,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label for="selectClient">Select Customer:</label>
+                    <label for="selectClient">Select Client:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-users"></i></span>
                       <select name="selectClient" id="selectClient" class="form-control" required>
