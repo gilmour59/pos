@@ -231,7 +231,7 @@ class SaleController{
     
                 $table_client = "clients";
                 $client_item = "id";
-                $client_id = $_POST['selectClient'];
+                $client_id = $_POST['editClient'];
     
                 //Get Client
                 $show_client = ClientModel::mdlShowClients($table_client, $client_item, $client_id);
