@@ -125,6 +125,9 @@ class SaleController{
     public function ctrEditSale(){
 
         if(isset($_POST["editSaleCode"])){
+            
+            //Format Products and Clients table
+            
 
             //Update the purchases of client || Reduce Stock || Update Sales            
             $product_list = json_decode($_POST["productList"], true);
@@ -134,8 +137,8 @@ class SaleController{
             //Adding the sales
             $table_sale = "sales";
             $data = array(
-                "code" => $_POST['newSaleCode'],
-                "client_id"=> $_POST['selectClient'],
+                "code" => $_POST['editSaleCode'],
+                "client_id"=> $_POST['editClient'],
                 "seller_id"=> $_POST['idSeller'],
                 "products"=> $_POST['productList'],
                 "tax"=> $_POST['addPriceTax'],

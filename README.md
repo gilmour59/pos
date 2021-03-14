@@ -12,3 +12,4 @@ When adding products the same product can be selected multiple times
 # TODO
 1. Add verification button on every save or modification.
 2. REDO all the select tags with EMPTY VALUE
+3. Removing the update on last purchase in sales edit
