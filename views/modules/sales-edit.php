@@ -32,8 +32,6 @@
                   //Getting tax percentage
                   $tax_percentage = $sales['tax'] * 100 / $sales['net_price'];
 
-                  var_dump($sales);
-
                   $user_item = "id";
                   $user_value = $sales["seller_id"];
 
@@ -68,6 +66,7 @@
                     <label for="editClient">Select Client:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                      <input type="hidden" name="previousClient" id="previousClient" value="<?php echo $client['id']; ?>">
                       <select name="editClient" id="editClient" class="form-control" required>
                         <option value="<?php echo $client['id']; ?>"><?php echo $client['name']; ?></option>
 
@@ -103,7 +102,6 @@
 
                       $product_list = json_decode($sales['products'], true);
 
-                      var_dump($product_list);
                       foreach($product_list as $key => $value_products){
 
                         $product_item = "id";

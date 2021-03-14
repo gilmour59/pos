@@ -50,6 +50,30 @@ class SaleModel{
 
         $stmt = null;
     }
+
+    //edit sale
+    static public function mdlEditSale($table, $data){
+
+        $stmt = Connection::connect()->prepare("UPDATE $table SET client_id = :client_id, seller_id = :seller_id, products = :products, tax = :tax, 
+                                                net_price = :net_price, total_price = :total_price, payment_method = :payment_method WHERE code = :code");
+
+        $stmt->bindParam(":code", $data["code"], PDO::PARAM_STR);
+        $stmt->bindParam(":client_id", $data["client_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":seller_id", $data["seller_id"], PDO::PARAM_INT);
+        $stmt->bindParam(":products", $data["products"], PDO::PARAM_STR);
+        $stmt->bindParam(":tax", $data["tax"], PDO::PARAM_STR);
+        $stmt->bindParam(":net_price", $data["net_price"], PDO::PARAM_STR);
+        $stmt->bindParam(":total_price", $data["total_price"], PDO::PARAM_STR);
+        $stmt->bindParam(":payment_method", $data["payment_method"], PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            return "ok";
+        }else{
+            return "error";
+        }
+
+        $stmt = null;
+    }
 }
 
 ?>
