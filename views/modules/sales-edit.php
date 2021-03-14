@@ -214,17 +214,15 @@
                 </div>                
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary pull-right">Save Changes</button>
+                <button type="submit" class="btn btn-primary pull-right">Modify Changes</button>
               </div>
 
               <?php
 
-                //Adding sales
-                $createSale = new SaleController();
-                $createSale->ctrCreateSale();
+                //Editing sales
+                $editSale = new SaleController();
+                $editSale->ctrEditSale();
 
-                //$deleteSale = new SaleController();
-                //$deleteSale->ctrDeleteSale();
               ?>
 
             </form>
