@@ -127,6 +127,13 @@ class SaleController{
         if(isset($_POST["editSaleCode"])){
             
             //Format Products and Clients table
+            $table_sale = "sales";
+            
+            $sale_item = "code";
+            $sale_value = $_POST["editSaleCode"];
+
+            $show_sale = SaleModel::mdlShowSales($table_sale, $sale_item, $sale_value);
+
             
 
             //Update the purchases of client || Reduce Stock || Update Sales            
@@ -134,8 +141,7 @@ class SaleController{
             //Purchases Counter
             $total_purchases = array();            
 
-            //Adding the sales
-            $table_sale = "sales";
+            //Adding the sales            
             $data = array(
                 "code" => $_POST['editSaleCode'],
                 "client_id"=> $_POST['editClient'],
