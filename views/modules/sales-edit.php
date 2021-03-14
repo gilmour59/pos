@@ -29,6 +29,9 @@
                   
                   $sales = SaleController::ctrShowSales($item, $value);
 
+                  //Getting tax percentage
+                  $tax_percentage = $sales['tax'] * 100 / $sales['net_price'];
+
                   var_dump($sales);
 
                   $user_item = "id";
@@ -57,7 +60,7 @@
                     <label for="editSaleCode">Sale:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                      <input type="text" class="form-control" id="editSaleCode" name="editSaleCode" value="<?php echo $sales['code'] ?>" readonly>
+                      <input type="text" class="form-control" id="editSaleCode" name="editSaleCode" value="<?php echo $sales['code']; ?>" readonly>
                     </div>
                   </div>
 
@@ -66,7 +69,7 @@
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-users"></i></span>
                       <select name="editClient" id="editClient" class="form-control" required>
-                        <option value="<?php echo $client['id'] ?>"><?php echo $client['name'] ?></option>
+                        <option value="<?php echo $client['id']; ?>"><?php echo $client['name']; ?></option>
 
                         <?php
 
@@ -100,7 +103,43 @@
 
                       $product_list = json_decode($sales['products'], true);
 
-                                                
+                      var_dump($product_list);
+                      foreach($product_list as $key => $value_products){
+
+                        $product_item = "id";
+                        $product_value = $value_products['id'];
+
+                        $result = ProductController::ctrShowProducts($product_item, $product_value);
+
+                        $previous_stock = $value_products['quantity'] + $result['stock'];
+
+                      echo  '<div class="row" style="padding:5px 15px">
+
+                                <div class="col-xs-6" style="padding-right:0px;">
+                                    <div class="input-group">
+
+                                        <span class="input-group-addon">
+                                            <button type="button" class="btn btn-danger btn-xs removeProduct" data-product-id="' . $value_products['id'] . '">
+                                            <i class="fa fa-times"></i>
+                                            </button>
+                                        </span>
+
+                                        <input type="text" class="form-control addProductDescription" data-product-id="' . $value_products['id'] . '" name="addProductDescription" value="' . $value_products['description'] . '" required readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-3 parentProductQuantity">
+                                    <input type="number" class="form-control addProductQuantity" name="addProductQuantity" min="1" value="' . $value_products['quantity'] . '" data-product-stock="' . $previous_stock . '" data-product-new-stock="' . $value_products['stock'] . '" required>
+                                </div>
+
+                                <div class="col-xs-3 parentProductPrice" style="padding-left:0px;">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                        <input type="text" class="form-control addProductPrice" name="addProductPrice" data-product-price="' . $value_products['net_price'] . '" value="' . $value_products['total_price'] . '" readonly required>
+                                    </div>
+                                </div>
+                            </div>';
+                      }                          
                     ?>
                     
                   </div>
@@ -121,10 +160,10 @@
                           <tr>
                             <td style="width: 50%;">
                               <div class="input-group">
-                                <input type="number" class="form-control input-lg" min="0" id="addSaleTax" name="addSaleTax" value="0" placeholder="0" required>
+                                <input type="number" class="form-control input-lg" min="0" id="addSaleTax" name="addSaleTax" value="<?php echo $tax_percentage; ?>" required>
 
-                                <input type="hidden" name="addPriceTax" id="addPriceTax" required>
-                                <input type="hidden" name="addPriceNet" id="addPriceNet" required>
+                                <input type="hidden" name="addPriceTax" id="addPriceTax" value="<?php echo $sales['tax']; ?>" required>
+                                <input type="hidden" name="addPriceNet" id="addPriceNet" value="<?php echo $sales['net_price']; ?>" required>
 
                                 <span class="input-group-addon"><i class="fa fa-percent"></i></span>
                               </div>
@@ -132,10 +171,10 @@
                             <td style="width: 50%;">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                <input type="text" class="form-control input-lg" id="addSaleTotal" name="addSaleTotal" data-sale-total placeholder="0000.00" readonly required>
+                                <input type="text" class="form-control input-lg" id="addSaleTotal" name="addSaleTotal" value="<?php echo $sales['total_price']; ?>" data-sale-total readonly required>
 
                                 <!-- Getting the Total without the format -->
-                                <input type="hidden" name="totalSale" id="totalSale">
+                                <input type="hidden" name="totalSale" id="totalSale" value="<?php echo $sales['total_price']; ?>">
                               </div>
                             </td>
                           </tr>
