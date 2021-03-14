@@ -30,6 +30,16 @@
                   $sales = SaleController::ctrShowSales($item, $value);
 
                   var_dump($sales);
+
+                  $user_item = "id";
+                  $user_value = $sales["seller_id"];
+
+                  $user = UserController::ctrShowUsers($user_item, $user_value);
+
+                  $client_item = "id";
+                  $client_value = $sales["client_id"];
+
+                  $client = ClientController::ctrShowClients($client_item, $client_value);
                   
                 ?>
 
@@ -37,45 +47,26 @@
                     <label for="editSeller">Seller:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                      <input type="text" class="form-control" id="editSeller" value="<?php echo $_SESSION["name"]; ?>" readonly>
+                      <input type="text" class="form-control" id="editSeller" value="<?php echo $user["name"]; ?>" readonly>
                       
-                      <input type="hidden" name="idSeller" value="<?php echo $_SESSION["id"]; ?>">
+                      <input type="hidden" name="idSeller" value="<?php echo $user["id"]; ?>">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="newSaleCode">Sale:</label>
+                    <label for="editSaleCode">Sale:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-
-                      <?php                        
-
-                        
-
-                        if(!$sales){
-                          
-                          echo '<input type="text" class="form-control" id="newSaleCode" name="newSaleCode" value="10001" readonly>';
-                        }else{
-                          
-                          foreach($sales as $key => $value_sale){
-
-                          }
-                          //to get the last code
-                          $code = $value_sale["code"] + 1;
-
-                          echo '<input type="text" class="form-control" id="newSaleCode" name="newSaleCode" value="' . $code . '" readonly>';
-                        }
-                      ?>
-                      
+                      <input type="text" class="form-control" id="editSaleCode" name="editSaleCode" value="<?php echo $sales['code'] ?>" readonly>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="selectClient">Select Client:</label>
+                    <label for="editClient">Select Client:</label>
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                      <select name="selectClient" id="selectClient" class="form-control" required>
-                        <option value="">Select Client</option>
+                      <select name="editClient" id="editClient" class="form-control" required>
+                        <option value="<?php echo $client['id'] ?>"><?php echo $client['name'] ?></option>
 
                         <?php
 
@@ -85,7 +76,11 @@
                           $clients = ClientController::ctrShowClients($item, $value);
                           
                           foreach($clients as $key => $value_client){
-                            echo '<option value="' . $value_client['id'] . '">' . $value_client['name'] . '</option>';
+                            
+                            if($client['id'] != $value_client['id']){
+
+                              echo '<option value="' . $value_client['id'] . '">' . $value_client['name'] . '</option>';
+                            }                            
                           }
                         ?>
 
@@ -100,6 +95,13 @@
 
                   <label>Product:</label>
                   <div class="form-group row newProduct">
+                    
+                    <?php
+
+                      $product_list = json_decode($sales['products'], true);
+
+                                                
+                    ?>
                     
                   </div>
                   <input type="hidden" id="productList" name="productList">
