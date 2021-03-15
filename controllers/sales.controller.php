@@ -135,75 +135,77 @@ class SaleController{
 
             $show_sale = SaleModel::mdlShowSales($table_sale, $sale_item, $sale_value);
 
-            $previous_products = json_decode($show_sale['products'], true);
+            //Check if productList is not empty || check if user changed the products
+            $product_changed = false;
 
-            //Purchases Counter
-            $total_previous_purchases = array();  
+            if($_POST['productList'] == ""){
 
-            foreach($previous_products as $key => $previous_value){
-
-                array_push($total_previous_purchases, $previous_value['quantity']);
+                $previous_product_list = $show_sale['products'];
+                //Product list hasn't been touched
+                //To make sure that only if the user changes something and 
+                //the listProducts() is executed. Is when the changes in db is validated
+                $product_changed = false;
+            }else{
                 
-                $table_previous_product = "products";
-                $product_previous_item = "id";
-                $product_previous_id = $previous_value["id"];
-
-                $show_previous_product = ProductModel::mdlShowProducts($table_previous_product, $product_previous_item, $product_previous_id);
-
-                //Update product sales and stocks
-                $product_sales_item = "sales";
-                $product_sales_value = $show_previous_product['sales'] - $previous_value['quantity']; 
-
-                $update_sales = ProductModel::mdlUpdateProduct($table_product, $product_sales_item, $product_sales_value, $product_previous_id);
-
-                $product_stocks_item = "stock";
-                $product_stocks_value = $previous_value['quantity'] + $show_previous_product['stock'];
-
-                $update_stock = ProductModel::mdlUpdateProduct($table_product, $product_stocks_item, $product_stocks_value, $product_previous_id);
+                $previous_product_list = $_POST['productList'];
+                $product_changed = true;
             }
 
-            $table_previous_client = "clients";
-            $client_previous_item = "id";
-            $client_previous_id = $_POST['previousClient'];
+            if($product_changed){            
 
-            //Get Client
-            $show_previous_client = ClientModel::mdlShowClients($table_previous_client, $client_previous_item, $client_previous_id);
-            
-            //REVERTING Client Purchases
-            $client_purchases_item = "purchases";
-            $client_purchases_value = $show_previous_client['purchases'] - array_sum($total_previous_purchases);
+                $previous_products = json_decode($show_sale['products'], true);
 
-            $client_purchases = ClientModel::mdlUpdateClient($table_previous_client, $client_purchases_item, $client_purchases_value, $client_previous_id);
+                //Purchases Counter
+                $total_previous_purchases = array();  
 
-            //REVERTING Client Purchases
-            $client_last_purchase_item = "last_purchase";
+                foreach($previous_products as $key => $previous_value){
 
-            $client_last_purchase_value = null;
+                    array_push($total_previous_purchases, $previous_value['quantity']);
+                    
+                    $table_previous_product = "products";
+                    $product_previous_item = "id";
+                    $product_previous_id = $previous_value["id"];
 
-            $client_last_purchase = ClientModel::mdlUpdateClient($table_previous_client, $client_last_purchase_item, 
-                                                                    $client_last_purchase_value, $client_previous_id);
+                    $show_previous_product = ProductModel::mdlShowProducts($table_previous_product, $product_previous_item, $product_previous_id);
 
-            //Update the purchases of client || Reduce Stock || Update Sales            
-            $product_list = json_decode($_POST["productList"], true);
-            //Purchases Counter
-            $total_purchases = array();            
+                    //Update product sales and stocks
+                    $product_sales_item = "sales";
+                    $product_sales_value = $show_previous_product['sales'] - $previous_value['quantity']; 
 
-            //Editing the sales            
-            $data = array(
-                "code" => $_POST['editSaleCode'],
-                "client_id"=> $_POST['editClient'],
-                "seller_id"=> $_POST['idSeller'],
-                "products"=> $_POST['productList'],
-                "tax"=> $_POST['addPriceTax'],
-                "net_price"=> $_POST['addPriceNet'],
-                "total_price"=> $_POST['totalSale'],
-                "payment_method"=> $_POST['paymentMethodList']
-            );
-            
-            $result = SaleModel::mdlEditSale($table_sale, $data);
+                    $update_sales = ProductModel::mdlUpdateProduct($table_product, $product_sales_item, $product_sales_value, $product_previous_id);
 
-            if($result == "ok"){
+                    $product_stocks_item = "stock";
+                    $product_stocks_value = $previous_value['quantity'] + $show_previous_product['stock'];
 
+                    $update_stock = ProductModel::mdlUpdateProduct($table_product, $product_stocks_item, $product_stocks_value, $product_previous_id);
+                }
+
+                $table_previous_client = "clients";
+                $client_previous_item = "id";
+                $client_previous_id = $_POST['previousClient'];
+
+                //Get Client
+                $show_previous_client = ClientModel::mdlShowClients($table_previous_client, $client_previous_item, $client_previous_id);
+                
+                //REVERTING Client Purchases
+                $client_purchases_item = "purchases";
+                $client_purchases_value = $show_previous_client['purchases'] - array_sum($total_previous_purchases);
+
+                $client_purchases = ClientModel::mdlUpdateClient($table_previous_client, $client_purchases_item, $client_purchases_value, $client_previous_id);
+
+                //REVERTING Client Purchases
+                $client_last_purchase_item = "last_purchase";
+
+                $client_last_purchase_value = null;
+
+                $client_last_purchase = ClientModel::mdlUpdateClient($table_previous_client, $client_last_purchase_item, 
+                                                                        $client_last_purchase_value, $client_previous_id);
+
+                //Update the purchases of client || Reduce Stock || Update Sales            
+                $product_list = json_decode($previous_product_list, true);
+                //Purchases Counter
+                $total_purchases = array();           
+                
                 foreach($product_list as $key => $value){
 
                     array_push($total_purchases, $value['quantity']);
@@ -213,43 +215,61 @@ class SaleController{
                     
                     //Get Product
                     $show_product = ProductModel::mdlShowProducts($table_product, $product_item, $product_id);
-    
+
                     //Update product sales and stocks
                     $product_update_sales_item = "sales";
                     $product_update_sales_value = $value['quantity'] + $show_product['sales']; 
-    
+
                     $update_product_sales = ProductModel::mdlUpdateProduct($table_product, $product_update_sales_item, 
                                                                             $product_update_sales_value, 
                                                                             $product_id);
                     
+                    //This stock has a problem when it receives the previous product list
                     $product_update_stocks_item = "stock";
                     $product_update_stocks_value = $value['stock'];
-    
+
                     $update_product_stock = ProductModel::mdlUpdateProduct($table_product, $product_update_stocks_item, 
                                                                             $product_update_stocks_value, $product_id);
                 }
-    
+
                 $table_client = "clients";
                 $client_item = "id";
                 $client_id = $_POST['editClient'];
-    
+
                 //Get Client
                 $show_client = ClientModel::mdlShowClients($table_client, $client_item, $client_id);
                 
                 //Update Client Purchases
                 $client_update_purchases_item = "purchases";
                 $client_update_purchases_value = array_sum($total_purchases) + $show_client['purchases'];
-    
+
                 $client_update_purchases = ClientModel::mdlUpdateClient($table_client, $client_update_purchases_item, 
                                                                         $client_update_purchases_value, $client_id);
 
                 //Getting Previous Client Purchases
                 $client_update_last_purchase_item = "last_purchase";
-    
+
                 $client_update_last_purchase_value = $show_previous_client['last_purchase'];
 
                 $client_update_last_purchase = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
                                                                         $client_update_last_purchase_value, $client_id);
+            }
+
+            //Editing the sales            
+            $data = array(
+                "code" => $_POST['editSaleCode'],
+                "client_id"=> $_POST['editClient'],
+                "seller_id"=> $_POST['idSeller'],
+                "products"=> $previous_product_list,
+                "tax"=> $_POST['addPriceTax'],
+                "net_price"=> $_POST['addPriceNet'],
+                "total_price"=> $_POST['totalSale'],
+                "payment_method"=> $_POST['paymentMethodList']
+            );
+            
+            $result = SaleModel::mdlEditSale($table_sale, $data);
+
+            if($result == "ok"){                
 
                 echo "<script>                
                     Swal.fire({

@@ -168,8 +168,8 @@ CREATE TABLE IF NOT EXISTS `sales` (
 REPLACE INTO `sales` (`id`, `code`, `client_id`, `seller_id`, `products`, `tax`, `net_price`, `total_price`, `payment_method`, `sale_date`) VALUES
 	(1, 10001, 1, 1, '[{"id":"1","description":"Industrial vacuum cleaner","quantity":"10","stock":"10","net_price":"2100","total_price":"21000"},{"id":"10","description":"Petrol pressure washer","quantity":"10","stock":"10","net_price":"3094","total_price":"30940"}]', 5194, 51940, 57134, 'cash', '2021-03-13 23:15:36'),
 	(2, 10002, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"3","stock":"17","net_price":"6300","total_price":"18900"},{"id":"3","description":"Air Compressor for painting","quantity":"7","stock":"13","net_price":"4200","total_price":"29400"}]', 483, 48300, 48783, 'cash', '2021-03-13 23:16:34'),
-	(3, 10002, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"2","stock":"15","net_price":"6300","total_price":"12600"}]', 252, 12600, 12852, 'cash', '2021-03-14 01:14:26'),
-	(4, 10002, 2, 1, '[{"id":"4","description":"Adobe Cutter without Disk","quantity":"2","stock":"18","net_price":"5600","total_price":"11200"}]', 224, 11200, 11424, 'cash', '2021-03-14 01:15:41');
+	(3, 10003, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"2","stock":"15","net_price":"6300","total_price":"12600"}]', 252, 12600, 12852, 'cash', '2021-03-15 14:03:23'),
+	(4, 10004, 2, 1, '[{"id":"4","description":"Adobe Cutter without Disk","quantity":"2","stock":"18","net_price":"5600","total_price":"11200"}]', 224, 11200, 11424, 'cash', '2021-03-15 14:03:23');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 
 -- Dumping structure for table pos.users
