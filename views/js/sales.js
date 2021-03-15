@@ -206,6 +206,23 @@ $("#sale-add-form").on("click", "button.removeProduct", function(){
 
 //when using tables
 $("#products-sales-table").on("draw.dt", function(){
+
+    //Getting all products in product list
+    var get_product_from_list = $('.removeProduct');
+
+    for(var k = 0; k < get_product_from_list.length; k++){
+
+        //Getting product id from product list
+        var product_id = $(get_product_from_list[k]).attr('data-product-id');
+
+        //if Button exist then there is no need to save to localStorage
+        if($("button.recoverProduct[data-product-id='"+ product_id +"']").length){
+
+            //changing classes of buttons
+            $("button.recoverProduct[data-product-id='"+ product_id +"']").removeClass('btn-primary addProduct');
+            $("button.recoverProduct[data-product-id='"+ product_id +"']").addClass('btn-default');
+        }             
+    }
    
     var list_remove_storage = [];
 
@@ -454,26 +471,6 @@ function listPaymentMethods(){
         $('#paymentMethodList').val($('#addPaymentMethod').val() + "-" + $('#newCodeTransaction').val());
     }
 }
-
-$(document).ready(function(){
-    
-    //Adding product to storage if inside list in edit
-    var product_to_storage = [];
-    
-    var get_product_from_list = $('.removeProduct');
-
-    for(var k = 0; k < get_product_from_list.length; k++){
-        
-        var product_id = $(get_product_from_list[k]).attr('data-product-id');
-
-        product_to_storage.push({"product_id" : product_id});
-    }
-
-    localStorage.setItem("removeProduct", JSON.stringify(product_to_storage));
-
-    console.log(product_to_storage);
-});
-
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //MOBILE
