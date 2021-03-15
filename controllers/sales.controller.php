@@ -144,6 +144,7 @@ class SaleController{
                 //Product list hasn't been touched
                 //To make sure that only if the user changes something and 
                 //the listProducts() is executed. Is when the changes in db is validated
+                //if listProducts() is not executed. It will try to revert the stock from the products data in sales table
                 $product_changed = false;
             }else{
                 

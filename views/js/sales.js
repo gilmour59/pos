@@ -249,18 +249,6 @@ $("#sale-add-form").on("change", "input.addProductQuantity", function(){
         //fixes the value bug
         product_price.val($(this).val() * product_price.attr('data-product-price'));
 
-        /* //Summary of Total Prices
-        summaryTotalPrices();
-
-        //Add Tax
-        addTax();
-
-        //Generating JSON product list
-        listProducts();
-
-        //Generate Cash Change
-        generateCashChange(); */
-
         Swal.fire({
             icon: 'error',
             title: 'Only ' + $(this).attr('data-product-stock') + ' Stock/s Available!',
@@ -466,6 +454,26 @@ function listPaymentMethods(){
         $('#paymentMethodList').val($('#addPaymentMethod').val() + "-" + $('#newCodeTransaction').val());
     }
 }
+
+$(document).ready(function(){
+    
+    //Adding product to storage if inside list in edit
+    var product_to_storage = [];
+    
+    var get_product_from_list = $('.removeProduct');
+
+    for(var k = 0; k < get_product_from_list.length; k++){
+        
+        var product_id = $(get_product_from_list[k]).attr('data-product-id');
+
+        product_to_storage.push({"product_id" : product_id});
+    }
+
+    localStorage.setItem("removeProduct", JSON.stringify(product_to_storage));
+
+    console.log(product_to_storage);
+});
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //MOBILE
