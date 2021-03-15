@@ -325,7 +325,8 @@ function summaryTotalPrices(){
 function addTax(){
 
     var tax = $('#addSaleTax').val();
-    var price_total = $('#addSaleTotal').val();
+    //var price_total = $('#addSaleTotal').val();
+    var price_total = $('#addSaleTotal').attr('data-sale-total');
 
     var tax_price = Number(price_total * (tax / 100));
 

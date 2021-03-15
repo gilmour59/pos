@@ -169,7 +169,7 @@
                             <td style="width: 50%;">
                               <div class="input-group">
                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                <input type="text" class="form-control input-lg" id="addSaleTotal" name="addSaleTotal" value="<?php echo $sales['total_price']; ?>" data-sale-total readonly required>
+                                <input type="text" class="form-control input-lg" id="addSaleTotal" name="addSaleTotal" value="<?php echo $sales['total_price']; ?>" data-sale-total="<?php echo $sales['net_price']; ?>" readonly required>
 
                                 <!-- Getting the Total without the format -->
                                 <input type="hidden" name="totalSale" id="totalSale" value="<?php echo $sales['total_price']; ?>">
