@@ -14,3 +14,4 @@ When adding products the same product can be selected multiple times
 2. REDO all the select tags with EMPTY VALUE
 4. Foreign key constraints
 5. TRY TRANSACTIONS ON SALE
+6. Changing the button class in edit sales
