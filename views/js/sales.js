@@ -473,6 +473,25 @@ function listPaymentMethods(){
     }
 }
 
+$(document).on('click', '.btn-delete-sale', function(){
+    
+    var sale_id = $(this).attr('data-sale-id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((response) => {
+        if (response.isConfirmed){
+            window.location = "index.php?route=sales&delete-sale-id="+ sale_id;
+        }
+    });
+});
+
 //-----------------------------------------------------------------------------------------------------------------------------------------
 //MOBILE
 //Adding products with button (mobile)

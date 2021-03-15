@@ -28,6 +28,21 @@ class SaleModel{
         $stmt = null;
     }
 
+    //Getting latest last purchase
+    static public function mdlShowLastPurchaseSales($table, $client_id){
+
+        $stmt = Connection::connect()->prepare("SELECT sale_date FROM $table WHERE client_id = :client_id ORDER BY sale_date DESC");
+
+        $stmt->bindParam(":client_id", $client_id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+                 
+        //Close the connection
+        $stmt = null;
+    }
+
     //add sale
     static public function mdlAddSale($table, $data){
 

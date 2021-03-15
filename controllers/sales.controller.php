@@ -20,7 +20,14 @@ class SaleController{
             //Update the purchases of client || Reduce Stock || Update Sales            
             $product_list = json_decode($_POST["productList"], true);
             //Purchases Counter
-            $total_purchases = array();            
+            $total_purchases = array();
+            
+            //get last login date and time
+            date_default_timezone_set('Asia/Manila');
+            $date_sale_date = date('Y-m-d');
+            $hour_sale_date = date('H:i:s');
+
+            $sale_date = $date_sale_date . ' ' . $hour_sale_date;
 
             //Adding the sales
             $table_sale = "sales";
@@ -32,7 +39,8 @@ class SaleController{
                 "tax"=> $_POST['addPriceTax'],
                 "net_price"=> $_POST['addPriceNet'],
                 "total_price"=> $_POST['totalSale'],
-                "payment_method"=> $_POST['paymentMethodList']
+                "payment_method"=> $_POST['paymentMethodList'],
+                "sale_date" => $sale_date
             );
             
             $result = SaleModel::mdlAddSale($table_sale, $data);
@@ -192,15 +200,7 @@ class SaleController{
                 $client_purchases_item = "purchases";
                 $client_purchases_value = $show_previous_client['purchases'] - array_sum($total_previous_purchases);
 
-                $client_purchases = ClientModel::mdlUpdateClient($table_previous_client, $client_purchases_item, $client_purchases_value, $client_previous_id);
-
-                //REVERTING Client Purchases
-                $client_last_purchase_item = "last_purchase";
-
-                $client_last_purchase_value = null;
-
-                $client_last_purchase = ClientModel::mdlUpdateClient($table_previous_client, $client_last_purchase_item, 
-                                                                        $client_last_purchase_value, $client_previous_id);
+                $client_purchases = ClientModel::mdlUpdateClient($table_previous_client, $client_purchases_item, $client_purchases_value, $client_previous_id);                
 
                 //Update the purchases of client || Reduce Stock || Update Sales            
                 $product_list = json_decode($previous_product_list, true);
@@ -245,15 +245,7 @@ class SaleController{
                 $client_update_purchases_value = array_sum($total_purchases) + $show_client['purchases'];
 
                 $client_update_purchases = ClientModel::mdlUpdateClient($table_client, $client_update_purchases_item, 
-                                                                        $client_update_purchases_value, $client_id);
-
-                //Getting Previous Client Purchases
-                $client_update_last_purchase_item = "last_purchase";
-
-                $client_update_last_purchase_value = $show_previous_client['last_purchase'];
-
-                $client_update_last_purchase = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
-                                                                        $client_update_last_purchase_value, $client_id);
+                                                                        $client_update_purchases_value, $client_id);                
             }
 
             //Editing the sales            
@@ -270,7 +262,36 @@ class SaleController{
             
             $result = SaleModel::mdlEditSale($table_sale, $data);
 
-            if($result == "ok"){                
+            if($result == "ok"){       
+
+                    $table_client = "clients";
+                    
+                    //Get client's last purchase date time
+                    $client_last_purchase_date = SaleModel::mdlShowLastPurchaseSales($table_sale, $_POST['editClient']);
+
+                    //Get previous client's last purchase date time
+                    $client_previous_last_purchase_date = SaleModel::mdlShowLastPurchaseSales($table_sale, $_POST['previousClient']);
+
+                    //Getting Previous Client Purchases
+                    $client_update_last_purchase_item = "last_purchase";
+
+                    //Getting the latest purchase of the client
+                    $client_update_last_purchase_value = $client_last_purchase_date[0]['sale_date'];
+
+                    $client_update_last_purchase = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
+                                                                            $client_update_last_purchase_value, $_POST['editClient']);
+
+                    //Getting the latest purchase of the previous client
+                    if($client_previous_last_purchase_date != null){
+                        
+                        $client_previous_update_last_purchase_value = $client_previous_last_purchase_date[0]['sale_date'];
+
+                        $client_previous_update_last_purchase = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
+                                                                            $client_previous_update_last_purchase_value, $_POST['previousClient']);
+                    }else{
+                        $client_previous_update_last_purchase = ClientModel::mdlUpdateClient($table_client, $client_update_last_purchase_item, 
+                                                                            null, $_POST['previousClient']);
+                    }             
 
                 echo "<script>                
                     Swal.fire({
@@ -297,7 +318,42 @@ class SaleController{
                 </script>"; 
             }
         }
-    } 
+    }
+    
+    public function ctrDeleteSale(){
+
+        if(isset($_GET['delete-sale-id'])){
+
+            $table_sale = "sales";
+            
+            $sale_item = "id";
+            $sale_value = $_GET["delete-sale-id"];            
+
+            $show_sale = SaleModel::mdlShowSales($table_sale, $sale_item, $sale_value);
+
+            //Update the last purchase of client
+            
+            //Show all sales
+            $sales_item = null;
+            $sales_value = null;
+
+            $show_sales = SaleModel::mdlShowSales($table_sale, $sales_item, $sales_value);
+
+            $get_dates = SaleModel::mdlShowLastPurchaseSales($table_sale, $show_sale['client_id']);
+            $save_dates = array(); 
+
+            foreach($show_sales as $key => $value_sales){
+
+                //Get all the client sales that are related to the deleted sale
+                if($value_sales['client_id'] == $show_sale['client_id']){
+                    
+                    array_push($save_dates, $value_sales['sale_date']);
+                }
+            }
+            var_dump($get_dates[0]['sale_date']);
+            
+        }
+    }
 }
 
 ?>
