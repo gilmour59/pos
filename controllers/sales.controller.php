@@ -332,25 +332,14 @@ class SaleController{
             $show_sale = SaleModel::mdlShowSales($table_sale, $sale_item, $sale_value);
 
             //Update the last purchase of client
-            
-            //Show all sales
-            $sales_item = null;
-            $sales_value = null;
-
-            $show_sales = SaleModel::mdlShowSales($table_sale, $sales_item, $sales_value);
-
             $get_dates = SaleModel::mdlShowLastPurchaseSales($table_sale, $show_sale['client_id']);
-            $save_dates = array(); 
 
-            foreach($show_sales as $key => $value_sales){
-
-                //Get all the client sales that are related to the deleted sale
-                if($value_sales['client_id'] == $show_sale['client_id']){
-                    
-                    array_push($save_dates, $value_sales['sale_date']);
-                }
+            if(count($get_dates) == 1){
+                var_dump('this works');    
+            }else{
+                var_dump('this shit wack');
             }
-            var_dump($get_dates[0]['sale_date']);
+            var_dump($get_dates);
             
         }
     }
