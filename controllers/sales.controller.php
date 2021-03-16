@@ -325,22 +325,86 @@ class SaleController{
         if(isset($_GET['delete-sale-id'])){
 
             $table_sale = "sales";
+            $table_client = "clients";
+            $table_product = "products";
             
             $sale_item = "id";
             $sale_value = $_GET["delete-sale-id"];            
 
             $show_sale = SaleModel::mdlShowSales($table_sale, $sale_item, $sale_value);
-
-            //Update the last purchase of client
-            $get_dates = SaleModel::mdlShowLastPurchaseSales($table_sale, $show_sale['client_id']);
-
-            if(count($get_dates) == 1){
-                var_dump('this works');    
-            }else{
-                var_dump('this shit wack');
-            }
-            var_dump($get_dates);
             
+            $previous_products = json_decode($show_sale['products'], true);
+
+            //Purchases Counter
+            $total_previous_purchases = array();  
+
+            foreach($previous_products as $key => $previous_value){
+
+                array_push($total_previous_purchases, $previous_value['quantity']);
+                                
+                $product_previous_item = "id";
+                $product_previous_id = $previous_value["id"];
+
+                $show_previous_product = ProductModel::mdlShowProducts($table_product, $product_previous_item, $product_previous_id);
+
+                //Update product sales and stocks
+                $product_sales_item = "sales";
+                $product_sales_value = $show_previous_product['sales'] - $previous_value['quantity']; 
+
+                $update_sales = ProductModel::mdlUpdateProduct($table_product, $product_sales_item, $product_sales_value, $product_previous_id);
+
+                $product_stocks_item = "stock";
+                $product_stocks_value = $previous_value['quantity'] + $show_previous_product['stock'];
+
+                $update_stock = ProductModel::mdlUpdateProduct($table_product, $product_stocks_item, $product_stocks_value, $product_previous_id);
+            }
+
+            $client_previous_item = "id";
+            $client_previous_id = $show_sale['client_id'];
+
+            //Get Client
+            $show_previous_client = ClientModel::mdlShowClients($table_client, $client_previous_item, $client_previous_id);
+            
+            //REVERTING Client Purchases
+            $client_purchases_item = "purchases";
+            $client_purchases_value = $show_previous_client['purchases'] - array_sum($total_previous_purchases);
+
+            $client_purchases = ClientModel::mdlUpdateClient($table_client, $client_purchases_item, $client_purchases_value, $client_previous_id);
+            
+            //DELETE SALE
+            $result = SaleModel::mdlDeleteSale($table_sale, $sale_value);
+
+            if($result == "ok"){
+
+                //Update the last purchase of client (Do this after deleting the sale)
+                $client_id = $show_sale['client_id'];
+                
+                $get_dates = SaleModel::mdlShowLastPurchaseSales($table_sale, $client_id);
+
+                $client_item = "last_purchase";            
+
+                if(count($get_dates) > 1 && $get_dates != null){
+
+                    $client_value = $get_dates[0]['sale_date'];
+                    $client = ClientModel::mdlUpdateClient($table_client, $client_item, $client_value, $client_id);
+                }else{
+                    
+                    $client_value = null;
+                    $client = ClientModel::mdlUpdateClient($table_client, $client_item, $client_value, $client_id);
+                }
+
+                echo "<script>
+                    Swal.fire(
+                        'Deleted!',
+                        'Sale has been deleted.',
+                        'success'
+                    ).then((response) => {
+                        if (response.isConfirmed){
+                            window.location = 'sales';
+                        }
+                    });
+                </script>";
+            }                        
         }
     }
 }
