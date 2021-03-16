@@ -50,14 +50,14 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `last_purchase` datetime DEFAULT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table pos.clients: ~3 rows (approximately)
 /*!40000 ALTER TABLE `clients` DISABLE KEYS */;
 REPLACE INTO `clients` (`id`, `name`, `document_id`, `email`, `phone`, `address`, `birthdate`, `purchases`, `last_purchase`, `date`) VALUES
-	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', 37, '2021-03-15 23:26:45', '2021-03-15 23:58:30'),
-	(2, 'test', 3333, '123@s.com', '(12-312312312)', '123123', '2012-03-31', 2, '2021-03-15 20:19:51', '2021-03-15 23:59:25'),
-	(3, 'test2', 1234, '123@s.com', '(12-312312312)', '123', '2013-12-31', 3, NULL, '2021-03-15 23:59:25');
+	(1, 'Gilmour', 123, 'test@tets.com', '(09-385234963)', 'asd', '2012-03-12', NULL, NULL, '2021-03-16 18:54:02'),
+	(4, 'test', 124, '123@s.com', '(12-312312312)', '123123', '2012-03-23', NULL, NULL, '2021-03-16 18:52:42'),
+	(5, 'test2', 125, '123@s.com', '(12-312312323)', '123', '2014-12-21', NULL, NULL, '2021-03-16 18:52:57');
 /*!40000 ALTER TABLE `clients` ENABLE KEYS */;
 
 -- Dumping structure for table pos.products
@@ -81,16 +81,16 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table pos.products: ~60 rows (approximately)
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 REPLACE INTO `products` (`id`, `category_id`, `code`, `description`, `image`, `stock`, `buy_price`, `sell_price`, `sales`, `date`) VALUES
-	(1, 1, '101', 'Industrial vacuum cleaner', '', 10, 1500, 2100, 10, '2021-03-13 23:15:36'),
-	(2, 1, '102', 'Float Plate for Palletizer', '', 11, 4500, 6300, 9, '2021-03-15 21:32:17'),
-	(3, 1, '103', 'Air Compressor for painting', '', 13, 3000, 4200, 7, '2021-03-13 23:16:34'),
-	(4, 1, '104', 'Adobe Cutter without Disk', '', 18, 4000, 5600, 2, '2021-03-14 01:15:41'),
+	(1, 1, '101', 'Industrial vacuum cleaner', '', 20, 1500, 2100, 0, '2021-03-16 18:48:20'),
+	(2, 1, '102', 'Float Plate for Palletizer', '', 20, 4500, 6300, 0, '2021-03-16 18:48:16'),
+	(3, 1, '103', 'Air Compressor for painting', '', 20, 3000, 4200, 0, '2021-03-16 18:48:16'),
+	(4, 1, '104', 'Adobe Cutter without Disk', '', 20, 4000, 5600, 0, '2021-03-16 18:48:13'),
 	(5, 1, '105', 'Floor Cutter without Disk', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:06'),
 	(6, 1, '106', 'Diamond Tip Disk', '', 20, 1100, 1540, NULL, '2021-03-04 20:16:06'),
 	(7, 1, '107', 'Air extractor', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:06'),
 	(8, 1, '108', 'Mower', '', 20, 1540, 2156, NULL, '2021-03-04 20:16:07'),
 	(9, 1, '109', 'Electric Water Washer', '', 20, 2600, 3640, NULL, '2021-03-04 20:16:07'),
-	(10, 1, '110', 'Petrol pressure washer', '', 10, 2210, 3094, 10, '2021-03-13 23:15:36'),
+	(10, 1, '110', 'Petrol pressure washer', '', 20, 2210, 3094, 0, '2021-03-16 18:48:20'),
 	(11, 1, '111', 'Gasoline motor pump', '', 20, 2860, 4004, NULL, '2021-03-04 20:16:07'),
 	(12, 1, '112', 'Electric motor pump', '', 20, 2400, 3360, NULL, '2021-03-04 20:16:07'),
 	(13, 1, '113', 'Circular saw', '', 20, 1100, 1540, NULL, '2021-03-04 20:16:07'),
@@ -129,15 +129,15 @@ REPLACE INTO `products` (`id`, `category_id`, `code`, `description`, `image`, `s
 	(46, 5, '503', 'Tensioner cat', '', 20, 380, 532, NULL, '2021-03-04 20:16:07'),
 	(47, 5, '504', 'Lamina Covers Gap', '', 20, 380, 532, NULL, '2021-03-04 20:16:08'),
 	(48, 5, '505', 'Pipe wrench', '', 20, 480, 672, NULL, '2021-03-04 20:16:08'),
-	(49, 5, '506', 'Manila by Metro', '', 19, 600, 840, 1, '2021-03-15 20:19:51'),
-	(50, 5, '507', '2-channel pulley', '', 19, 900, 1260, 1, '2021-03-15 20:19:51'),
+	(49, 5, '506', 'Manila by Metro', '', 20, 600, 840, 0, '2021-03-16 18:46:26'),
+	(50, 5, '507', '2-channel pulley', '', 20, 900, 1260, 0, '2021-03-16 18:46:26'),
 	(51, 5, '508', 'Tensor', '', 20, 100, 140, NULL, '2021-03-04 20:16:08'),
 	(52, 5, '509', 'Weighing machine', '', 20, 130, 182, NULL, '2021-03-04 20:16:08'),
 	(53, 5, '510', 'Hydrostatic pump', '', 20, 770, 1078, NULL, '2021-03-04 20:16:08'),
 	(54, 5, '511', 'Chapeta', '', 20, 660, 924, NULL, '2021-03-04 20:16:08'),
 	(55, 5, '512', 'Concrete sample cylinder', '', 20, 400, 560, NULL, '2021-03-04 20:16:08'),
-	(56, 5, '513', 'Lever Shear', '', 19, 450, 630, 1, '2021-03-15 20:19:23'),
-	(57, 5, '514', 'Scissor Shear', '', 19, 580, 812, 1, '2021-03-15 20:19:23'),
+	(56, 5, '513', 'Lever Shear', '', 20, 450, 630, 0, '2021-03-16 18:48:04'),
+	(57, 5, '514', 'Scissor Shear', '', 20, 580, 812, 0, '2021-03-16 18:48:04'),
 	(58, 5, '515', 'Pneumatic tire car', '', 20, 420, 588, NULL, '2021-03-04 20:16:08'),
 	(59, 5, '516', 'Cone slump', '', 20, 140, 196, NULL, '2021-03-04 20:16:08'),
 	(60, 5, '517', 'Baldosin cutter', '', 20, 930, 1302, NULL, '2021-03-04 20:16:08');
@@ -159,20 +159,12 @@ CREATE TABLE IF NOT EXISTS `sales` (
   PRIMARY KEY (`id`),
   KEY `client_id_idx` (`client_id`),
   KEY `seller_id_idx` (`seller_id`),
-  CONSTRAINT `client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `seller_id` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `client_id` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON UPDATE NO ACTION,
+  CONSTRAINT `seller_id` FOREIGN KEY (`seller_id`) REFERENCES `users` (`id`) ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- Dumping data for table pos.sales: ~7 rows (approximately)
+-- Dumping data for table pos.sales: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sales` DISABLE KEYS */;
-REPLACE INTO `sales` (`id`, `code`, `client_id`, `seller_id`, `products`, `tax`, `net_price`, `total_price`, `payment_method`, `sale_date`) VALUES
-	(1, 10001, 2, 1, '[{"id":"1","description":"Industrial vacuum cleaner","quantity":"10","stock":"10","net_price":"2100","total_price":"21000"},{"id":"10","description":"Petrol pressure washer","quantity":"10","stock":"10","net_price":"3094","total_price":"30940"}]', 5194, 51940, 57134, 'cash', '2021-03-13 23:15:36'),
-	(2, 10002, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"3","stock":"17","net_price":"6300","total_price":"18900"},{"id":"3","description":"Air Compressor for painting","quantity":"7","stock":"13","net_price":"4200","total_price":"29400"}]', 483, 48300, 48783, 'cash', '2021-03-13 23:16:34'),
-	(3, 10003, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"3","stock":"14","net_price":"6300","total_price":"18900"}]', 1890, 18900, 20790, 'cash', '2021-03-15 21:31:20'),
-	(4, 10004, 2, 1, '[{"id":"4","description":"Adobe Cutter without Disk","quantity":"2","stock":"18","net_price":"5600","total_price":"11200"}]', 224, 11200, 11424, 'cash', '2021-03-15 14:03:23'),
-	(5, 10005, 1, 1, '[{"id":"57","description":"Scissor Shear","quantity":"1","stock":"19","net_price":"812","total_price":"812"},{"id":"56","description":"Lever Shear","quantity":"1","stock":"19","net_price":"630","total_price":"630"}]', 14, 1442, 1456.42, 'cash', '2021-03-15 20:19:23'),
-	(6, 10006, 2, 1, '[{"id":"50","description":"2-channel pulley","quantity":"1","stock":"19","net_price":"1260","total_price":"1260"},{"id":"49","description":"Manila by Metro","quantity":"1","stock":"19","net_price":"840","total_price":"840"}]', 21, 2100, 2121, 'cash', '2021-03-15 20:19:51'),
-	(7, 10007, 1, 1, '[{"id":"2","description":"Float Plate for Palletizer","quantity":"3","stock":"11","net_price":"6300","total_price":"18900"}]', 1890, 18900, 20790, 'cash', '2021-03-15 23:26:45');
 /*!40000 ALTER TABLE `sales` ENABLE KEYS */;
 
 -- Dumping structure for table pos.users
