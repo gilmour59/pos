@@ -627,5 +627,5 @@ $('.table').on('click', '.btn-print-bill', function(){
 
     var sale_code = $(this).attr('data-sale-code');
     
-    window.open("/extensions/tcpdf/pdf/pdf.php", "_blank");
+    window.open("/extensions/tcpdf/pdf/bill.php?code=" + sale_code, "_blank");
 });
