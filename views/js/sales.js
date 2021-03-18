@@ -621,3 +621,11 @@ $("#sale-add-form").on("change", "select.addProductDescription", function(){
           }
     });
 });
+
+//Print Bills
+$('.table').on('click', '.btn-print-bill', function(){
+
+    var sale_code = $(this).attr('data-sale-code');
+    
+    window.open("/extensions/tcpdf/pdf/pdf.php", "_blank");
+});
