@@ -22,6 +22,12 @@
             Add Sale
           </button>
         </a>        
+        <button type="button" class="btn btn-default pull-right" id="btn-sale-daterange">
+          <span>
+            <i class="fa fa-calendar" style="padding-right:7px;"></i>Date Range:
+          </span>
+          <i class="fa fa-caret-down" style="padding-left:7px;"></i>
+        </button>
       </div>
       <div class="box-body">
         <table class="table table-bordered table-striped dt-responsive datatable-user">

@@ -1,9 +1,49 @@
+//Local Storage Variables
+if(localStorage.getItem('capture_date_range') != null){
+    $('#btn-sale-daterange span').html(localStorage.getItem('capture_date_range'));
+}else{
+    $('#btn-sale-daterange span').html('<i class="fa fa-calendar" style="padding-right:7px;"></i>Date Range:');
+}
+
 //Load Dynamic Datatable
 $('#products-sales-table').DataTable({
     "ajax" : "ajax/datatable-sales.ajax.php",
     "deferRender" : true,
     "retrieve" : true,
     "processing" : true
+});
+
+//Date range as a button (SALES DATETIME PICKER)
+$('#btn-sale-daterange').daterangepicker(
+    {
+      ranges   : {
+        'Today'       : [moment(), moment()],
+        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      },
+      startDate: moment().subtract(29, 'days'),
+      endDate  : moment()
+    },
+    function (start, end) {
+        $('#btn-sale-daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+        var initial_date = start.format('YYYY-M-D');
+        var final_date = end.format('YYYY-M-D');
+
+        var capture_date_range = $('#btn-sale-daterange span').html();
+
+        localStorage.setItem('capture_date_range', capture_date_range)
+    }
+);
+
+//Clear Date Range (SALES DATETIME PICKER)
+$('.daterangepicker .range_inputs .cancelBtn').on('click', function(){
+    
+    localStorage.removeItem('capture_date_range');
+    window.location = "sales";
 });
 
 //Adding products from tables to form
