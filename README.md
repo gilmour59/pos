@@ -12,6 +12,5 @@ When adding products the same product can be selected multiple times
 # TODO
 1. Add verification button on every save or modification.
 2. REDO all the select tags with EMPTY VALUE
-4. Foreign key constraints
-5. TRY TRANSACTIONS ON SALE
-6. Changing the button class in edit sales
+4. TRY TRANSACTIONS ON SALE
+5. Updating the products in sale when product is edited 

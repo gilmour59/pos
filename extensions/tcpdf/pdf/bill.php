@@ -190,7 +190,28 @@ $block_5 = <<<EOF
             <td style="border:1px solid #666; background-color:white; width:100px; text-align:center;">
                 Net Price:
             </td>
+            <td style="border:1px solid #666; color:#333; background-color:white; width:100px; text-align:center;">
+                Php $net_price
+            </td>
         </tr>
+        <tr>
+            <td style="border-right:1px solid #666; color:#333; background-color:white; width:340px; text-align:center;"></td>
+            <td style="border:1px solid #666; background-color:white; width:100px; text-align:center;">
+                Tax:
+            </td>
+            <td style="border:1px solid #666; color:#333; background-color:white; width:100px; text-align:center;">
+                Php $tax
+            </td>
+        </tr>
+        <tr>
+            <td style="border-right:1px solid #666; color:#333; background-color:white; width:340px; text-align:center;"></td>
+            <td style="border:1px solid #666; background-color:white; width:100px; text-align:center;">
+                Total:
+            </td>
+            <td style="border:1px solid #666; color:#333; background-color:white; width:100px; text-align:center;">
+                Php $total_price
+            </td>
+        </tr>        
     </table>
 
 EOF;
