@@ -42,6 +42,9 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="/views/plugins/iCheck/all.css">
 
+  <!-- Date Range Picker -->
+  <link rel="stylesheet" href="/views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+
   <!-- jQuery 3 -->
   <script src="/views/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -76,6 +79,10 @@
 
   <!-- JQuery Number -->
   <script src="/views/js/jquery.number.js"></script>
+  
+  <!-- Date Range Picker -->
+  <script src="/views/bower_components/moment/min/moment.min.js"></script>
+  <script src="/views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
   
 </head>
 
