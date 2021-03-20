@@ -24,7 +24,7 @@ $('#btn-sale-daterange').daterangepicker(
         'This Month'  : [moment().startOf('month'), moment().endOf('month')],
         'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
       },
-      startDate: moment().subtract(29, 'days'),
+      startDate: moment(),
       endDate  : moment()
     },
     function (start, end) {
@@ -40,6 +40,12 @@ $('#btn-sale-daterange').daterangepicker(
         window.location ="index.php?route=sales&initial-date=" + initial_date + "&final-date=" + final_date;
     }
 );
+
+//Get today's date for date time picker
+$('.daterangepicker .ranges li').on('click', function(event){
+
+    console.log($(this).attr('data-range-key'))
+});
 
 //Clear Date Range (SALES DATETIME PICKER)
 $('.daterangepicker .range_inputs .cancelBtn').on('click', function(){
