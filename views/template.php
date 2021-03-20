@@ -141,5 +141,6 @@
 <script src="/views/js/products.js"></script>
 <script src="/views/js/clients.js"></script>
 <script src="/views/js/sales.js"></script>
+<script src="/views/js/sales-report.js"></script>
 </body>
 </html>

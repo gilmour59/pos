@@ -79,8 +79,8 @@ function getFinalDate(){
     }
 }
 
-//Clear Date Range (SALES DATETIME PICKER)
-$('.daterangepicker .range_inputs .cancelBtn').on('click', function(){
+//Clear Date Range (SALES DATETIME PICKER) with .opensleft class to avoid conflict with the sales daterangepicker
+$('.daterangepicker.opensleft .range_inputs .cancelBtn').on('click', function(){
     
     localStorage.removeItem('capture_date_range');
     window.location = "sales";
