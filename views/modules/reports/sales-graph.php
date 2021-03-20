@@ -12,9 +12,27 @@ if(isset($_GET['initial-date']) && isset($_GET['final-date'])){
 
 $result = SaleController::ctrShowSalesDateRange($initial_date, $final_date);
 
+//Sales array to pass on the graph
+$date_array = array();
+$sales_array = array();
+
 foreach($result as $key => $value){
 
+    //Get date (month and year)
+    $date = substr($value['sale_date'], 0, 7);
+
+    array_push($date_array, $date);
+
+    //Get total sales
+    if(isset($sales_array[$date])){
+        $sales_array[$date] += $value['total_price'];
+    }else{
+        $sales_array = array_merge($sales_array, array($date => 0));
+        $sales_array[$date] += $value['total_price'];
+    }
 }
+
+var_dump($sales_array);
 
 ?>
 
@@ -35,16 +53,17 @@ foreach($result as $key => $value){
         element          : 'line-sales-chart',
         resize           : true,
         data             : [
-        { y: '2011 Q1', sales: 2666 },
-        { y: '2011 Q2', sales: 2778 },
-        { y: '2011 Q3', sales: 4912 },
-        { y: '2011 Q4', sales: 3767 },
-        { y: '2012 Q1', sales: 6810 },
-        { y: '2012 Q2', sales: 5670 },
-        { y: '2012 Q3', sales: 4820 },
-        { y: '2012 Q4', sales: 15073 },
-        { y: '2013 Q1', sales: 10687 },
-        { y: '2013 Q2', sales: 8432 }
+
+        <?php
+
+            foreach($date_array as $key => $value){
+                echo "{ y: '2011 Q1', sales: 2666 },";
+            }
+
+                echo "{ y: '2013 Q2', sales: 8432 }";
+
+        ?>
+        
         ],
         xkey             : 'y',
         ykeys            : ['sales'],
