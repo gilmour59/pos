@@ -1,6 +1,10 @@
 //Local Storage Variables
 if(localStorage.getItem('capture_date_range') != null){
-    $('#btn-sale-daterange span').html(localStorage.getItem('capture_date_range'));
+    
+    var date_range = JSON.parse(localStorage.getItem('capture_date_range'));
+
+    $('#btn-sale-daterange span').html(date_range['text']);   
+
 }else{
     $('#btn-sale-daterange span').html('<i class="fa fa-calendar" style="padding-right:7px;"></i>Date Range:');
 }
@@ -17,6 +21,7 @@ $('#products-sales-table').DataTable({
 $('#btn-sale-daterange').daterangepicker(
     {
       ranges   : {
+        'All'    : [moment('1970-01-01'), moment()],
         'Today'       : [moment(), moment()],
         'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
         'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
@@ -24,28 +29,55 @@ $('#btn-sale-daterange').daterangepicker(
         'This Month'  : [moment().startOf('month'), moment().endOf('month')],
         'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
       },
-      startDate: moment(),
-      endDate  : moment()
+      startDate: getInitialDate(),
+      endDate  : getFinalDate()
+      
     },
     function (start, end) {
-        $('#btn-sale-daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        if(start.format('MMMM D, YYYY') == moment('1970-01-01').format('MMMM D, YYYY') && end.format('MMMM D, YYYY') == moment().format('MMMM D, YYYY')){
+            $('#btn-sale-daterange span').html('All');
+        }else{
+            $('#btn-sale-daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        }
 
         var initial_date = start.format('YYYY-M-D');
         var final_date = end.format('YYYY-M-D');
 
-        var capture_date_range = $('#btn-sale-daterange span').html();
+        var capture_date_text = $('#btn-sale-daterange span').html();
 
-        localStorage.setItem('capture_date_range', capture_date_range)
+        var capture_date_range = {'initial_date' : start.format('MM/DD/YYYY'), 'final_date' : end.format('MM/DD/YYYY'), 'text' : capture_date_text};
+
+        localStorage.setItem('capture_date_range', JSON.stringify(capture_date_range));
 
         window.location ="index.php?route=sales&initial-date=" + initial_date + "&final-date=" + final_date;
     }
 );
 
-//Get today's date for date time picker
-$('.daterangepicker .ranges li').on('click', function(event){
+function getInitialDate(){
+    if(localStorage.getItem('capture_date_range') != null){
+        
+        var date = JSON.parse(localStorage.getItem('capture_date_range'));
+        var initial_date = date['initial_date'];
 
-    console.log($(this).attr('data-range-key'))
-});
+        return initial_date;
+    }else{
+        
+        return moment('1970-01-01');
+    }
+}
+
+function getFinalDate(){
+    if(localStorage.getItem('capture_date_range') != null){
+        
+        var date = JSON.parse(localStorage.getItem('capture_date_range'));
+        var final_date = date['final_date'];
+
+        return final_date;
+    }else{
+        
+        return moment();
+    }
+}
 
 //Clear Date Range (SALES DATETIME PICKER)
 $('.daterangepicker .range_inputs .cancelBtn').on('click', function(){
