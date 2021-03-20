@@ -40,8 +40,8 @@ $('#btn-sale-daterange').daterangepicker(
             $('#btn-sale-daterange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
 
-        var initial_date = start.format('YYYY-M-D');
-        var final_date = end.format('YYYY-M-D');
+        var initial_date = start.format('YYYY-MM-DD');
+        var final_date = end.format('YYYY-MM-DD');
 
         var capture_date_text = $('#btn-sale-daterange span').html();
 
