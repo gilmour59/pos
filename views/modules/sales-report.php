@@ -28,7 +28,17 @@
           </div>
         </div>
         <div class="box-body">
-          
+          <div class="row">
+            <div class="col-xs-12">
+
+              <?php 
+
+                include "reports/sales-graph.php";
+
+              ?>
+
+            </div>
+          </div>
         </div>
         <!-- /.box-body -->        
       </div>

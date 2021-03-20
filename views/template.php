@@ -45,6 +45,9 @@
   <!-- Date Range Picker -->
   <link rel="stylesheet" href="/views/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 
+  <!-- Morris.js -->
+  <link rel="stylesheet" href="/views/bower_components/morris.js/morris.css">
+
   <!-- jQuery 3 -->
   <script src="/views/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -83,6 +86,10 @@
   <!-- Date Range Picker -->
   <script src="/views/bower_components/moment/min/moment.min.js"></script>
   <script src="/views/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+  <!-- Morris.js -->
+  <script src="/views/bower_components/raphael/raphael.min.js"></script>
+  <script src="/views/bower_components/morris.js/morris.min.js"></script>
   
 </head>
 
