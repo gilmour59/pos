@@ -47,10 +47,18 @@
           <tbody>
 
           <?php
-            $item = null;
-            $value = null;
 
-            $result = SaleController::ctrShowSales($item, $value);
+            if(isset($_GET['initial-date']) && isset($_GET['final-date'])){
+
+              $initial_date = $_GET['initial-date'];
+              $final_date = $_GET['final-date'];
+            }else{
+
+              $initial_date = null;
+              $final_date = null;
+            }            
+
+            $result = SaleController::ctrShowSalesDateRange($initial_date, $final_date);
 
             foreach($result as $key => $value){
               

@@ -28,6 +28,44 @@ class SaleModel{
         $stmt = null;
     }
 
+    static public function mdlShowSalesDateRange($table, $initial_date, $final_date){
+
+        if($initial_date == null){
+
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY id ASC");
+        
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        }else if($initial_date == $final_date){
+
+            $initial_date = $initial_date . ' 00:00:00';
+            $final_date = $final_date . ' 23:59:59';
+
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE sale_date BETWEEN :initial_date AND :final_date ORDER BY id ASC");
+
+            $stmt->bindParam(":initial_date", $initial_date, PDO::PARAM_STR);
+            $stmt->bindParam(":final_date", $final_date, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        }else{
+
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table WHERE sale_date BETWEEN :initial_date AND :final_date ORDER BY id ASC");
+
+            $stmt->bindParam(":initial_date", $initial_date, PDO::PARAM_STR);
+            $stmt->bindParam(":final_date", $final_date, PDO::PARAM_STR);
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        }            
+
+        //Close the connection
+        $stmt = null;
+    }
+
     //Getting latest last purchase
     static public function mdlShowLastPurchaseSales($table, $client_id){
 

@@ -12,6 +12,16 @@ class SaleController{
         return $result;
     }
 
+    //show sales
+    static public function ctrShowSalesDateRange($inital_date, $final_date){
+
+        $table = "sales";
+        
+        $result = SaleModel::mdlShowSalesDateRange($table, $inital_date, $final_date);
+
+        return $result;
+    }
+
     //create sale
     public function ctrCreateSale(){
 

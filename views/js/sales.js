@@ -36,6 +36,8 @@ $('#btn-sale-daterange').daterangepicker(
         var capture_date_range = $('#btn-sale-daterange span').html();
 
         localStorage.setItem('capture_date_range', capture_date_range)
+
+        window.location ="index.php?route=sales&initial-date=" + initial_date + "&final-date=" + final_date;
     }
 );
 
