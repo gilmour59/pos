@@ -55,7 +55,8 @@ $total_sales = ProductController::ctrSumProductSales();
                     $percentage = ($products[$j]['sales'] / $total_sales['total']) * 100;
 
                     echo '<li>
-                            <a href="#">
+                            <a>
+                                <img src="'.$products[$j]["image"].'" class="img-thumbnail" width="60px" style="margin-right:10px">                             
                                 ' . $products[$j]['description'] . ' 
                                 <span class="pull-right text-' . $color_array[$j] . '">
                                     <i class="fa fa-angle-down"></i> ' . number_format($percentage, 2) . ' %
