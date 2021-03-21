@@ -3,7 +3,6 @@
 $item = null;
 $value = null;
 
-$sales = SaleController::ctrShowSales($item, $value);
 $users = UserController::ctrShowUsers($item, $value);
 
 $array_sellers = array();
@@ -41,15 +40,26 @@ var_dump($array_sellers);
       element: 'bar-chart-sellers',
       resize: true,
       data: [
-        {y: 'Seller 1', a: 100},
-        {y: 'Seller 2', a: 75},
-        {y: 'Seller 3', a: 50},
+
+        <?php
+
+        foreach($array_sellers as $key => $value_sellers){
+
+            if($value_sellers != null){
+                echo "{y: '" . $key . "', a: " . number_format($value_sellers, 2, '.', '') . "},";
+            }else{
+                echo "{y: '" . $key . "', a: 0},";
+            }
+        }        
+
+        ?>
+        
       ],
       barColors: ['#0af'],
       xkey: 'y',
       ykeys: ['a'],
-      labels: ['sales'],
+      labels: ['Sales'],
       hideHover: 'auto',
-      preUnits: 'Php'
+      preUnits: 'Php '
     });
 </script>

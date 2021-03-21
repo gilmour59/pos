@@ -59,7 +59,7 @@ foreach($result as $key => $value){
             if($sales_array != null){
 
                 foreach($sales_array as $key => $value_sales){
-                    $data .= "{ y: '" . $key . "', sales: " . $value_sales . " },";
+                    $data .= "{ y: '" . $key . "', sales: " . number_format($value_sales, 2, '.', '') . " },";
                 }
     
                 //removing the comma on the last item in array
