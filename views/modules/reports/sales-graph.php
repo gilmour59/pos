@@ -13,7 +13,7 @@ if(isset($_GET['initial-date']) && isset($_GET['final-date'])){
 $result = SaleController::ctrShowSalesDateRange($initial_date, $final_date);
 
 //Sales array to pass on the graph
-$date_array = array();
+//$date_array = array();
 $sales_array = array();
 
 foreach($result as $key => $value){
@@ -21,9 +21,9 @@ foreach($result as $key => $value){
     //Get date (month and year)
     $date = substr($value['sale_date'], 0, 7);
 
-    array_push($date_array, $date);
+    //array_push($date_array, $date);
 
-    //Get total sales
+    //Get total sales key = [$date] value = sum of $value['total_price]
     if(isset($sales_array[$date])){
         $sales_array[$date] += $value['total_price'];
     }else{
@@ -56,11 +56,16 @@ var_dump($sales_array);
 
         <?php
 
-            foreach($date_array as $key => $value){
-                echo "{ y: '2011 Q1', sales: 2666 },";
+            $data = "";
+
+            foreach($sales_array as $key => $value_sales){
+                $data .= "{ y: '" . $key . "', sales: " . $value_sales . " },";
             }
 
-                echo "{ y: '2013 Q2', sales: 8432 }";
+            //removing the comma on the last item in array
+            $data = substr($data, 0, -1);
+
+            echo $data;
 
         ?>
         
