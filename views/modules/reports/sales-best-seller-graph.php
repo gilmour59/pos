@@ -6,7 +6,9 @@ $order = 'sales';
 
 $products = ProductController::ctrShowProducts($item, $value, $order);
 
-var_dump($products);
+$color_array = array('red', 'green', 'yellow', 'aqua', 'purple', 'blue', 'gray', 'teal', 'orange', 'black');
+
+$total_sales = ProductController::ctrSumProductSales();
 
 ?>
 
@@ -17,21 +19,25 @@ var_dump($products);
     <!-- /.box-header -->
     <div class="box-body">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="chart-responsive">
                     <canvas id="pieChartBestSeller" height="150"></canvas>
                 </div>
                 <!-- ./chart-responsive -->
             </div>
             <!-- /.col -->
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <ul class="chart-legend clearfix">
-                    <li><i class="fa fa-circle-o text-red"></i> Chrome</li>
-                    <li><i class="fa fa-circle-o text-green"></i> IE</li>
-                    <li><i class="fa fa-circle-o text-yellow"></i> FireFox</li>
-                    <li><i class="fa fa-circle-o text-aqua"></i> Safari</li>
-                    <li><i class="fa fa-circle-o text-light-blue"></i> Opera</li>
-                    <li><i class="fa fa-circle-o text-gray"></i> Navigator</li>
+
+                    <?php                        
+
+                        for($i = 0; $i < 10; $i++){
+
+                            echo '<li><i class="fa fa-circle-o text-' . $color_array[$i] . '"></i> ' . $products[$i]['description'] . '</li>';
+                        }
+
+                    ?>
+
                 </ul>
             </div>
             <!-- /.col -->
@@ -41,12 +47,25 @@ var_dump($products);
     <!-- /.box-body -->
     <div class="box-footer no-padding">
         <ul class="nav nav-pills nav-stacked">
-            <li><a href="#">United States of America
-                <span class="pull-right text-red"><i class="fa fa-angle-down"></i> 12%</span></a></li>
-            <li><a href="#">India <span class="pull-right text-green"><i class="fa fa-angle-up"></i> 4%</span></a>
-            </li>
-            <li><a href="#">China
-                <span class="pull-right text-yellow"><i class="fa fa-angle-left"></i> 0%</span></a></li>
+
+            <?php
+            
+                for($j = 0; $j < 5; $j++){
+
+                    $percentage = ($products[$j]['sales'] / $total_sales['total']) * 100;
+
+                    echo '<li>
+                            <a href="#">
+                                ' . $products[$j]['description'] . ' 
+                                <span class="pull-right text-' . $color_array[$j] . '">
+                                    <i class="fa fa-angle-down"></i> ' . number_format($percentage, 2) . ' %
+                                </span>
+                            </a>
+                        </li>';
+                }            
+
+            ?>
+
         </ul>
     </div>
     <!-- /.footer -->
@@ -61,42 +80,21 @@ var_dump($products);
     var pieChartCanvas = $('#pieChartBestSeller').get(0).getContext('2d');
     var pieChart       = new Chart(pieChartCanvas);
     var PieData        = [
-        {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Chrome'
-        },
-        {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'IE'
-        },
-        {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'FireFox'
-        },
-        {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Safari'
-        },
-        {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Opera'
-        },
-        {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Navigator'
-        }
+        
+        <?php
+            
+            for($k = 0; $k < 10; $k++){
+
+                echo "{
+                    value    : " . $products[$k]['sales'] . ",
+                    color    : '" . $color_array[$k] . "',
+                    highlight: '" . $color_array[$k] . "',
+                    label    : '" . $products[$k]['description'] . "'
+                    },";
+            }
+            
+        ?>
+        
     ];
     var pieOptions     = {
         // Boolean - Whether we should show a stroke on each segment
@@ -122,7 +120,7 @@ var_dump($products);
         // String - A legend template
         legendTemplate       : '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<segments.length; i++){%><li><span style=\'background-color:<%=segments[i].fillColor%>\'></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>',
         // String - A tooltip template
-        tooltipTemplate      : '<%=value %> <%=label%> users'
+        tooltipTemplate      : '<%=value %> <%=label%>'
     };
     // Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.

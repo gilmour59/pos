@@ -110,6 +110,17 @@ class ProductModel{
 
         $stmt = null;
     }
+
+    static public function mdlSumProductSales($table){
+
+        $stmt = Connection::connect()->prepare("SELECT SUM(sales) as total FROM $table");
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+
+        $stmt = null;        
+    }
 }
 
 ?>

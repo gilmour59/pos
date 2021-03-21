@@ -266,6 +266,16 @@ class ProductController{
             }
         }
     }
+
+    //Get Sum of All Sales
+    static public function ctrSumProductSales(){
+
+        $table = "products";
+
+        $result = ProductModel::mdlSumProductSales($table);
+
+        return $result;
+    }
 }
 
 ?>
