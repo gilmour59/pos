@@ -3,7 +3,7 @@ require_once "connection.php";
 
 class ProductModel{
 
-    static public function mdlShowProducts($table, $item, $value){
+    static public function mdlShowProducts($table, $item, $value, $order = null){
 
         if($item != null){
 
@@ -15,6 +15,14 @@ class ProductModel{
             $stmt->execute();
 
             return $stmt->fetch();
+
+        }else if($order != null){
+
+            $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY $order DESC");
+
+            $stmt->execute();
+
+            return $stmt->fetchAll();
         }else{
 
             $stmt = Connection::connect()->prepare("SELECT * FROM $table");

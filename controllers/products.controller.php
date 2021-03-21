@@ -3,11 +3,11 @@
 class ProductController{
 
     //show products
-    static public function ctrShowProducts($item, $value){
+    static public function ctrShowProducts($item, $value, $order = null){
 
         $table = "products";
         
-        $result = ProductModel::mdlShowProducts($table, $item, $value);
+        $result = ProductModel::mdlShowProducts($table, $item, $value, $order);
 
         return $result;
     }
