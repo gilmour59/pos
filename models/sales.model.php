@@ -28,9 +28,9 @@ class SaleModel{
         $stmt = null;
     }
 
-    static public function mdlShowSalesDateRange($table, $initial_date, $final_date){
+    static public function mdlShowSalesDateRange($table, $initial_date = null, $final_date = null){
 
-        if($initial_date == null){
+        if($initial_date == null || $final_date == null){
 
             $stmt = Connection::connect()->prepare("SELECT * FROM $table ORDER BY id ASC");
         

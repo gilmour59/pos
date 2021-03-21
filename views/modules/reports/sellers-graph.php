@@ -19,8 +19,6 @@ foreach($users as $key => $value_users){
     }
 }
 
-var_dump($array_sellers);
-
 ?>
 
 <div class="box box-success">

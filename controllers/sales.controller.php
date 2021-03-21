@@ -437,6 +437,98 @@ class SaleController{
 
         return $result;
     }
+
+    //Export to Excel
+    public function ctrDownloadReport(){
+
+        if(isset($_GET['report'])){
+
+            $table = 'sales';
+
+            if(isset($_GET['initial-date']) && isset($_GET['final_date'])){
+
+                $sales = SaleModel::mdlShowSalesDateRange($table, $_GET['initial-date'], $_GET['final-date']);
+            }else{
+
+                $sales = SaleModel::mdlShowSalesDateRange($table);
+            }
+
+            //Create the excel file
+
+            //get last login date and time
+            date_default_timezone_set('Asia/Manila');
+            $date = date('Y-m-d');
+            $hour = date('H:i:s');
+            $add_to_name = $date . '' . $hour;
+            
+            $name = $_GET['report'] . '' . $add_to_name . '.xls';
+
+            header('Expires: 0');
+            header('Cache-control: private');
+            header("Content-type: application/vnd.ms-excel");
+            header("Cache-Control: cache, must-revalidate");
+            header('Content-Description: File Transfer');
+            header('Last-Modified: ' . date('D, d M Y H:i:s'));
+            header("Pragma: public");
+            header('Content-Disposition:; filename="' . $name . '"');
+            header("Content-Transfer-Encoding: binary");
+
+            echo utf8_decode("<table border='0'> 
+
+					<tr> 
+					<td style='font-weight:bold; border:1px solid #eee;'>Code</td> 
+					<td style='font-weight:bold; border:1px solid #eee;'>Client</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Seller</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Quantity</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Products</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Tax</td>
+					<td style='font-weight:bold; border:1px solid #eee;'>Net Price</td>		
+					<td style='font-weight:bold; border:1px solid #eee;'>Total</td>		
+					<td style='font-weight:bold; border:1px solid #eee;'>Method of Payment</td	
+					<td style='font-weight:bold; border:1px solid #eee;'>Date</td>		
+					</tr>");
+
+			foreach ($sales as $row => $item){
+
+				$client = ClientController::ctrShowClients("id", $item["client_id"]);
+				$seller = UserController::ctrShowUsers("id", $item["seller_id"]);
+
+            echo utf8_decode("<tr>
+                    <td style='border:1px solid #eee;'>" . $item["code"] . "</td> 
+                    <td style='border:1px solid #eee;'>" . $client["name"] . "</td>
+                    <td style='border:1px solid #eee;'>" . $seller["name"] . "</td>
+                    <td style='border:1px solid #eee;'>");
+
+            $products =  json_decode($item["products"], true);
+
+            foreach ($products as $key => $value_products) {
+                    
+                    echo utf8_decode($value_products["quantity"]."<br>");
+                }
+
+            echo utf8_decode("</td><td style='border:1px solid #eee;'>");	
+
+            foreach ($products as $key => $value_products) {
+                    
+                echo utf8_decode($value_products["description"]."<br>");
+            
+            }
+
+            echo utf8_decode("</td>
+                <td style='border:1px solid #eee;'>Php " . number_format($item["tax"], 2) . "</td>
+                <td style='border:1px solid #eee;'>Php " . number_format($item["net_price"], 2) . "</td>	
+                <td style='border:1px solid #eee;'>Php " . number_format($item["total_price"], 2) . "</td>
+                <td style='border:1px solid #eee;'>" . $item["payment_method"] . "</td>
+                <td style='border:1px solid #eee;'>" . substr($item["sale_date"], 0, 10) . "</td>		
+                </tr>");
+
+            }
+
+
+            echo "</table>";
+
+        }
+    }
 }
 
 ?>

@@ -17,14 +17,27 @@
       <!-- Default box -->
       <div class="box">
         <div class="box-header with-border">
-          <button type="button" class="btn btn-default" id="btn-sale-report-daterange">
-            <span>
-              <i class="fa fa-calendar" style="padding-right:7px;"></i>Date Range:
-            </span>
-            <i class="fa fa-caret-down" style="padding-left:7px;"></i>
-          </button>
+          <div class="input-group">
+            <button type="button" class="btn btn-default" id="btn-sale-report-daterange">
+              <span>
+                <i class="fa fa-calendar" style="padding-right:7px;"></i>Date Range:
+              </span>
+              <i class="fa fa-caret-down" style="padding-left:7px;"></i>
+            </button>
+          </div>          
           <div class="box-tools pull-right">
+
+          <?php
+          if(isset($_GET['initial-date']) && isset($_GET['final-date'])){
+            echo '<a href="/views/modules/download-report.php?report=report&initial-date=' . $_GET['initial-date'] . '&final-date=' . $_GET['final-date'] . '">';
+          }else{
+            echo '<a href="/views/modules/download-report.php?report=report">';
+          }
             
+          ?>  
+
+              <button class="btn btn-success" style="margin-top:5px">Export to Excel</button>
+            </a>            
           </div>
         </div>
         <div class="box-body">
