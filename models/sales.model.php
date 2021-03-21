@@ -134,6 +134,32 @@ class SaleModel{
 
         $stmt = null;
     }
+
+    static public function mdlSumSellerSales($table, $seller_id){
+
+        $stmt = Connection::connect()->prepare("SELECT SUM(total_price) as total FROM $table WHERE seller_id = :seller_id");
+
+        $stmt->bindParam(":seller_id", $seller_id, PDO::PARAM_STR);      
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+
+        $stmt = null;        
+    }
+
+    static public function mdlSumClientSales($table, $client_id){
+
+        $stmt = Connection::connect()->prepare("SELECT SUM(total_price) as total FROM $table WHERE client_id = :client_id");
+
+        $stmt->bindParam(":client_id", $client_id, PDO::PARAM_STR);      
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+
+        $stmt = null;        
+    }
 }
 
 ?>

@@ -417,6 +417,26 @@ class SaleController{
             }                        
         }
     }
+
+    //Get Sum of All Sales
+    static public function ctrSumSellerSales($seller_id){
+
+        $table = "sales";
+
+        $result = SaleModel::mdlSumSellerSales($table, $seller_id);
+
+        return $result;
+    }
+
+    //Get Sum of All Sales
+    static public function ctrSumClientSales($client_id){
+
+        $table = "sales";
+
+        $result = SaleModel::mdlSumClientSales($table, $client_id);
+
+        return $result;
+    }
 }
 
 ?>
