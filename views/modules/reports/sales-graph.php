@@ -32,8 +32,6 @@ foreach($result as $key => $value){
     }
 }
 
-var_dump($sales_array);
-
 ?>
 
 <!-- Sales Graph -->
@@ -58,12 +56,19 @@ var_dump($sales_array);
 
             $data = "";
 
-            foreach($sales_array as $key => $value_sales){
-                $data .= "{ y: '" . $key . "', sales: " . $value_sales . " },";
-            }
+            if($sales_array != null){
 
-            //removing the comma on the last item in array
-            $data = substr($data, 0, -1);
+                foreach($sales_array as $key => $value_sales){
+                    $data .= "{ y: '" . $key . "', sales: " . $value_sales . " },";
+                }
+    
+                //removing the comma on the last item in array
+                $data = substr($data, 0, -1);
+            }else{
+
+                //if array is empty
+                $data = "{ y: '0', sales: 0 }";
+            }
 
             echo $data;
 
