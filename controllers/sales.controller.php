@@ -445,7 +445,7 @@ class SaleController{
 
             $table = 'sales';
 
-            if(isset($_GET['initial-date']) && isset($_GET['final_date'])){
+            if(isset($_GET['initial-date']) && isset($_GET['final-date'])){
 
                 $sales = SaleModel::mdlShowSalesDateRange($table, $_GET['initial-date'], $_GET['final-date']);
             }else{
