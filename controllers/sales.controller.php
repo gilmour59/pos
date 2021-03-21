@@ -438,6 +438,16 @@ class SaleController{
         return $result;
     }
 
+    //Get Sum of All Sales
+    static public function ctrSumSales(){
+
+        $table = "sales";
+
+        $result = SaleModel::mdlSumSales($table);
+
+        return $result;
+    }
+
     //Export to Excel
     public function ctrDownloadReport(){
 

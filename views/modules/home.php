@@ -14,31 +14,44 @@
 
     <!-- Main content -->
     <section class="content">
+      <div class="row">
 
-      <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+        <?php
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
-        <!-- /.box-footer-->
+          include "home/top-box.php";
+
+        ?>
+
       </div>
-      <!-- /.box -->
+      <div class="row">
+        <div class="col-lg-12">
+          
+          <?php
+          
+            include "reports/sales-graph.php";
 
+          ?>
+
+        </div>
+        <div class="col-lg-6">
+          
+          <?php
+          
+            include "reports/sales-best-seller-graph.php";
+
+          ?>
+
+        </div>
+        <div class="col-lg-6">
+          
+          <?php
+          
+            include "home/recent-products.php";
+
+          ?>
+
+        </div>
+      </div>
     </section>
     <!-- /.content -->
   </div>

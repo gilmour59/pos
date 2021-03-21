@@ -160,6 +160,17 @@ class SaleModel{
 
         $stmt = null;        
     }
+
+    static public function mdlSumSales($table){
+
+        $stmt = Connection::connect()->prepare("SELECT SUM(net_price) as total FROM $table");
+
+        $stmt->execute();
+
+        return $stmt->fetch();
+
+        $stmt = null;        
+    }
 }
 
 ?>
