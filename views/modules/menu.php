@@ -1,7 +1,12 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="active">
+
+        <?php
+
+        if($_SESSION['role'] == 'administrator'){
+
+            echo '<li class="active">
                 <a href="home">
                     <i class="fa fa-home"></i>
                     <span>Home</span>
@@ -12,8 +17,12 @@
                     <i class="fa fa-user"></i>
                     <span>User</span>
                 </a>
-            </li>
-            <li>
+            </li>';
+        }
+
+        if($_SESSION['role'] == 'administrator' || $_SESSION['role'] == 'special'){
+
+            echo '<li>
                 <a href="categories">
                     <i class="fa fa-th"></i>
                     <span>Categories</span>
@@ -24,13 +33,17 @@
                     <i class="fa fa-product-hunt"></i>
                     <span>Products</span>
                 </a>
-            </li>
-            <li>
+            </li>';
+        }
+
+        if($_SESSION['role'] == 'administrator' || $_SESSION['role'] == 'seller'){
+        
+            echo '<li>
                 <a href="clients">
                     <i class="fa fa-users"></i>
                     <span>Clients</span>
                 </a>
-            </li>
+            </li>        
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-list-ul"></i>
@@ -51,15 +64,24 @@
                             <i class="fa fa-circle-o"></i>
                             <span>Create Sales</span>
                         </a>
-                    </li>
-                    <li>
+                    </li>';        
+
+            if($_SESSION['role'] == 'administrator'){
+
+                    echo '<li>
                         <a href="sales-report">
                             <i class="fa fa-circle-o"></i>
                             <span>Sales Report</span>
                         </a>
-                    </li>
-                </ul>
-            </li>
+                    </li>';
+            }
+
+                echo '</ul>
+            </li>';
+        }
+
+            ?>
+            
         </ul>
     </section>
 </aside>

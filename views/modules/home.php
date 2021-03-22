@@ -18,7 +18,10 @@
 
         <?php
 
-          include "home/top-box.php";
+          if($_SESSION['role'] == "administrator"){
+
+            include "home/top-box.php";
+          }          
 
         ?>
 
@@ -28,7 +31,22 @@
           
           <?php
           
-            include "reports/sales-graph.php";
+            if($_SESSION['role'] == "administrator"){
+            
+              include "reports/sales-graph.php";
+            }
+
+          ?>
+
+        </div>
+        <div class="col-lg-6">
+          
+          <?php
+
+            if($_SESSION['role'] == "administrator"){
+
+              include "reports/sales-best-seller-graph.php";
+            }
 
           ?>
 
@@ -37,18 +55,28 @@
           
           <?php
           
-            include "reports/sales-best-seller-graph.php";
+            if($_SESSION['role'] == "administrator"){
+
+              include "home/recent-products.php";
+            }
 
           ?>
 
         </div>
-        <div class="col-lg-6">
-          
-          <?php
-          
-            include "home/recent-products.php";
+        <div class="col-lg-12">
+            
+            <?php
 
-          ?>
+              if($_SESSION['role'] == "special" || $_SESSION['role'] == "seller"){
+
+                echo '<div class="box box-success">
+                        <div class="box-header">
+                          <h1>Welcome ' . $_SESSION['name'] . '</h1>
+                        </div>
+                      </div>';
+              }
+
+            ?>
 
         </div>
       </div>
