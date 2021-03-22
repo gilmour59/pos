@@ -35,7 +35,13 @@
                         $stock = "<button class='btn btn-success'>" . $products[$i]["stock"] . "</button>";
                     }                    
 
-                    $buttons = "<div class='btn-group'><button class='btn btn-warning btn-edit-product' data-product-id='" . $products[$i]["id"] . "' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btn-delete-product' data-product-id='" . $products[$i]["id"] . "' data-product-code='" . $products[$i]["code"] . "' data-product-image='" . $products[$i]["image"] . "'><i class='fa fa-times'></i></button></div>";
+                    if(isset($_GET['user-role']) && $_GET['user-role'] == 'special'){
+                        
+                        $buttons = "<div class='btn-group'><button class='btn btn-warning btn-edit-product' data-product-id='" . $products[$i]["id"] . "' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button></div>";
+                    }else if(isset($_GET['user-role']) && $_GET['user-role'] == 'administrator'){
+                        
+                        $buttons = "<div class='btn-group'><button class='btn btn-warning btn-edit-product' data-product-id='" . $products[$i]["id"] . "' data-toggle='modal' data-target='#modalEditProduct'><i class='fa fa-pencil'></i></button><button class='btn btn-danger btn-delete-product' data-product-id='" . $products[$i]["id"] . "' data-product-code='" . $products[$i]["code"] . "' data-product-image='" . $products[$i]["image"] . "'><i class='fa fa-times'></i></button></div>";
+                    }                    
 
                     $json_data .= '[
                     "' . $products[$i]["id"] . '",

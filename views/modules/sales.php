@@ -85,10 +85,15 @@
                       <td>' . number_format($value['total_price'], 2) . '</td>
                       <td>' . $value['sale_date'] . '</td>
                       <td>
-                        <button class="btn btn-info btn-print-bill" data-sale-code="' . $value['code'] . '"><i class="fa fa-print"></i></button>
-                        <a href="index.php?route=sales-edit&sale-id='. $value['id'] .'"><button class="btn btn-warning"><i class="fa fa-pencil"></i></button></a>
-                        <button class="btn btn-danger btn-delete-sale" data-sale-id="' . $value['id'] . '"><i class="fa fa-times"></i></button>
-                      </td>
+                        <button class="btn btn-info btn-print-bill" data-sale-code="' . $value['code'] . '"><i class="fa fa-print"></i></button>';
+
+                        if($_SESSION['role'] == 'administrator'){
+                          //add space before the anchor tag
+                          echo ' <a href="index.php?route=sales-edit&sale-id='. $value['id'] .'"><button class="btn btn-warning"><i class="fa fa-pencil"></i></button></a>
+                                <button class="btn btn-danger btn-delete-sale" data-sale-id="' . $value['id'] . '"><i class="fa fa-times"></i></button>';
+                        }
+                        
+                      echo '</td>
                     </tr>';
             }
           ?>

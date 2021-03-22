@@ -61,9 +61,14 @@
                         <td>' . $value["date"] . '</td>
                         <td>
                           <div class="btn-group">
-                            <button class="btn btn-warning btn-edit-client" data-client-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditClient"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-delete-client" data-client-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>
-                          </div>
+                            <button class="btn btn-warning btn-edit-client" data-client-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditClient"><i class="fa fa-pencil"></i></button>';
+                            
+                            if($_SESSION['role'] == 'administrator'){
+                              
+                              echo '<button class="btn btn-danger btn-delete-client" data-client-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>';
+
+                            }                            
+                          echo '</div>
                         </td>                      
                       </tr>';  
               }

@@ -45,9 +45,14 @@
                       <td class="text-uppercase">' . $value["category"] . '</td>
                       <td>
                         <div class="btn-group">
-                          <button class="btn btn-warning btn-edit-category" data-category-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditCategory"><i class="fa fa-pencil"></i></button>
-                          <button class="btn btn-danger btn-delete-category" data-category-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>
-                        </div>
+                          <button class="btn btn-warning btn-edit-category" data-category-id="' . $value["id"] . '" data-toggle="modal" data-target="#modalEditCategory"><i class="fa fa-pencil"></i></button>';
+
+                          if($_SESSION['role'] == 'administrator'){
+
+                            echo '<button class="btn btn-danger btn-delete-category" data-category-id="' . $value["id"] . '"><i class="fa fa-times"></i></button>';
+
+                          }
+                        echo '</div>
                       </td>                      
                     </tr>';  
             }

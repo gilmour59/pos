@@ -36,44 +36,9 @@
               <th>Date Added</th>
               <th>Actions</th>
             </tr>
-          </thead>
-          <!-- <tbody>
-            <?php
-              /*
-              $item = null;
-              $value = null;
-
-              $products = ProductController::ctrShowProducts($item, $value);
-
-              foreach($products as $key => $value_prod){
-                echo '<tr>
-                        <td>' . $value_prod["id"] . '</td>
-                        <td><img src="/views/img/products/default/anonymous.png" class="img-thumbnail" width="40px"></td>
-                        <td>' . $value_prod["code"] . '</td>
-                        <td>' . $value_prod["description"] . '</td>';
-                      
-                        $item = "id";
-                        $value = $value_prod["category_id"];
-
-                        $category = CategoryController::ctrShowCategories($item, $value);
-                        
-                echo    '<td>' . $category["category"] . '</td>
-                        <td>' . $value_prod["stock"] . '</td>
-                        <td>' . $value_prod["buy_price"] . '</td>
-                        <td>' . $value_prod["sell_price"] . '</td>                        
-                        <td>' . $value_prod["date"] . '</td>
-                        <td>
-                          <div class="btn-group">
-                            <button class="btn btn-warning btn-edit-product" data-product-id="' . $value_prod["id"] . '" data-toggle="modal" data-target="#modalEditProduct"><i class="fa fa-pencil"></i></button>
-                            <button class="btn btn-danger btn-delete-product" data-product-id="' . $value_prod["id"] . '"><i class="fa fa-times"></i></button>
-                          </div>
-                        </td>                      
-                      </tr>';  
-              }
-              */
-            ?>            
-          </tbody> -->
+          </thead>          
         </table>
+        <input type="hidden" id="products-user-role" value="<?php echo $_SESSION['role']; ?>">
       </div>
       <!-- /.box-body -->
     </div>

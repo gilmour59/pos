@@ -7,9 +7,12 @@
     }
 }); */
 
+//Capture the User Role
+var user_role = $('#products-user-role').val();
+
 //Load Dynamic Datatable
 $('#products_table').DataTable({
-    "ajax" : "ajax/datatable-products.ajax.php",
+    "ajax" : "ajax/datatable-products.ajax.php?user-role="+user_role,
     "deferRender" : true,
     "retrieve" : true,
     "processing" : true
