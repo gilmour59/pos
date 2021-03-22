@@ -1,3 +1,17 @@
+<?php
+
+if($_SESSION['role'] != "administrator"){
+
+  echo '<script>
+
+          window.location = "home";
+
+        </script>';
+        return;
+}
+
+?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
